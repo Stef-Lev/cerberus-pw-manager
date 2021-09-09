@@ -22,12 +22,12 @@ app.get("/", (req, res) => {
   res.json(`Hello world`);
 });
 
-app.post("/addpassword", (req, res) => {
-  const { password, service } = req.body;
+app.post("/passwords/add", (req, res) => {
+  const { password, title, login, url, notes } = req.body;
   const hashedPw = encrypt(password);
   db.query(
-    "INSERT INTO passwords (password, service, iv) VALUES (?,?,?)",
-    [hashedPw.password, service, hashedPw.iv],
+    "INSERT INTO passwords (password, title, login, url, notes, iv) VALUES (?,?,?,?,?,?)",
+    [hashedPw.password, title, login, url, notes, hashedPw.iv],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -38,7 +38,7 @@ app.post("/addpassword", (req, res) => {
   );
 });
 
-app.get("/showpasswords", (req, res) => {
+app.get("/passwords/get", (req, res) => {
   db.query("SELECT * FROM passwords;", (err, result) => {
     if (err) {
       console.log(err);
@@ -48,7 +48,7 @@ app.get("/showpasswords", (req, res) => {
   });
 });
 
-app.post("/decryptpassword", (req, res) => {
+app.post("/passwords/decrypt", (req, res) => {
   res.json(decrypt(req.body));
 });
 
