@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Glory", sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 32px;
+
+  .password-panel {
+    width: 100%;
+    margin-bottom: 8px;
+    span {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .password-details {
+      width: 100%;
+      display: flex;
+
+      &__labels {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+      }
+      &__values {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+// .adding-password {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #1ca38f;
+//   width: 50%;
+//   height: 360px;
+//   border-radius: 8px;
+//   margin-top: 22px;
+// }
+// .password-item {
+//   background-color: #fa8232;
+//   padding: 10px 20px;
+//   width: 100%;
+//   border-radius: 8px;
+//   cursor: pointer;
+// }
