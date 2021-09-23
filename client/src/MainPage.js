@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import RecordItem from "./components/RecordItem";
+import NewTestModal from "./components/NewTestModal";
 
 const MainPage = () => {
   const [data, setData] = useState([]);
@@ -32,6 +33,7 @@ const MainPage = () => {
           clickAction={() => console.log("clicked")}
         />
         <RecordItem />
+        <NewTestModal />
       </Grid>
     </div>
   );
