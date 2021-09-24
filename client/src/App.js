@@ -1,11 +1,14 @@
 import "./App.scss";
 import OldVersion from "./OldVersion";
 import MainPage from "./MainPage";
+import MainContextProvider from "./contexts/MainContextProvider";
 
 const App = () => {
   return (
     <div className="App">
-      <MainPage />
+      <MainContextProvider>
+        <MainPage />
+      </MainContextProvider>
     </div>
   );
 };

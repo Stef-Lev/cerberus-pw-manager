@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import RecordItem from "./components/RecordItem";
-import NewTestModal from "./components/NewTestModal";
+import InfoModal from "./components/InfoModal";
+import MainContext from "./contexts/main-context";
 
 const MainPage = () => {
-  const [data, setData] = useState([]);
+  const { data, setData } = useContext(MainContext);
+
   return (
     <div>
       <Grid
@@ -14,27 +16,10 @@ const MainPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <RecordItem
-          record={{
-            title: "Amazon",
-            username: "sigianas@yahoo.com",
-            url: "https://amazon.com",
-            password: "307d61a8077f586547cb8911c482",
-          }}
-        />
-        <RecordItem />
-        <RecordItem
-          record={{
-            title: "Amazon",
-            username: "sigianas@yahoo.com",
-            url: "https://amazon.com",
-            password: "307d61a8077f586547cb8911c482",
-          }}
-          clickAction={() => console.log("clicked")}
-        />
-        <RecordItem />
-        <NewTestModal />
+        {data.records.length &&
+          data.records.map((item) => <RecordItem record={item} />)}
       </Grid>
+      <InfoModal />
     </div>
   );
 };
