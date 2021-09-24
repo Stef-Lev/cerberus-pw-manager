@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 2),
     [theme.breakpoints.down("sm")]: {
-      width: "80%",
+      width: "90%",
     },
     [theme.breakpoints.between("sm", "md")]: {
-      width: "55%",
+      width: "66%",
     },
     [theme.breakpoints.up("md")]: {
-      width: "420px",
+      width: "550px",
     },
   },
   formItem: {
