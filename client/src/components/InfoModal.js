@@ -6,6 +6,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import MainContext from "../contexts/main-context";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function InfoModal() {
   const classes = useStyles();
   const [editMode, setEditMode] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { data, setData } = useContext(MainContext);
 
   const handleClose = () => {
@@ -67,53 +71,109 @@ export default function InfoModal() {
                   className={classes.formItem}
                   label="Title"
                   value={data.modalData.title}
-                  variant={editMode ? "outlined" : "standard"}
+                  variant="standard"
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
                   }}
                   InputProps={{
                     readOnly: !editMode,
+                    disableUnderline: !editMode,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <ContentCopyIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            navigator.clipboard.writeText(data.modalData.title)
+                          }
+                        />
+                      </InputAdornment>
+                    ),
                   }}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Username"
                   value={data.modalData.username}
-                  variant={editMode ? "outlined" : "standard"}
+                  variant="standard"
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
                   }}
                   InputProps={{
                     readOnly: !editMode,
+                    disableUnderline: !editMode,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <ContentCopyIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            navigator.clipboard.writeText(
+                              data.modalData.username
+                            )
+                          }
+                        />
+                      </InputAdornment>
+                    ),
                   }}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Password"
-                  type={editMode ? "text" : "password"}
+                  type={showPassword || editMode ? "text" : "password"}
                   value={data.modalData.password}
-                  variant={editMode ? "outlined" : "standard"}
+                  variant="standard"
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
                   }}
                   InputProps={{
                     readOnly: !editMode,
+                    disableUnderline: !editMode,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <>
+                          <VisibilityIcon
+                            style={{ cursor: "pointer", marginRight: "10px" }}
+                            onClick={() => {
+                              setShowPassword((prev) => !prev);
+                            }}
+                          />
+                          <ContentCopyIcon
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              navigator.clipboard.writeText(
+                                data.modalData.password
+                              )
+                            }
+                          />
+                        </>
+                      </InputAdornment>
+                    ),
                   }}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Website address"
                   value={data.modalData.url}
-                  variant={editMode ? "outlined" : "standard"}
+                  variant="standard"
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
                   }}
                   InputProps={{
                     readOnly: !editMode,
+                    disableUnderline: !editMode,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <ContentCopyIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            navigator.clipboard.writeText(data.modalData.url)
+                          }
+                        />
+                      </InputAdornment>
+                    ),
                   }}
                 />
                 {!editMode && (
