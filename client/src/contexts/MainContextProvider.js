@@ -11,7 +11,7 @@ const MainContextProvider = ({ children }) => {
   useEffect(() => {
     let mounted = true;
 
-    fetch("http://localhost:3030/passwords/get")
+    fetch("http://192.168.1.4:3030/passwords/get")
       .then((response) => response.json())
       .then((result) => {
         if (mounted) {

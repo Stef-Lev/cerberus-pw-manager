@@ -10,7 +10,6 @@ const RecordItem = ({ record }) => {
     setData({ ...data, modalOpen: true, modalData: record });
   };
 
-  console.log(record);
   return (
     <>
       {record && (

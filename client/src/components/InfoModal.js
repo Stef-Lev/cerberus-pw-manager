@@ -9,6 +9,8 @@ import MainContext from "../contexts/main-context";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useFormik } from "formik";
+import { validationSchema } from "../helpers/validationSchema";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -44,8 +46,22 @@ export default function InfoModal() {
   const [showPassword, setShowPassword] = useState(false);
   const { data, setData } = useContext(MainContext);
 
+  const formik = useFormik({
+    initialValues: {
+      title: data.modalData?.title,
+      username: data.modalData?.username,
+      password: data.modalData?.password,
+      url: data.modalData?.url,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   const handleClose = () => {
     setData({ ...data, modalOpen: false });
+    setEditMode(false);
   };
   console.log("MODAL", data.modalData);
 
@@ -66,11 +82,11 @@ export default function InfoModal() {
         <Fade in={data.modalOpen}>
           <div className={classes.paper}>
             {!!Object.keys(data.modalData).length && (
-              <form>
+              <form onSubmit={formik.handleSubmit}>
                 <TextField
                   className={classes.formItem}
                   label="Title"
-                  value={data.modalData.title}
+                  value={formik.values.title}
                   variant="standard"
                   fullWidth
                   InputLabelProps={{
@@ -79,22 +95,15 @@ export default function InfoModal() {
                   InputProps={{
                     readOnly: !editMode,
                     disableUnderline: !editMode,
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <ContentCopyIcon
-                          style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            navigator.clipboard.writeText(data.modalData.title)
-                          }
-                        />
-                      </InputAdornment>
-                    ),
                   }}
+                  onChange={formik.handleChange}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Username"
-                  value={data.modalData.username}
+                  value={formik.values.username}
                   variant="standard"
                   fullWidth
                   InputLabelProps={{
@@ -103,7 +112,7 @@ export default function InfoModal() {
                   InputProps={{
                     readOnly: !editMode,
                     disableUnderline: !editMode,
-                    endAdornment: (
+                    endAdornment: !editMode ? (
                       <InputAdornment position="end">
                         <ContentCopyIcon
                           style={{ cursor: "pointer" }}
@@ -114,14 +123,19 @@ export default function InfoModal() {
                           }
                         />
                       </InputAdornment>
-                    ),
+                    ) : null,
                   }}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.username && Boolean(formik.errors.username)
+                  }
+                  helperText={formik.touched.username && formik.errors.username}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Password"
                   type={showPassword || editMode ? "text" : "password"}
-                  value={data.modalData.password}
+                  value={formik.values.password}
                   variant="standard"
                   fullWidth
                   InputLabelProps={{
@@ -130,7 +144,7 @@ export default function InfoModal() {
                   InputProps={{
                     readOnly: !editMode,
                     disableUnderline: !editMode,
-                    endAdornment: (
+                    endAdornment: !editMode ? (
                       <InputAdornment position="end">
                         <>
                           <VisibilityIcon
@@ -149,13 +163,18 @@ export default function InfoModal() {
                           />
                         </>
                       </InputAdornment>
-                    ),
+                    ) : null,
                   }}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={formik.touched.password && formik.errors.password}
                 />
                 <TextField
                   className={classes.formItem}
                   label="Website address"
-                  value={data.modalData.url}
+                  value={formik.values.url}
                   variant="standard"
                   fullWidth
                   InputLabelProps={{
@@ -164,7 +183,7 @@ export default function InfoModal() {
                   InputProps={{
                     readOnly: !editMode,
                     disableUnderline: !editMode,
-                    endAdornment: (
+                    endAdornment: !editMode ? (
                       <InputAdornment position="end">
                         <ContentCopyIcon
                           style={{ cursor: "pointer" }}
@@ -173,8 +192,11 @@ export default function InfoModal() {
                           }
                         />
                       </InputAdornment>
-                    ),
+                    ) : null,
                   }}
+                  onChange={formik.handleChange}
+                  error={formik.touched.url && Boolean(formik.errors.url)}
+                  helperText={formik.touched.url && formik.errors.url}
                 />
                 {!editMode && (
                   <Button
