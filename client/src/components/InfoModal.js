@@ -53,6 +53,7 @@ export default function InfoModal() {
       password: data.modalData?.password,
       url: data.modalData?.url,
     },
+    enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -62,6 +63,7 @@ export default function InfoModal() {
   const handleClose = () => {
     setData({ ...data, modalOpen: false });
     setEditMode(false);
+    setShowPassword(false);
   };
   console.log("MODAL", data.modalData);
 
