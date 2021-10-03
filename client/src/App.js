@@ -1,5 +1,5 @@
 import "./App.scss";
-import OldVersion from "./OldVersion";
+// import OldVersion from "./OldVersion";
 import MainPage from "./MainPage";
 import MainContextProvider from "./contexts/MainContextProvider";
 

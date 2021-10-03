@@ -67,6 +67,10 @@ export default function InfoModal() {
   };
   console.log("MODAL", data.modalData);
 
+  const submitForm = () => {
+    return;
+  };
+
   return (
     <div>
       <Modal
@@ -212,7 +216,7 @@ export default function InfoModal() {
                 {editMode && (
                   <Button
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={() => setEditMode(false)}
                   >
                     Submit

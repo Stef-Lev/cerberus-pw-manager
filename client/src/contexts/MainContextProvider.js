@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainContext from "./main-context";
+import { getAllMethod } from "../helpers/services";
 
 const MainContextProvider = ({ children }) => {
   const [data, setData] = useState({
@@ -11,8 +12,7 @@ const MainContextProvider = ({ children }) => {
   useEffect(() => {
     let mounted = true;
 
-    fetch("http://192.168.1.4:3030/passwords/get")
-      .then((response) => response.json())
+    getAllMethod("http://localhost:3030/passwords/get")
       .then((result) => {
         if (mounted) {
           setData({ ...data, records: result });
@@ -25,6 +25,7 @@ const MainContextProvider = ({ children }) => {
     };
   }, []);
 
+  console.log(data);
   return (
     <MainContext.Provider value={{ data, setData }}>
       {children}

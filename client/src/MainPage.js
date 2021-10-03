@@ -21,7 +21,9 @@ const MainPage = () => {
           justifyContent="center"
         >
           {data.records.length &&
-            data.records.map((item) => <RecordItem record={item} />)}
+            data.records.map((item, index) => (
+              <RecordItem record={item} key={`item_${index}`} />
+            ))}
         </Grid>
         <InfoModal />
       </section>
