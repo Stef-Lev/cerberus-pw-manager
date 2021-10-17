@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "550px",
     },
+    "&:focus-visible": {
+      outline: "none",
+    },
   },
   formItem: {
     marginBottom: "16px",
@@ -207,7 +210,7 @@ export default function InfoModal() {
                 {!editMode && (
                   <Button
                     variant="contained"
-                    color="primary"
+                    id="edit-btn"
                     onClick={() => setEditMode(true)}
                   >
                     Edit
@@ -216,7 +219,7 @@ export default function InfoModal() {
                 {editMode && (
                   <Button
                     variant="contained"
-                    color="secondary"
+                    id="submit-btn"
                     onClick={() => setEditMode(false)}
                   >
                     Submit

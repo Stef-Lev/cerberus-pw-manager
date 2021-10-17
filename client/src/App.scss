@@ -1,3 +1,10 @@
+$white: #fff;
+$green: #10c455;
+$green-dark: #08622a;
+$teal: #097970;
+$blue: #041949;
+$orange: #e3812b;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +12,7 @@
   font-family: "Glory", sans-serif;
   svg:active {
     -webkit-tap-highlight-color: transparent;
-    color: rgb(16, 196, 85);
+    color: $green;
   }
 }
 
@@ -15,19 +22,14 @@
   }
 
   header {
-    background: rgb(4, 25, 73);
-    background: linear-gradient(
-      90deg,
-      rgba(4, 25, 73, 1) 0%,
-      rgba(9, 121, 112, 1) 51%,
-      rgba(0, 255, 119, 1) 100%
-    );
+    background: $blue;
+    background: linear-gradient(90deg, $blue 0%, $teal 51%, $green 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;
     h1 {
-      color: #fff;
+      color: $white;
     }
   }
 
@@ -44,4 +46,34 @@
       font-size: 20px;
     }
   }
+
+  .add-btn {
+    background-color: $green;
+    color: $white;
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    bottom: 26px;
+    right: 26px;
+    &:hover {
+      background-color: $green-dark;
+    }
+    &:active {
+      -webkit-tap-highlight-color: transparent;
+      color: $green;
+    }
+  }
+  .add-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+#edit-btn {
+  background-color: $blue;
+  color: $white;
+}
+#submit-btn {
+  background-color: $green;
+  color: $white;
 }

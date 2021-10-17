@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import RecordItem from "./components/RecordItem";
 import InfoModal from "./components/InfoModal";
 import MainContext from "./contexts/main-context";
+import AddButton from "./components/AddButton";
 
 const MainPage = () => {
   const { data } = useContext(MainContext);
@@ -27,6 +28,7 @@ const MainPage = () => {
         </Grid>
         <InfoModal />
       </section>
+      <AddButton />
     </div>
   );
 };
