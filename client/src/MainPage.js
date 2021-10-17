@@ -6,7 +6,11 @@ import MainContext from "./contexts/main-context";
 import AddButton from "./components/AddButton";
 
 const MainPage = () => {
-  const { data } = useContext(MainContext);
+  const { data, setData } = useContext(MainContext);
+
+  const addRecord = () => {
+    setData({ ...data, modalOpen: true, editMode: true, modalData: {} });
+  };
 
   return (
     <div>
@@ -28,7 +32,7 @@ const MainPage = () => {
         </Grid>
         <InfoModal />
       </section>
-      <AddButton />
+      <AddButton clickAction={addRecord} />
     </div>
   );
 };

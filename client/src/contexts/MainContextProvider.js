@@ -7,6 +7,8 @@ const MainContextProvider = ({ children }) => {
     records: [],
     modalOpen: false,
     modalData: {},
+    editMode: false,
+    showPassword: false,
   });
 
   useEffect(() => {

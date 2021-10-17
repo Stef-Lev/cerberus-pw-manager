@@ -45,8 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function InfoModal() {
   const classes = useStyles();
-  const [editMode, setEditMode] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const { data, setData } = useContext(MainContext);
 
   const formik = useFormik({
@@ -64,9 +62,12 @@ export default function InfoModal() {
   });
 
   const handleClose = () => {
-    setData({ ...data, modalOpen: false });
-    setEditMode(false);
-    setShowPassword(false);
+    setData({
+      ...data,
+      editMode: false,
+      showPassword: false,
+      modalOpen: false,
+    });
   };
   console.log("MODAL", data.modalData);
 
@@ -90,143 +91,152 @@ export default function InfoModal() {
       >
         <Fade in={data.modalOpen}>
           <div className={classes.paper}>
-            {!!Object.keys(data.modalData).length && (
-              <form onSubmit={formik.handleSubmit}>
-                <TextField
-                  className={classes.formItem}
-                  label="Title"
-                  value={formik.values.title}
-                  variant="standard"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: !editMode,
-                    disableUnderline: !editMode,
-                  }}
-                  onChange={formik.handleChange}
-                  error={formik.touched.title && Boolean(formik.errors.title)}
-                  helperText={formik.touched.title && formik.errors.title}
-                />
-                <TextField
-                  className={classes.formItem}
-                  label="Username"
-                  value={formik.values.username}
-                  variant="standard"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: !editMode,
-                    disableUnderline: !editMode,
-                    endAdornment: !editMode ? (
-                      <InputAdornment position="end">
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                className={classes.formItem}
+                label="Title"
+                value={formik.values.title}
+                variant="standard"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  readOnly: !data.editMode,
+                  disableUnderline: !data.editMode,
+                }}
+                onChange={formik.handleChange}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title && formik.errors.title}
+              />
+              <TextField
+                className={classes.formItem}
+                label="Username"
+                value={formik.values.username}
+                variant="standard"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  readOnly: !data.editMode,
+                  disableUnderline: !data.editMode,
+                  endAdornment: !data.editMode ? (
+                    <InputAdornment position="end">
+                      <ContentCopyIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigator.clipboard.writeText(data.modalData.username)
+                        }
+                      />
+                    </InputAdornment>
+                  ) : null,
+                }}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.username && Boolean(formik.errors.username)
+                }
+                helperText={formik.touched.username && formik.errors.username}
+              />
+              <TextField
+                className={classes.formItem}
+                label="Password"
+                type={data.showPassword || data.editMode ? "text" : "password"}
+                value={formik.values.password}
+                variant="standard"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  readOnly: !data.editMode,
+                  disableUnderline: !data.editMode,
+                  endAdornment: !data.editMode ? (
+                    <InputAdornment position="end">
+                      <>
+                        <VisibilityIcon
+                          style={{ cursor: "pointer", marginRight: "10px" }}
+                          onClick={() => {
+                            setData({
+                              ...data,
+                              showPassword: !data.showPassword,
+                            });
+                          }}
+                        />
                         <ContentCopyIcon
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigator.clipboard.writeText(
-                              data.modalData.username
+                              data.modalData.password
                             )
                           }
                         />
-                      </InputAdornment>
-                    ) : null,
-                  }}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.username && Boolean(formik.errors.username)
+                      </>
+                    </InputAdornment>
+                  ) : null,
+                }}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
+              <TextField
+                className={classes.formItem}
+                label="Website address"
+                value={formik.values.url}
+                variant="standard"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  readOnly: !data.editMode,
+                  disableUnderline: !data.editMode,
+                  endAdornment: !data.editMode ? (
+                    <InputAdornment position="end">
+                      <ContentCopyIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigator.clipboard.writeText(data.modalData.url)
+                        }
+                      />
+                    </InputAdornment>
+                  ) : null,
+                }}
+                onChange={formik.handleChange}
+                error={formik.touched.url && Boolean(formik.errors.url)}
+                helperText={formik.touched.url && formik.errors.url}
+              />
+              {!data.editMode && (
+                <Button
+                  variant="contained"
+                  id="edit-btn"
+                  onClick={() =>
+                    setData({
+                      ...data,
+                      editMode: true,
+                    })
                   }
-                  helperText={formik.touched.username && formik.errors.username}
-                />
-                <TextField
-                  className={classes.formItem}
-                  label="Password"
-                  type={showPassword || editMode ? "text" : "password"}
-                  value={formik.values.password}
-                  variant="standard"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: !editMode,
-                    disableUnderline: !editMode,
-                    endAdornment: !editMode ? (
-                      <InputAdornment position="end">
-                        <>
-                          <VisibilityIcon
-                            style={{ cursor: "pointer", marginRight: "10px" }}
-                            onClick={() => {
-                              setShowPassword((prev) => !prev);
-                            }}
-                          />
-                          <ContentCopyIcon
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              navigator.clipboard.writeText(
-                                data.modalData.password
-                              )
-                            }
-                          />
-                        </>
-                      </InputAdornment>
-                    ) : null,
-                  }}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
+                >
+                  Edit
+                </Button>
+              )}
+              {data.editMode && (
+                <Button
+                  variant="contained"
+                  id="submit-btn"
+                  onClick={() =>
+                    setData({
+                      ...data,
+                      editMode: false,
+                    })
                   }
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-                <TextField
-                  className={classes.formItem}
-                  label="Website address"
-                  value={formik.values.url}
-                  variant="standard"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    readOnly: !editMode,
-                    disableUnderline: !editMode,
-                    endAdornment: !editMode ? (
-                      <InputAdornment position="end">
-                        <ContentCopyIcon
-                          style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            navigator.clipboard.writeText(data.modalData.url)
-                          }
-                        />
-                      </InputAdornment>
-                    ) : null,
-                  }}
-                  onChange={formik.handleChange}
-                  error={formik.touched.url && Boolean(formik.errors.url)}
-                  helperText={formik.touched.url && formik.errors.url}
-                />
-                {!editMode && (
-                  <Button
-                    variant="contained"
-                    id="edit-btn"
-                    onClick={() => setEditMode(true)}
-                  >
-                    Edit
-                  </Button>
-                )}
-                {editMode && (
-                  <Button
-                    variant="contained"
-                    id="submit-btn"
-                    onClick={() => setEditMode(false)}
-                  >
-                    Submit
-                  </Button>
-                )}
-              </form>
-            )}
+                >
+                  Submit
+                </Button>
+              )}
+            </form>
           </div>
         </Fade>
       </Modal>
