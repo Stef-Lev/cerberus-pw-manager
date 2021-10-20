@@ -29,6 +29,7 @@ app.get(
     let recordsDecrypted = [];
     await records.map((item) => {
       let obj = {};
+      obj.id = item._id;
       obj.title = item.title;
       obj.url = item.url;
       obj.username = item.username;

@@ -2,14 +2,16 @@ import React, { useContext } from "react";
 import { Grid } from "@material-ui/core";
 import RecordItem from "./components/RecordItem";
 import InfoModal from "./components/InfoModal";
+import GenericModal from "./components/GenericModal";
 import MainContext from "./contexts/main-context";
 import AddButton from "./components/AddButton";
+import Loader from "./components/Loader";
 
 const MainPage = () => {
   const { data, setData } = useContext(MainContext);
 
   const addRecord = () => {
-    setData({ ...data, modalOpen: true, editMode: true, modalData: {} });
+    setData({ ...data, infoOpen: true, editMode: true, infoData: {} });
   };
 
   return (
@@ -25,12 +27,14 @@ const MainPage = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {data.records.length &&
+          {data.loading && <Loader />}
+          {!data.loading &&
             data.records.map((item, index) => (
               <RecordItem record={item} key={`item_${index}`} />
             ))}
         </Grid>
         <InfoModal />
+        <GenericModal />
       </section>
       <AddButton clickAction={addRecord} />
     </div>

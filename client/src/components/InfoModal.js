@@ -49,10 +49,10 @@ export default function InfoModal() {
 
   const formik = useFormik({
     initialValues: {
-      title: data.modalData?.title,
-      username: data.modalData?.username,
-      password: data.modalData?.password,
-      url: data.modalData?.url,
+      title: data.infoData?.title,
+      username: data.infoData?.username,
+      password: data.infoData?.password,
+      url: data.infoData?.url,
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -66,10 +66,10 @@ export default function InfoModal() {
       ...data,
       editMode: false,
       showPassword: false,
-      modalOpen: false,
+      infoOpen: false,
     });
   };
-  console.log("MODAL", data.modalData);
+  console.log("MODAL", data.infoData);
 
   const submitForm = () => {
     return;
@@ -81,7 +81,7 @@ export default function InfoModal() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={data.modalOpen}
+        open={data.infoOpen}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -89,7 +89,7 @@ export default function InfoModal() {
           timeout: 500,
         }}
       >
-        <Fade in={data.modalOpen}>
+        <Fade in={data.infoOpen}>
           <div className={classes.paper}>
             <form onSubmit={formik.handleSubmit}>
               <TextField
@@ -126,7 +126,7 @@ export default function InfoModal() {
                       <ContentCopyIcon
                         style={{ cursor: "pointer" }}
                         onClick={() =>
-                          navigator.clipboard.writeText(data.modalData.username)
+                          navigator.clipboard.writeText(data.infoData.username)
                         }
                       />
                     </InputAdornment>
@@ -167,7 +167,7 @@ export default function InfoModal() {
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigator.clipboard.writeText(
-                              data.modalData.password
+                              data.infoData.password
                             )
                           }
                         />
@@ -198,7 +198,7 @@ export default function InfoModal() {
                       <ContentCopyIcon
                         style={{ cursor: "pointer" }}
                         onClick={() =>
-                          navigator.clipboard.writeText(data.modalData.url)
+                          navigator.clipboard.writeText(data.infoData.url)
                         }
                       />
                     </InputAdornment>

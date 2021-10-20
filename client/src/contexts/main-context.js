@@ -3,8 +3,8 @@ import React from "react";
 const MainContext = React.createContext({
   data: {
     records: [],
-    modalOpen: false,
-    modalData: {},
+    infoOpen: false,
+    infoData: {},
   },
   setData: () => {},
 });

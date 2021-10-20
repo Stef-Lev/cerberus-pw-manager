@@ -4,6 +4,7 @@ $green-dark: #08622a;
 $teal: #097970;
 $blue: #041949;
 $orange: #e3812b;
+$red: #d63a47;
 
 * {
   box-sizing: border-box;
@@ -66,6 +67,18 @@ $orange: #e3812b;
   .add-icon {
     width: 36px;
     height: 36px;
+  }
+  .panel-content {
+    display: flex;
+    justify-content: space-between;
+    svg {
+      color: $red;
+    }
+  }
+  .loader {
+    color: $blue;
+    width: 66px !important;
+    height: 66px !important;
   }
 }
 

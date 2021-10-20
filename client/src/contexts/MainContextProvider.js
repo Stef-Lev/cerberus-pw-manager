@@ -5,8 +5,11 @@ import { getAllMethod } from "../helpers/services";
 const MainContextProvider = ({ children }) => {
   const [data, setData] = useState({
     records: [],
-    modalOpen: false,
-    modalData: {},
+    loading: true,
+    infoOpen: false,
+    infoData: {},
+    genericOpen: false,
+    genericMsg: "",
     editMode: false,
     showPassword: false,
   });
@@ -17,7 +20,7 @@ const MainContextProvider = ({ children }) => {
     getAllMethod("http://localhost:3030/passwords/get")
       .then((result) => {
         if (mounted) {
-          setData({ ...data, records: result });
+          setData({ ...data, records: result, loading: false });
         }
       })
       .catch((err) => console.log(err));
