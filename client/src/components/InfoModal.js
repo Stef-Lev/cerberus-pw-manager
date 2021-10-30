@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px",
     textAlign: "center",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 2),
+    padding: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
       width: "90%",
     },

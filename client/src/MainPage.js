@@ -6,6 +6,7 @@ import GenericModal from "./components/GenericModal";
 import MainContext from "./contexts/main-context";
 import AddButton from "./components/AddButton";
 import Loader from "./components/Loader";
+import ScrollTopBtn from "./components/ScrollTopBtn";
 
 const MainPage = () => {
   const { data, setData } = useContext(MainContext);
@@ -13,7 +14,7 @@ const MainPage = () => {
   const addRecord = () => {
     setData({ ...data, infoOpen: true, editMode: true, infoData: {} });
   };
-
+  // Add functionality to scroll to top button
   return (
     <div>
       <header>
