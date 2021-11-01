@@ -1,34 +1,34 @@
 import React, { useState } from "react";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import IconButton from "@mui/material/IconButton";
 
 const ScrollTopBtn = () => {
+  const [visible, setVisible] = useState(false);
 
-  const [visible, setVisible] = useState(false)
-  
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300){
-      setVisible(true)
-    } 
-    else if (scrolled <= 300){
-      setVisible(false)
+    if (scrolled > 400) {
+      setVisible(true);
+    } else if (scrolled <= 400) {
+      setVisible(false);
     }
   };
-  
-  const scrollToTop = () =>{
+
+  const scrollToTop = () => {
     window.scrollTo({
-      top: 0, 
-      behavior: 'smooth'
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
+      top: 0,
+      behavior: "smooth",
     });
   };
-  
-  window.addEventListener('scroll', toggleVisible);
-  
+
+  window.addEventListener("scroll", toggleVisible);
+
   return (
-    <IconButton aria-label="add" className={`icon-btn__btn--scroll ${visible ? 'visible-scroll' : ''}`} onClick={scrollToTop}>
+    <IconButton
+      aria-label="add"
+      className={`icon-btn__btn--scroll ${visible ? "visible-scroll" : ""}`}
+      onClick={scrollToTop}
+    >
       <ArrowUpwardIcon className="icon-btn__icon" />
     </IconButton>
   );

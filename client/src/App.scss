@@ -1,8 +1,9 @@
 $white: #fff;
 $green: #10c455;
-$green-dark: #08622a;
+$green-light: #35f57f;
 $teal: #097970;
 $blue: #041949;
+$blue-light: #244dad;
 $orange: #e3812b;
 $red: #d63a47;
 
@@ -11,10 +12,6 @@ $red: #d63a47;
   margin: 0;
   padding: 0;
   font-family: "Glory", sans-serif;
-  svg:active {
-    -webkit-tap-highlight-color: transparent;
-    color: $green;
-  }
 }
 
 .App {
@@ -49,20 +46,18 @@ $red: #d63a47;
   }
 
   .icon-btn {
-
     &__btn {
-
       &--add {
         background-color: $green;
         color: $white;
         position: fixed;
-        bottom: 50px;
-        right: 50px;
+        bottom: 22px;
+        right: 22px;
         width: 64px;
         height: 64px;
 
         &:hover {
-          background-color: $green-dark;
+          background-color: $green;
         }
         &:active {
           -webkit-tap-highlight-color: transparent;
@@ -74,17 +69,23 @@ $red: #d63a47;
         background-color: $blue;
         color: $white;
         position: fixed;
-        bottom: 50px;
-        left: 50px;
+        bottom: -90px;
+        left: 22px;
         width: 64px;
         height: 64px;
+        transition: all 0.4s ease-in;
+
+        &.visible-scroll {
+          bottom: 22px;
+          transition: all 0.4s ease-in;
+        }
 
         &:hover {
-          background-color: $green-dark;
+          background-color: $blue;
         }
         &:active {
           -webkit-tap-highlight-color: transparent;
-          color: $green;
+          color: $blue;
         }
       }
     }
@@ -127,8 +128,14 @@ $red: #d63a47;
       &:hover {
         transform: scale(1.1);
       }
-
     }
+  }
+}
+
+.copy-icon {
+  &:active {
+    -webkit-tap-highlight-color: transparent;
+    color: $green;
   }
 }
 

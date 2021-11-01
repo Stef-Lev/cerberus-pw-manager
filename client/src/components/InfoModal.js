@@ -124,6 +124,7 @@ export default function InfoModal() {
                   endAdornment: !data.editMode ? (
                     <InputAdornment position="end">
                       <ContentCopyIcon
+                        className="copy-icon"
                         style={{ cursor: "pointer" }}
                         onClick={() =>
                           navigator.clipboard.writeText(data.infoData.username)
@@ -164,6 +165,7 @@ export default function InfoModal() {
                           }}
                         />
                         <ContentCopyIcon
+                          className="copy-icon"
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigator.clipboard.writeText(
@@ -196,6 +198,7 @@ export default function InfoModal() {
                   endAdornment: !data.editMode ? (
                     <InputAdornment position="end">
                       <ContentCopyIcon
+                        className="copy-icon"
                         style={{ cursor: "pointer" }}
                         onClick={() =>
                           navigator.clipboard.writeText(data.infoData.url)
