@@ -80,6 +80,30 @@ $red: #d63a47;
     width: 66px !important;
     height: 66px !important;
   }
+  .goTopHidden {
+    display: none;
+  }
+  .goTop {
+    display: block;
+
+    &__text {
+      position: fixed;
+      background-color: white;
+      box-shadow: 2px 2px 5px black;
+      width: 30px;
+      height: 30px;
+      border-radius: 25px;
+      bottom: 5%;
+      left: 50%;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+      &:hover {
+        transform: scale(1.1);
+      }
+
+    }
+  }
 }
 
 #edit-btn {

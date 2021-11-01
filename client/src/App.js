@@ -2,6 +2,7 @@ import "./App.scss";
 // import OldVersion from "./OldVersion";
 import MainPage from "./MainPage";
 import MainContextProvider from "./contexts/MainContextProvider";
+//Refactor scroll to top
 
 const App = () => {
   return (
