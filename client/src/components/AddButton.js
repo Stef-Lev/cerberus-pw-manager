@@ -4,8 +4,8 @@ import IconButton from "@mui/material/IconButton";
 
 const AddButton = ({ clickAction }) => {
   return (
-    <IconButton aria-label="add" className="add-btn" onClick={clickAction}>
-      <AddIcon className="add-icon" />
+    <IconButton aria-label="add" className="icon-btn__btn--add" onClick={clickAction}>
+      <AddIcon className="icon-btn__icon" />
     </IconButton>
   );
 };
