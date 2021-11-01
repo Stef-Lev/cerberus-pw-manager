@@ -25,7 +25,7 @@ const ScrollTopBtn = () => {
 
   return (
     <IconButton
-      aria-label="add"
+      aria-label="scroll"
       className={`icon-btn__btn--scroll ${visible ? "visible-scroll" : ""}`}
       onClick={scrollToTop}
     >

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -229,12 +229,13 @@ export default function InfoModal() {
                 <Button
                   variant="contained"
                   id="submit-btn"
-                  onClick={() =>
+                  onClick={() => {
                     setData({
                       ...data,
                       editMode: false,
-                    })
-                  }
+                    });
+                    submitForm();
+                  }}
                 >
                   Submit
                 </Button>

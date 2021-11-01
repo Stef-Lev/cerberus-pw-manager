@@ -28,6 +28,7 @@ const MainContextProvider = ({ children }) => {
     return () => {
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(data);
