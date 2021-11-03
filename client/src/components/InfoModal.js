@@ -11,6 +11,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useFormik } from "formik";
 import { validationSchema } from "../helpers/validationSchema";
+import { postMethod } from "../helpers/services";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -57,7 +58,7 @@ export default function InfoModal() {
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      submitFormValues(values);
     },
   });
 
@@ -71,8 +72,15 @@ export default function InfoModal() {
   };
   console.log("MODAL", data.infoData);
 
-  const submitForm = () => {
-    return;
+  const submitFormValues = (values) => {
+    alert(JSON.stringify(values, null, 2));
+    postMethod('http://localhost:3030/passwords/add', values)
+    setData({
+      ...data,
+      editMode: false,
+      showPassword: false,
+      infoOpen: false,
+    });
   };
 
   return (
@@ -227,16 +235,10 @@ export default function InfoModal() {
               )}
               {data.editMode && (
                 <Button
+                  type="submit"
                   variant="contained"
                   id="submit-btn"
-                  onClick={() => {
-                    setData({
-                      ...data,
-                      editMode: false,
-                    });
-                    submitForm();
-                  }}
-                >
+                  >
                   Submit
                 </Button>
               )}
