@@ -3,13 +3,19 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import MainContext from "../contexts/main-context";
+import { deleteMethod } from "../helpers/services";
 
 const RecordItem = ({ record }) => {
   const { data, setData } = useContext(MainContext);
 
   const handleItemClick = () => {
-    setData({ ...data, infoOpen: true, infoData: record });
+    setData({ ...data, infoOpen: true, infoData: record, currentItemID: record.id });
   };
+
+  const handleItemDelete = (id) => {
+    deleteMethod('http://localhost:3030/passwords/delete/', id);
+    window.location.reload(false);
+  }
 
   return (
     <>
@@ -22,7 +28,7 @@ const RecordItem = ({ record }) => {
                 <DeleteForeverIcon
                   onClick={(e) => {
                     e.stopPropagation();
-                    console.log("clicked: DELETE", record);
+                    handleItemDelete(record.id);
                   }}
                 />
               </div>

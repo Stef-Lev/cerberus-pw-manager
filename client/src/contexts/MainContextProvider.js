@@ -12,6 +12,7 @@ const MainContextProvider = ({ children }) => {
     genericMsg: "",
     editMode: false,
     showPassword: false,
+    currentItemID: null
   });
 
   useEffect(() => {

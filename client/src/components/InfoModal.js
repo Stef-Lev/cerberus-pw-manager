@@ -11,7 +11,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useFormik } from "formik";
 import { validationSchema } from "../helpers/validationSchema";
-import { postMethod } from "../helpers/services";
+import { postMethod, updateMethod } from "../helpers/services";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -70,17 +70,21 @@ export default function InfoModal() {
       infoOpen: false,
     });
   };
-  console.log("MODAL", data.infoData);
 
   const submitFormValues = (values) => {
-    alert(JSON.stringify(values, null, 2));
-    postMethod('http://localhost:3030/passwords/add', values)
+    if (!data.currentItemID) {
+      postMethod('http://localhost:3030/passwords/add', values);
+    } else {
+      updateMethod('http://localhost:3030/passwords/edit/', data.currentItemID, values);
+    }
     setData({
       ...data,
       editMode: false,
       showPassword: false,
       infoOpen: false,
+      currentItemID: null
     });
+    window.location.reload(false);
   };
 
   return (
@@ -102,6 +106,7 @@ export default function InfoModal() {
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 className={classes.formItem}
+                name="title"
                 label="Title"
                 value={formik.values.title}
                 variant="standard"
@@ -119,6 +124,7 @@ export default function InfoModal() {
               />
               <TextField
                 className={classes.formItem}
+                name="username"
                 label="Username"
                 value={formik.values.username}
                 variant="standard"
@@ -149,6 +155,7 @@ export default function InfoModal() {
               />
               <TextField
                 className={classes.formItem}
+                name="password"
                 label="Password"
                 type={data.showPassword || data.editMode ? "text" : "password"}
                 value={formik.values.password}
@@ -160,9 +167,10 @@ export default function InfoModal() {
                 InputProps={{
                   readOnly: !data.editMode,
                   disableUnderline: !data.editMode,
-                  endAdornment: !data.editMode ? (
+                  endAdornment:
                     <InputAdornment position="end">
                       <>
+                      //@TODO fix click event bug
                         <VisibilityIcon
                           style={{ cursor: "pointer", marginRight: "10px" }}
                           onClick={() => {
@@ -172,7 +180,7 @@ export default function InfoModal() {
                             });
                           }}
                         />
-                        <ContentCopyIcon
+                        {!data.editMode && (<ContentCopyIcon
                           className="copy-icon"
                           style={{ cursor: "pointer" }}
                           onClick={() =>
@@ -180,10 +188,9 @@ export default function InfoModal() {
                               data.infoData.password
                             )
                           }
-                        />
+                        />)}
                       </>
-                    </InputAdornment>
-                  ) : null,
+                    </InputAdornment>,
                 }}
                 onChange={formik.handleChange}
                 error={
@@ -193,6 +200,7 @@ export default function InfoModal() {
               />
               <TextField
                 className={classes.formItem}
+                name="url"
                 label="Website address"
                 value={formik.values.url}
                 variant="standard"

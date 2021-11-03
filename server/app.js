@@ -57,19 +57,27 @@ app.post(
   })
 );
 
-// app.put(
-//   "/passwords/edit/:id",
-//   catchAsync(async (req, res) => {
-//     const { password, title, username, url } = req.body;
-//     const hashedPw = encrypt(password);
-//     const record = await Record.findByIdAndUpdate(
-//       req.params.id,
-//       { username, password: hashedPw.password, title, url, iv: hashedPw.iv },
-//       { new: true, useFindAndModify: false }
-//     );
-//     res.json(record);
-//   })
-// );
+app.put(
+  "/passwords/edit/:id",
+  catchAsync(async (req, res) => {
+    const { password, title, username, url } = req.body;
+    const hashedPw = encrypt(password);
+    const record = await Record.findByIdAndUpdate(
+      req.params.id,
+      { username, password: hashedPw.password, title, url, iv: hashedPw.iv },
+      { new: true, useFindAndModify: false }
+    );
+    res.json(record);
+  })
+);
+
+app.delete(
+  "/passwords/delete/:id",
+  catchAsync(async (req, res) => {
+    await Record.findByIdAndDelete(req.params.id);
+    res.json("DELETED RECORD");
+  })
+);
 
 app.listen(PORT, () => {
   console.log(`Serving on port ${PORT}`);

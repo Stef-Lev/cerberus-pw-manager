@@ -12,7 +12,7 @@ const MainPage = () => {
   const { data, setData } = useContext(MainContext);
 
   const addRecord = () => {
-    setData({ ...data, infoOpen: true, editMode: true, infoData: {} });
+    setData({ ...data, infoOpen: true, editMode: true, infoData: {}, currentItemID: null });
   };
 
   return (
