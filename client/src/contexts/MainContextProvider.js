@@ -12,13 +12,13 @@ const MainContextProvider = ({ children }) => {
     genericMsg: "",
     editMode: false,
     showPassword: false,
-    currentItemID: null
+    currentItemID: null,
   });
 
   useEffect(() => {
     let mounted = true;
 
-    getAllMethod("http://localhost:3030/passwords/get")
+    getAllMethod("/passwords/get")
       .then((result) => {
         if (mounted) {
           setData({ ...data, records: result, loading: false });

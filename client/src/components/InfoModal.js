@@ -50,10 +50,10 @@ export default function InfoModal() {
 
   const formik = useFormik({
     initialValues: {
-      title: data.infoData?.title,
-      username: data.infoData?.username,
-      password: data.infoData?.password,
-      url: data.infoData?.url,
+      title: data.infoData?.title || "",
+      username: data.infoData?.username || "",
+      password: data.infoData?.password || "",
+      url: data.infoData?.url || "",
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -73,18 +73,32 @@ export default function InfoModal() {
 
   const submitFormValues = (values) => {
     if (!data.currentItemID) {
-      postMethod('http://localhost:3030/passwords/add', values);
+      postMethod("/passwords/add", values)
+        .then(() => {
+          setData({
+            ...data,
+            editMode: false,
+            showPassword: false,
+            infoOpen: false,
+            currentItemID: null,
+          });
+          window.location.reload(false);
+        })
+        .catch((err) => console.log(err));
     } else {
-      updateMethod('http://localhost:3030/passwords/edit/', data.currentItemID, values);
+      updateMethod("/passwords/edit/", data.currentItemID, values)
+        .then(() => {
+          setData({
+            ...data,
+            editMode: false,
+            showPassword: false,
+            infoOpen: false,
+            currentItemID: null,
+          });
+          window.location.reload(false);
+        })
+        .catch((err) => console.log(err));
     }
-    setData({
-      ...data,
-      editMode: false,
-      showPassword: false,
-      infoOpen: false,
-      currentItemID: null
-    });
-    window.location.reload(false);
   };
 
   return (
@@ -167,10 +181,9 @@ export default function InfoModal() {
                 InputProps={{
                   readOnly: !data.editMode,
                   disableUnderline: !data.editMode,
-                  endAdornment:
+                  endAdornment: (
                     <InputAdornment position="end">
                       <>
-                      //@TODO fix click event bug
                         <VisibilityIcon
                           style={{ cursor: "pointer", marginRight: "10px" }}
                           onClick={() => {
@@ -180,17 +193,20 @@ export default function InfoModal() {
                             });
                           }}
                         />
-                        {!data.editMode && (<ContentCopyIcon
-                          className="copy-icon"
-                          style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            navigator.clipboard.writeText(
-                              data.infoData.password
-                            )
-                          }
-                        />)}
+                        {!data.editMode && (
+                          <ContentCopyIcon
+                            className="copy-icon"
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              navigator.clipboard.writeText(
+                                data.infoData.password
+                              )
+                            }
+                          />
+                        )}
                       </>
-                    </InputAdornment>,
+                    </InputAdornment>
+                  ),
                 }}
                 onChange={formik.handleChange}
                 error={
@@ -242,11 +258,7 @@ export default function InfoModal() {
                 </Button>
               )}
               {data.editMode && (
-                <Button
-                  type="submit"
-                  variant="contained"
-                  id="submit-btn"
-                  >
+                <Button type="submit" variant="contained" id="submit-btn">
                   Submit
                 </Button>
               )}

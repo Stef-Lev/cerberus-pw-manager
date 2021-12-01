@@ -5,7 +5,7 @@ const cors = require("cors");
 const catchAsync = require("./utils/catchAsync");
 const { encrypt, decrypt } = require("./encryptionHandler");
 const Record = require("./models/record");
-const PORT = 3030;
+const PORT = process.env.PORT || 8080;
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGO_URL);
@@ -53,7 +53,7 @@ app.post(
       iv: hashedPw.iv,
     });
     await record.save();
-    res.status(200).json(record);
+    res.status(200).json("SUCCESS");
   })
 );
 

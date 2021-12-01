@@ -9,13 +9,18 @@ const RecordItem = ({ record }) => {
   const { data, setData } = useContext(MainContext);
 
   const handleItemClick = () => {
-    setData({ ...data, infoOpen: true, infoData: record, currentItemID: record.id });
+    setData({
+      ...data,
+      infoOpen: true,
+      infoData: record,
+      currentItemID: record.id,
+    });
   };
 
   const handleItemDelete = (id) => {
-    deleteMethod('http://localhost:3030/passwords/delete/', id);
+    deleteMethod("/passwords/delete/", id);
     window.location.reload(false);
-  }
+  };
 
   return (
     <>
