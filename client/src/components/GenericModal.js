@@ -28,7 +28,7 @@ const ModalPaper = styled.div`
       transform: translateY(-200%);
     }
     100% {
-      transform: translateY(120px);
+      transform: translateY(0px);
     }
   }
   @media only screen and (min-width: 460px) and (max-width: 767px) {
