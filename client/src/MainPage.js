@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import RecordItem from "./components/RecordItem";
 import InfoModal from "./components/InfoModal";
 import GenericModal from "./components/GenericModal";

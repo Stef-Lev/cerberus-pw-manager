@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import MainContext from "../contexts/main-context";
 import { deleteMethod } from "../helpers/services";

@@ -28,7 +28,7 @@ const ScrollTopBtn = () => {
       aria-label="scroll"
       className={`icon-btn__btn--scroll ${visible ? "visible-scroll" : ""}`}
       onClick={scrollToTop}
-    >
+      size="large">
       <ArrowUpwardIcon className="icon-btn__icon" />
     </IconButton>
   );

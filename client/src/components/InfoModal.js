@@ -1,51 +1,64 @@
 import React, { useContext } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
 import MainContext from "../contexts/main-context";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useFormik } from "formik";
 import { validationSchema } from "../helpers/validationSchema";
 import { postMethod, updateMethod } from "../helpers/services";
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "120px",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: "8px",
-    textAlign: "center",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2),
-    [theme.breakpoints.down("sm")]: {
-      width: "90%",
-    },
-    [theme.breakpoints.between("sm", "md")]: {
-      width: "66%",
-    },
-    [theme.breakpoints.up("md")]: {
-      width: "550px",
-    },
-    "&:focus-visible": {
-      outline: "none",
-    },
-  },
-  formItem: {
-    marginBottom: "16px",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   modal: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     marginTop: "120px",
+//   },
+//   paper: {
+//     backgroundColor: theme.palette.background.paper,
+//     borderRadius: "8px",
+//     textAlign: "center",
+//     boxShadow: theme.shadows[5],
+//     padding: theme.spacing(2),
+//     [theme.breakpoints.down('md')]: {
+//       width: "90%",
+//     },
+//     [theme.breakpoints.between("sm", 'lg')]: {
+//       width: "66%",
+//     },
+//     [theme.breakpoints.up("md")]: {
+//       width: "550px",
+//     },
+//     "&:focus-visible": {
+//       outline: "none",
+//     },
+//   },
+//   formItem: {
+//     marginBottom: "16px",
+//   },
+// }));
+
+const StyledModal = styled(Modal)`
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 120px;
+`
+const ModalPaper = styled.div`
+background-color: white;
+border-radius: 8px;
+text-align: center;
+padding: 20px;
+width: 50%;
+`
 
 export default function InfoModal() {
-  const classes = useStyles();
   const { data, setData } = useContext(MainContext);
 
   const formik = useFormik({
@@ -103,10 +116,9 @@ export default function InfoModal() {
 
   return (
     <div>
-      <Modal
+      <StyledModal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal}
         open={data.infoOpen}
         onClose={handleClose}
         closeAfterTransition
@@ -116,10 +128,10 @@ export default function InfoModal() {
         }}
       >
         <Fade in={data.infoOpen}>
-          <div className={classes.paper}>
+          <ModalPaper>
             <form onSubmit={formik.handleSubmit}>
               <TextField
-                className={classes.formItem}
+                style={{marginBottom:'16px'}}
                 name="title"
                 label="Title"
                 value={formik.values.title}
@@ -137,7 +149,7 @@ export default function InfoModal() {
                 helperText={formik.touched.title && formik.errors.title}
               />
               <TextField
-                className={classes.formItem}
+                style={{marginBottom:'16px'}}
                 name="username"
                 label="Username"
                 value={formik.values.username}
@@ -168,7 +180,7 @@ export default function InfoModal() {
                 helperText={formik.touched.username && formik.errors.username}
               />
               <TextField
-                className={classes.formItem}
+                style={{marginBottom:'16px'}}
                 name="password"
                 label="Password"
                 type={data.showPassword || data.editMode ? "text" : "password"}
@@ -215,7 +227,7 @@ export default function InfoModal() {
                 helperText={formik.touched.password && formik.errors.password}
               />
               <TextField
-                className={classes.formItem}
+                style={{marginBottom:'16px'}}
                 name="url"
                 label="Website address"
                 value={formik.values.url}
@@ -263,9 +275,9 @@ export default function InfoModal() {
                 </Button>
               )}
             </form>
-          </div>
+          </ModalPaper>
         </Fade>
-      </Modal>
+      </StyledModal>
     </div>
   );
 }
