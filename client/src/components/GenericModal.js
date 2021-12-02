@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
@@ -39,13 +39,22 @@ const ModalPaper = styled.div`
 export default function GenericModal() {
   const { data, setData } = useContext(MainContext);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setData({
       ...data,
-      genericMsg: "false",
+      genericMsg: "",
       genericOpen: false,
     });
-  };
+    window.location.reload(false);
+  }, [data, setData]);
+
+  useEffect(() => {
+    if (data.genericOpen) {
+      setTimeout(() => {
+        handleClose();
+      }, 2500);
+    }
+  }, [data.genericOpen, handleClose]);
 
   return (
     <div>

@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const catchAsync = require("./utils/catchAsync");
+const ExpressError = require("./utils/ExpressError");
 const { encrypt, decrypt } = require("./encryptionHandler");
 const Record = require("./models/record");
 const PORT = process.env.PORT || 8080;
@@ -53,7 +54,7 @@ app.post(
       iv: hashedPw.iv,
     });
     await record.save();
-    res.status(200).json("SUCCESS");
+    res.status(200).json({ result: "success", message: "Record added" });
   })
 );
 
@@ -67,7 +68,7 @@ app.put(
       { username, password: hashedPw.password, title, url, iv: hashedPw.iv },
       { new: true, useFindAndModify: false }
     );
-    res.json(record);
+    res.json({ result: "success", message: "Record updated", record });
   })
 );
 
@@ -75,9 +76,26 @@ app.delete(
   "/passwords/delete/:id",
   catchAsync(async (req, res) => {
     await Record.findByIdAndDelete(req.params.id);
-    res.json("DELETED RECORD");
+    res.json({ result: "success", message: "Record deleted" });
   })
 );
+
+app.use((err, req, res, next) => {
+  switch (err.name) {
+    case "CastError":
+      res
+        .status(500)
+        .json(new ExpressError(undefined, err.name, "ID is not valid", 500));
+      break;
+    case "ValidationError":
+      res
+        .status(400)
+        .json(new ExpressError(undefined, err.name, err.message, 403));
+      break;
+    default:
+      res.status(500).json(new ExpressError(err.name, "Something went wrong"));
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Serving on port ${PORT}`);

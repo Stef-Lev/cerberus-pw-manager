@@ -48,10 +48,10 @@ export default function InfoModal() {
 
   const formik = useFormik({
     initialValues: {
-      title: data.infoData?.title || "",
-      username: data.infoData?.username || "",
-      password: data.infoData?.password || "",
-      url: data.infoData?.url || "",
+      title: data.infoData.title || "",
+      username: data.infoData.username || "",
+      password: data.infoData.password || "",
+      url: data.infoData.url || "",
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -61,39 +61,44 @@ export default function InfoModal() {
   });
 
   const handleClose = () => {
+    console.log("CLOSED");
     setData({
       ...data,
       editMode: false,
       showPassword: false,
       infoOpen: false,
+      infoData: {},
     });
+    formik.resetForm({ values: "" });
   };
 
   const submitFormValues = (values) => {
     if (!data.currentItemID) {
       postMethod("/passwords/add", values)
-        .then(() => {
+        .then((response) => {
           setData({
             ...data,
             editMode: false,
             showPassword: false,
             infoOpen: false,
             currentItemID: null,
+            genericOpen: true,
+            genericMsg: response.message,
           });
-          window.location.reload(false);
         })
         .catch((err) => console.log(err));
     } else {
       updateMethod("/passwords/edit/", data.currentItemID, values)
-        .then(() => {
+        .then((response) => {
           setData({
             ...data,
             editMode: false,
             showPassword: false,
             infoOpen: false,
             currentItemID: null,
+            genericOpen: true,
+            genericMsg: response.message,
           });
-          window.location.reload(false);
         })
         .catch((err) => console.log(err));
     }
@@ -168,10 +173,13 @@ export default function InfoModal() {
                 style={{ marginBottom: "16px" }}
                 name="password"
                 label="Password"
-                type={data.showPassword || data.editMode ? "text" : "password"}
+                type={data.showPassword ? "text" : "password"}
                 value={formik.values.password}
                 variant="standard"
                 fullWidth
+                inputProps={{
+                  autoComplete: "off",
+                }}
                 InputLabelProps={{
                   shrink: true,
                 }}
