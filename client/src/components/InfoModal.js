@@ -8,6 +8,7 @@ import MainContext from "../contexts/main-context";
 import InputAdornment from "@mui/material/InputAdornment";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import { validationSchema } from "../helpers/validationSchema";
 import { postMethod, updateMethod } from "../helpers/services";
@@ -61,7 +62,6 @@ export default function InfoModal() {
   });
 
   const handleClose = () => {
-    console.log("CLOSED");
     setData({
       ...data,
       editMode: false,
@@ -118,7 +118,15 @@ export default function InfoModal() {
         }}
       >
         <Fade in={data.infoOpen}>
-          <ModalPaper>
+          <ModalPaper style={{ position: "relative" }}>
+            <CloseIcon
+              style={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+              }}
+              onClick={() => handleClose()}
+            />
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 style={{ marginBottom: "16px" }}
