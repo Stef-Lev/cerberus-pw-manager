@@ -1,18 +1,24 @@
 import React, { useContext } from "react";
 import { Grid } from "@mui/material";
-import RecordItem from "./components/RecordItem";
-import InfoModal from "./components/InfoModal";
-import GenericModal from "./components/GenericModal";
-import MainContext from "./contexts/main-context";
-import AddButton from "./components/AddButton";
-import Loader from "./components/Loader";
-import ScrollTopBtn from "./components/ScrollTopBtn";
+import RecordItem from "../components/RecordItem";
+import InfoModal from "../components/InfoModal";
+import GenericModal from "../components/GenericModal";
+import MainContext from "../contexts/main-context";
+import AddButton from "../components/AddButton";
+import Loader from "../components/Loader";
+import ScrollTopBtn from "../components/ScrollTopBtn";
 
 const MainPage = () => {
   const { data, setData } = useContext(MainContext);
 
   const addRecord = () => {
-    setData({ ...data, infoOpen: true, editMode: true, infoData: {}, currentItemID: null });
+    setData({
+      ...data,
+      infoOpen: true,
+      editMode: true,
+      infoData: {},
+      currentItemID: null,
+    });
   };
 
   return (

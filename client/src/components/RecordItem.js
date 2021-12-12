@@ -34,7 +34,7 @@ const RecordItem = ({ record }) => {
   };
 
   const handleItemDelete = (id) => {
-    deleteMethod("/passwords/delete/", id)
+    deleteMethod("/api/passwords/delete/", id)
       .then((response) => {
         setData({
           ...data,

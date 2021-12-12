@@ -74,7 +74,7 @@ export default function InfoModal() {
 
   const submitFormValues = (values) => {
     if (!data.currentItemID) {
-      postMethod("/passwords/add", values)
+      postMethod("/api/passwords/add", values)
         .then((response) => {
           setData({
             ...data,
@@ -88,7 +88,7 @@ export default function InfoModal() {
         })
         .catch((err) => console.log(err));
     } else {
-      updateMethod("/passwords/edit/", data.currentItemID, values)
+      updateMethod("/api/passwords/edit/", data.currentItemID, values)
         .then((response) => {
           setData({
             ...data,

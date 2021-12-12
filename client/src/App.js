@@ -1,14 +1,20 @@
 import "./App.scss";
-// import OldVersion from "./OldVersion";
-import MainPage from "./MainPage";
+import MainPage from "./routes/MainPage";
 import MainContextProvider from "./contexts/MainContextProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 //Refactor scroll to top
 
 const App = () => {
   return (
     <div className="App">
       <MainContextProvider>
-        <MainPage />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />}></Route>
+            {/* <Route path="/home" element={<MainPage />}></Route>
+            <Route path="/home" element={<MainPage />}></Route> */}
+          </Routes>
+        </BrowserRouter>
       </MainContextProvider>
     </div>
   );

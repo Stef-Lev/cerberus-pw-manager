@@ -18,7 +18,7 @@ const MainContextProvider = ({ children }) => {
   useEffect(() => {
     let mounted = true;
 
-    getAllMethod("/passwords/get")
+    getAllMethod("/api/passwords/get")
       .then((result) => {
         if (mounted) {
           setData({ ...data, records: result, loading: false });
