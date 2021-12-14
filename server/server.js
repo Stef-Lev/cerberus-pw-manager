@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const verifyJWT = require("./utils/verifyJWT");
+const osVersion = { win32:'Windows', darwin:'macOS' }
 
 mongoose.connect(process.env.MONGO_URL);
 
@@ -171,5 +172,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Serving on port ${PORT}`);
+  console.log(`Serving on port ${PORT}. Operating system is ${osVersion[process.platform]}`);
 });

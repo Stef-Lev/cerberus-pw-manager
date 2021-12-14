@@ -1,8 +1,10 @@
 import "./App.scss";
 import MainPage from "./routes/MainPage";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
 import MainContextProvider from "./contexts/MainContextProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//Refactor scroll to top
+
 
 const App = () => {
   return (
@@ -11,8 +13,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />}></Route>
-            {/* <Route path="/home" element={<MainPage />}></Route>
-            <Route path="/home" element={<MainPage />}></Route> */}
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
           </Routes>
         </BrowserRouter>
       </MainContextProvider>
