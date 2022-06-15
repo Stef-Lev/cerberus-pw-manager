@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MainContext from "../contexts/main-context";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
@@ -87,10 +87,9 @@ const RecordItem = ({ record }) => {
             <Paper elevation={3} onClick={handleItemClick}>
               <div className="panel-content">
                 <p className="password-panel__title">{record.title}</p>
-                <DeleteForeverIcon
+                <DeleteOutlineIcon
                   onClick={(e) => {
                     e.stopPropagation();
-                    // handleItemDelete(record.id);
                     handleDeleteClick();
                   }}
                 />

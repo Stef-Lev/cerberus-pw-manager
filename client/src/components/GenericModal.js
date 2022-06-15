@@ -14,8 +14,8 @@ const StyledModal = styled(Modal)`
 `;
 
 const ModalPaper = styled.div`
-  background-color: white;
-  border-radius: 8px;
+  background-color: #0f4659;
+  border-radius: 12px;
   text-align: center;
   padding: 20px;
   width: 90%;
@@ -71,11 +71,14 @@ export default function GenericModal() {
       >
         <Fade in={data.genericOpen}>
           <ModalPaper>
-            <NewReleasesIcon style={{ width: "50px", height: "50px" }} />
+            <NewReleasesIcon
+              style={{ width: "50px", height: "50px", color: "#71cceb" }}
+            />
             <p
               style={{
                 fontSize: "1.4rem",
                 marginTop: "1rem",
+                color: "#71cceb",
               }}
             >
               {data.genericMsg}

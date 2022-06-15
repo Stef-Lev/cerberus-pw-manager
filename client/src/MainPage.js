@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Grid } from "@mui/material";
 import RecordItem from "./components/RecordItem";
+import Header from "./components/Header";
 import InfoModal from "./components/InfoModal";
 import GenericModal from "./components/GenericModal";
 import MainContext from "./contexts/main-context";
@@ -12,14 +13,18 @@ const MainPage = () => {
   const { data, setData } = useContext(MainContext);
 
   const addRecord = () => {
-    setData({ ...data, infoOpen: true, editMode: true, infoData: {}, currentItemID: null });
+    setData({
+      ...data,
+      infoOpen: true,
+      editMode: true,
+      infoData: {},
+      currentItemID: null,
+    });
   };
 
   return (
     <div>
-      <header>
-        <h1>Password Lock</h1>
-      </header>
+      <Header />
       <section className="container">
         <Grid
           container

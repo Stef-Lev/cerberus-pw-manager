@@ -21,8 +21,8 @@ const StyledModal = styled(Modal)`
 `;
 
 const ModalPaper = styled.div`
-  background-color: #ffffff;
-  border-radius: 8px;
+  background-color: #145d75;
+  border-radius: 12px;
   text-align: center;
   padding: 20px;
   width: 90%;
@@ -41,6 +41,20 @@ const ModalPaper = styled.div`
   @media only screen and (min-width: 460px) {
     width: 400px;
   }
+`;
+
+const CustomInput = styled(TextField)`
+  .MuiInput-root,
+  svg {
+    color: #71cceb;
+  }
+  label {
+    color: #a9cdd9;
+  }
+`;
+
+const CustomBtn = styled(Button)`
+  background-color: blue;
 `;
 
 export default function InfoModal() {
@@ -125,7 +139,7 @@ export default function InfoModal() {
         <Fade in={data.infoOpen}>
           <ModalPaper>
             <form onSubmit={formik.handleSubmit}>
-              <TextField
+              <CustomInput
                 style={{ marginBottom: "16px" }}
                 name="title"
                 label="Title"
@@ -142,8 +156,9 @@ export default function InfoModal() {
                 onChange={formik.handleChange}
                 error={formik.touched.title && Boolean(formik.errors.title)}
                 helperText={formik.touched.title && formik.errors.title}
+                sx={{ color: "#fff" }}
               />
-              <TextField
+              <CustomInput
                 style={{ marginBottom: "16px" }}
                 name="username"
                 label="Username"
@@ -174,7 +189,7 @@ export default function InfoModal() {
                 }
                 helperText={formik.touched.username && formik.errors.username}
               />
-              <TextField
+              <CustomInput
                 style={{ marginBottom: "16px" }}
                 name="password"
                 label="Password"
@@ -224,7 +239,7 @@ export default function InfoModal() {
                 }
                 helperText={formik.touched.password && formik.errors.password}
               />
-              <TextField
+              <CustomInput
                 style={{ marginBottom: "16px" }}
                 name="url"
                 label="Website address"
@@ -254,7 +269,7 @@ export default function InfoModal() {
                 helperText={formik.touched.url && formik.errors.url}
               />
               {!data.editMode && (
-                <Button
+                <CustomBtn
                   variant="contained"
                   id="edit-btn"
                   onClick={() =>
@@ -265,12 +280,27 @@ export default function InfoModal() {
                   }
                 >
                   Edit
-                </Button>
+                </CustomBtn>
               )}
               {data.editMode && (
-                <Button type="submit" variant="contained" id="submit-btn">
-                  Submit
-                </Button>
+                <>
+                  <CustomBtn type="submit" variant="contained" id="submit-btn">
+                    Submit
+                  </CustomBtn>
+                  <CustomBtn
+                    type="submit"
+                    variant="contained"
+                    id="submit-btn"
+                    onClick={() =>
+                      setData({
+                        ...data,
+                        editMode: false,
+                      })
+                    }
+                  >
+                    Cancel
+                  </CustomBtn>
+                </>
               )}
             </form>
           </ModalPaper>

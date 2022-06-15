@@ -6,6 +6,12 @@ $blue: #041949;
 $blue-light: #244dad;
 $orange: #e3812b;
 $red: #d63a47;
+$dark: #01151c;
+$light: #71cceb;
+$lighter: #a9cdd9;
+$medium: #145d75;
+$secondary: #0ad6b4;
+$error: #ef3e36;
 
 * {
   box-sizing: border-box;
@@ -14,20 +20,24 @@ $red: #d63a47;
   font-family: "Glory", sans-serif;
 }
 
+html {
+  height: 100vh;
+  background-color: $dark;
+}
+
 .App {
   .container {
     padding: 16px 16px 88px;
   }
 
   header {
-    background: $blue;
-    background: linear-gradient(90deg, $blue 0%, $teal 51%, $green 100%);
+    background: $medium;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;
     h1 {
-      color: $white;
+      color: $light;
     }
   }
 
@@ -39,6 +49,9 @@ $red: #d63a47;
 
     .MuiPaper-root {
       padding: 16px;
+      background-color: $dark;
+      border: 1px solid $light;
+      color: $light;
     }
     &__title {
       font-size: 20px;
@@ -48,8 +61,8 @@ $red: #d63a47;
   .icon-btn {
     &__btn {
       &--add {
-        background-color: $green;
-        color: $white;
+        background-color: $secondary;
+        color: $dark;
         position: fixed;
         bottom: 22px;
         right: 22px;
@@ -57,11 +70,11 @@ $red: #d63a47;
         height: 64px;
 
         &:hover {
-          background-color: $green;
+          background-color: $secondary;
         }
         &:active {
           -webkit-tap-highlight-color: transparent;
-          color: $green;
+          color: $secondary;
         }
       }
 
@@ -99,7 +112,7 @@ $red: #d63a47;
     display: flex;
     justify-content: space-between;
     svg {
-      color: $red;
+      color: $light;
     }
   }
   .loader {
