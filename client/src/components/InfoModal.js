@@ -61,20 +61,25 @@ export default function InfoModal() {
   });
 
   const handleClose = () => {
-    console.log("CLOSED");
     setData({
       ...data,
-      editMode: false,
-      showPassword: false,
       infoOpen: false,
-      infoData: {},
     });
     formik.resetForm({ values: "" });
+    setTimeout(350, () => {
+      setData({
+        ...data,
+        editMode: false,
+        showPassword: false,
+        infoData: {},
+      });
+      formik.resetForm({ values: "" });
+    });
   };
 
   const submitFormValues = (values) => {
     if (!data.currentItemID) {
-      postMethod("/passwords/add", values)
+      postMethod("/api/passwords/add", values)
         .then((response) => {
           setData({
             ...data,
@@ -88,7 +93,7 @@ export default function InfoModal() {
         })
         .catch((err) => console.log(err));
     } else {
-      updateMethod("/passwords/edit/", data.currentItemID, values)
+      updateMethod("/api/passwords/edit/", data.currentItemID, values)
         .then((response) => {
           setData({
             ...data,
