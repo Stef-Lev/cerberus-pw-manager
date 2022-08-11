@@ -21,7 +21,7 @@ const StyledModal = styled(Modal)`
 `;
 
 const ModalPaper = styled.div`
-  background-color: #145d75;
+  background-color: #002531;
   border-radius: 12px;
   text-align: center;
   padding: 20px;
@@ -54,7 +54,7 @@ const CustomInput = styled(TextField)`
 `;
 
 const CustomBtn = styled(Button)`
-  background-color: blue;
+  background-color: ${props => props.bg};
 `;
 
 export default function InfoModal() {
@@ -272,6 +272,7 @@ export default function InfoModal() {
                 <CustomBtn
                   variant="contained"
                   id="edit-btn"
+                  bg="#158e79"
                   onClick={() =>
                     setData({
                       ...data,
@@ -283,12 +284,13 @@ export default function InfoModal() {
                 </CustomBtn>
               )}
               {data.editMode && (
-                <>
-                  <CustomBtn type="submit" variant="contained" id="submit-btn">
+                <div className="modal-btns-container">
+                  <CustomBtn type="submit" bg="#158e79" variant="contained" id="submit-btn">
                     Submit
                   </CustomBtn>
                   <CustomBtn
                     type="submit"
+                    bg="#a9423e"
                     variant="contained"
                     id="submit-btn"
                     onClick={() =>
@@ -300,7 +302,7 @@ export default function InfoModal() {
                   >
                     Cancel
                   </CustomBtn>
-                </>
+                </div>
               )}
             </form>
           </ModalPaper>
