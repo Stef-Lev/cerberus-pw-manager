@@ -1,20 +1,13 @@
-import "./App.scss";
-// import OldVersion from "./OldVersion";
-import MainPage from "./MainPage";
-import MainContextProvider from "./contexts/MainContextProvider";
-import { StylesProvider } from "@mui/styles";
-//Refactor scroll to top
+import React from 'react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import theme from './theme';
 
-const App = () => {
+function App() {
   return (
-    <StylesProvider injectFirst>
-      <div className="App">
-        <MainContextProvider>
-          <MainPage />
-        </MainContextProvider>
-      </div>
-    </StylesProvider>
+    <ChakraProvider theme={theme}>
+      <Box>TEST</Box>
+    </ChakraProvider>
   );
-};
+}
 
 export default App;

@@ -1,29 +1,20 @@
 {
-  "name": "frontend",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.0",
-    "@emotion/styled": "^11.6.0",
-    "@fontsource/roboto": "^4.5.1",
-    "@mui/icons-material": "^5.2.0",
-    "@mui/lab": "*",
-    "@mui/material": "^5.2.2",
-    "@mui/styles": "^5.2.2",
-    "@mui/system": "^5.2.2",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.21.4",
-    "formik": "^2.2.9",
-    "react": "^17.0.2",
-    "react-copy-to-clipboard": "^5.0.4",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.40.1",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^1.1.2",
-    "yup": "^0.32.9"
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "framer-motion": "^6.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^3.11.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "set PORT=3880 && react-scripts start",
@@ -32,10 +23,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

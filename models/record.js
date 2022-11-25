@@ -6,6 +6,10 @@ const RecordSchema = new Schema({
     type: String,
     required: [true, "Please provide a title"],
   },
+  url: {
+    type: String,
+    required: false,
+  },
   username: {
     type: String,
     required: [true, "Please provide a username"],
@@ -13,10 +17,6 @@ const RecordSchema = new Schema({
   password: {
     type: String,
     required: [true, "Please provide a password"],
-  },
-  url: {
-    type: String,
-    required: false,
   },
   iv: {
     type: String,
