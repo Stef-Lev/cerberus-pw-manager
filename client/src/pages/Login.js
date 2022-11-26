@@ -45,18 +45,25 @@ function Login() {
             <TabPanels>
               <TabPanel>
                 <Form
-                  title="Personal Details"
+                  title="Create your account"
                   inputs={[
-                    'Full Name',
-                    'Email',
-                    'Password',
-                    'Confirm Password',
+                    { placeholder: 'Full Name', type: 'text' },
+                    { placeholder: 'Email', type: 'email' },
+                    { placeholder: 'Password', type: 'password' },
+                    { placeholder: 'Confirm Password', type: 'password' },
                   ]}
-                  buttonText="Register"
+                  buttonText="Sign up"
                 />
               </TabPanel>
               <TabPanel>
-                <p>two!</p>
+                <Form
+                  title="Login your account"
+                  inputs={[
+                    { placeholder: 'Username', type: 'text' },
+                    { placeholder: 'Password', type: 'password' },
+                  ]}
+                  buttonText="Sign in"
+                />
               </TabPanel>
             </TabPanels>
           </Tabs>

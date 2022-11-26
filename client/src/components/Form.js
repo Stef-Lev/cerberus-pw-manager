@@ -15,7 +15,11 @@ function Form({ title, inputs, buttonText, subText, redirection }) {
 
         <VStack mb="20px">
           {inputs.map(item => (
-            <Input key={item} placeholder={item} />
+            <Input
+              key={item.placeholder}
+              type={item.type}
+              placeholder={item.placeholder}
+            />
           ))}
         </VStack>
 
