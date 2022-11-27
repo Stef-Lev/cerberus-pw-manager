@@ -1,14 +1,14 @@
 import React from 'react';
-import { Box, Flex, Heading, VStack, Text, Center } from '@chakra-ui/react';
+import { Box, Flex, Heading, VStack, Center } from '@chakra-ui/react';
 import Button from './Button';
 import Input from './Input';
 
-function Form({ title, inputs, buttonText, subText, redirection }) {
+function Form({ title, inputs, buttonText, onButtonClick }) {
   return (
     <Box>
       <Flex flexDirection="column">
         <Center>
-          <Heading as="h3" fontSize="20px" mb="10px">
+          <Heading as="h3" fontSize="20px" mb="20px">
             {title}
           </Heading>
         </Center>
@@ -23,10 +23,9 @@ function Form({ title, inputs, buttonText, subText, redirection }) {
           ))}
         </VStack>
 
-        <Button type="primary">{buttonText}</Button>
-        <Box>
-          <Text>{subText}</Text>
-        </Box>
+        <Button type="primary" onClick={onButtonClick}>
+          {buttonText}
+        </Button>
       </Flex>
     </Box>
   );

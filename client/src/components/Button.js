@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button as ChakraButton } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 
 function Button({ type, ...props }) {
   const buttonTypes = {
-    primary: 'teal.200',
+    primary: useColorModeValue('teal.300', 'teal.200'),
     disabled: 'gray.400',
     success: 'green.300',
     error: 'red.200',

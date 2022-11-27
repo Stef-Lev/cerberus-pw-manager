@@ -32,11 +32,10 @@ const theme = extendTheme({
     },
     teal: {
       200: '#0ad6b4',
+      300: '#1bc3a7',
       600: '#097970',
     },
   },
-  initialColorMode: 'dark',
-  useSystemColorMode: true,
 });
 
 export default theme;
