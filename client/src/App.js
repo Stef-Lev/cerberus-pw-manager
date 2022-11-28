@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Container } from '@chakra-ui/react';
+import { UserContextProvider } from './context/UserContext';
 import theme from './theme';
-import Login from './pages/Login';
+import Auth from './pages/Auth';
 import Home from './pages/Home';
 import RecordEdit from './pages/RecordEdit';
 import RecordShow from './pages/RecordShow';
@@ -13,13 +14,15 @@ function App() {
     <ChakraProvider theme={theme}>
       <Container maxW="3xl">
         <Router>
-          <Routes>
-            <Route path="/:recordId" element={<RecordShow />} />
-            <Route path="/:recordId/edit" element={<RecordEdit />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
+          <UserContextProvider>
+            <Routes>
+              <Route path="/:recordId" element={<RecordShow />} />
+              <Route path="/:recordId/edit" element={<RecordEdit />} />
+              <Route path="/auth/:authPage" element={<Auth />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </UserContextProvider>
         </Router>
       </Container>
     </ChakraProvider>

@@ -1,6 +1,8 @@
 import React from 'react';
 import Form from '../components/Form';
 import LogoIcon from '../components/LogoIcon';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Center,
@@ -14,13 +16,27 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-function Login() {
+function Auth() {
   const borderColor = useColorModeValue('gray.800', 'gray.700');
   const selectedStyle = {
     background: useColorModeValue('teal.300', 'teal.200'),
     fontWeight: 500,
     color: 'white',
   };
+  const navigate = useNavigate();
+
+  const { authPage } = useParams();
+
+  const selectedTab = pageRoute => {
+    if (pageRoute === 'register') {
+      return 0;
+    }
+    if (pageRoute === 'login') {
+      return 1;
+    }
+    return 0;
+  };
+
   return (
     <Box>
       <Center display="flex" flexDirection="column" mb="20px">
@@ -35,7 +51,12 @@ function Login() {
 
       <Box border="1px solid" borderColor={borderColor} borderRadius="10px">
         <Center>
-          <Tabs variant="unstyled" colorScheme="green" width="98%">
+          <Tabs
+            variant="unstyled"
+            colorScheme="green"
+            width="98%"
+            index={selectedTab(authPage)}
+          >
             <TabList
               display="flex"
               gap="2"
@@ -46,10 +67,20 @@ function Login() {
               padding="8px"
               margin="10px"
             >
-              <Tab borderRadius="10px" width="50%" _selected={selectedStyle}>
+              <Tab
+                borderRadius="10px"
+                width="50%"
+                onClick={() => navigate('/auth/register')}
+                _selected={selectedStyle}
+              >
                 Register
               </Tab>
-              <Tab borderRadius="10px" width="50%" _selected={selectedStyle}>
+              <Tab
+                borderRadius="10px"
+                width="50%"
+                onClick={() => navigate('/auth/login')}
+                _selected={selectedStyle}
+              >
                 Login
               </Tab>
             </TabList>
@@ -64,9 +95,10 @@ function Login() {
                     { placeholder: 'Confirm Password', type: 'password' },
                   ]}
                   buttonText="Sign up"
+                  onButtonClick={() => console.log('Sign up')}
                 />
               </TabPanel>
-              <TabPanel>
+              <TabPanel p="10px">
                 <Form
                   title="Login your account"
                   inputs={[
@@ -74,6 +106,7 @@ function Login() {
                     { placeholder: 'Password', type: 'password' },
                   ]}
                   buttonText="Sign in"
+                  onButtonClick={() => console.log('Sign in')}
                 />
               </TabPanel>
             </TabPanels>
@@ -84,4 +117,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Auth;
