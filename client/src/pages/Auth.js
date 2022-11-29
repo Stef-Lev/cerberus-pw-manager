@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from '../components/Form';
+import useAuth from '../hooks/useAuth';
 import LogoIcon from '../components/LogoIcon';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,28 @@ import {
 } from '@chakra-ui/react';
 
 function Auth() {
+  const { loginUser, registerUser, clearError } = useAuth();
+  const [user, setUser] = useState({
+    fullname: '',
+    username: '',
+    password: '',
+    passwordCheck: '',
+  });
+
+  const handleInputChange = (e, field) => {
+    clearError();
+    setUser({ ...user, [field]: e.target.value });
+  };
+  const handleLogin = async e => {
+    e.preventDefault();
+    await loginUser(user);
+  };
+
+  const handleRegister = async e => {
+    e.preventDefault();
+    await registerUser(user);
+  };
+
   const borderColor = useColorModeValue('gray.800', 'gray.700');
   const selectedStyle = {
     background: useColorModeValue('teal.300', 'teal.200'),
@@ -24,7 +47,6 @@ function Auth() {
     color: 'white',
   };
   const navigate = useNavigate();
-
   const { authPage } = useParams();
 
   const selectedTab = pageRoute => {
@@ -89,24 +111,40 @@ function Auth() {
                 <Form
                   title="Create your account"
                   inputs={[
-                    { placeholder: 'Full Name', type: 'text' },
-                    { placeholder: 'Username', type: 'text' },
-                    { placeholder: 'Password', type: 'password' },
-                    { placeholder: 'Confirm Password', type: 'password' },
+                    { placeholder: 'Full Name', id: 'fullname', type: 'text' },
+                    { placeholder: 'Username', id: 'username', type: 'text' },
+                    {
+                      placeholder: 'Password',
+                      id: 'password',
+                      type: 'password',
+                    },
+                    {
+                      placeholder: 'Confirm Password',
+                      id: 'passwordCheck',
+                      type: 'password',
+                    },
                   ]}
                   buttonText="Sign up"
-                  onButtonClick={() => console.log('Sign up')}
+                  state={user}
+                  onChange={handleInputChange}
+                  onButtonClick={handleRegister}
                 />
               </TabPanel>
               <TabPanel p="10px">
                 <Form
                   title="Login your account"
                   inputs={[
-                    { placeholder: 'Username', type: 'text' },
-                    { placeholder: 'Password', type: 'password' },
+                    { placeholder: 'Username', id: 'username', type: 'text' },
+                    {
+                      placeholder: 'Password',
+                      id: 'password',
+                      type: 'password',
+                    },
                   ]}
                   buttonText="Sign in"
-                  onButtonClick={() => console.log('Sign in')}
+                  state={user}
+                  onChange={handleInputChange}
+                  onButtonClick={handleLogin}
                 />
               </TabPanel>
             </TabPanels>

@@ -6,6 +6,9 @@ const ExpressError = require("./utils/ExpressError");
 const PORT = process.env.PORT || 8080;
 const mongoose = require("mongoose");
 const database = findDatabase(process.env.NODE_ENV);
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const jwtSecret = process.env.JWT_SECRET;
 
 mongoose.connect(database);
 
@@ -21,6 +24,7 @@ function findDatabase(env) {
 }
 
 const db = mongoose.connection;
+const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 db.on("error", () => console.error("Error"));
 db.once("open", () => {
   console.log("Database connected...");
@@ -29,6 +33,9 @@ db.once("open", () => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json(), urlEncodedParser);
+app.use(cookieParser(jwtSecret));
+
 app.use((err, req, res, next) => {
   switch (err.name) {
     case "CastError":
