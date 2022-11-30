@@ -2,21 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import { UserContextProvider } from './context/UserContext';
+import BottomNav from './components/BottomNav';
 import useFindUser from './hooks/useFindUser';
 import theme from './theme';
 import ProtectedRoute from './pages/ProtectedRoute';
+import GoHomeRoute from './pages/GoHomeRoute';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
 import RecordEdit from './pages/RecordEdit';
 import RecordShow from './pages/RecordShow';
 import Profile from './pages/Profile';
+import Error404 from './pages/Error404';
 
 function App() {
   const { user, setUser, isLoading } = useFindUser();
+  console.log(user);
 
   return (
     <ChakraProvider theme={theme}>
-      <Container maxW="3xl">
+      <Container maxW="3xl" height="100vh">
         <Router>
           <UserContextProvider value={{ user, setUser, isLoading }}>
             <Routes>
@@ -29,10 +33,18 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route exact path="/auth/:authPage" element={<Auth />} />
               <Route
                 exact
-                path="/:recordId"
+                path="/auth/:authPage"
+                element={
+                  <GoHomeRoute>
+                    <Auth />
+                  </GoHomeRoute>
+                }
+              />
+              <Route
+                exact
+                path="/record/:recordId"
                 element={
                   <ProtectedRoute>
                     <RecordShow />
@@ -41,7 +53,7 @@ function App() {
               />
               <Route
                 exact
-                path="/:recordId/edit"
+                path="/record/:recordId/edit"
                 element={
                   <ProtectedRoute>
                     <RecordEdit />
@@ -58,7 +70,9 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route exact path="*" element={<Error404 />} />
             </Routes>
+            <BottomNav />
           </UserContextProvider>
         </Router>
       </Container>
