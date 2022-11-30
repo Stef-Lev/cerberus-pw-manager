@@ -72,6 +72,7 @@ function App() {
               />
               <Route exact path="*" element={<Error404 />} />
             </Routes>
+            {/* {user ? <BottomNav /> : null} */}
             <BottomNav />
           </UserContextProvider>
         </Router>

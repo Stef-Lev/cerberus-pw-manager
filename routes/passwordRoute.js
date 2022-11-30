@@ -1,37 +1,52 @@
 const catchAsync = require("../utils/catchAsync");
-const Record = require("../models/record");
+const User = require("../models/user");
 const { encrypt, decrypt } = require("../encryptionHandler");
 
-exports.getPasswords = catchAsync(async (req, res) => {
-  const records = await Record.find({});
+exports.getAllRecords = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
   let recordsDecrypted = [];
-  records.forEach((item) => {
+  user.records.forEach((record) => {
     let obj = {};
-    obj.id = item._id;
-    obj.title = item.title;
-    obj.url = item.url;
-    obj.username = item.username;
-    obj.password = decrypt(item);
+    obj.id = record._id;
+    obj.title = record.title;
+    obj.url = record.url;
+    obj.username = record.username;
+    obj.password = decrypt(record);
     recordsDecrypted.push(obj);
   });
-  res.json(recordsDecrypted);
+  res.status(200).json(recordsDecrypted);
 });
 
-exports.addPassword = catchAsync(async (req, res) => {
-  const { password, title, username, url } = req.body;
+exports.getRecord = catchAsync(async (req, res) => {
+  const { userId, recordId } = req.params;
+  const user = await User.findById(userId);
+  const foundRecord = user.records.find((record) => record.id === recordId);
+  let recordDecrypted = { ...foundRecord, password: decrypt(foundRecord) };
+  // recordDecrypted.id = foundRecord
+  // recordDecrypted.title = foundRecord
+  // recordDecrypted.url = foundRecord
+  // recordDecrypted.username = foundRecord
+  // recordDecrypted.password = foundRecord
+  res.status(200).json(recordDecrypted);
+});
+
+exports.addRecord = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  const { password } = req.body;
   const hashedPw = encrypt(password);
-  const record = new Record({
-    username,
+
+  user.records.push({
+    ...req.body,
     password: hashedPw.password,
-    title,
-    url,
     iv: hashedPw.iv,
   });
-  await record.save();
-  res.json({ result: "success", message: "Record added" });
+  await user.save();
+  res.status(200).json({ result: "success", message: "Record added" });
 });
 
-exports.editPassword = catchAsync(async (req, res) => {
+exports.editRecord = catchAsync(async (req, res) => {
   const { password, title, username, url } = req.body;
   const hashedPw = encrypt(password);
   const record = await Record.findByIdAndUpdate(
@@ -42,7 +57,7 @@ exports.editPassword = catchAsync(async (req, res) => {
   res.json({ result: "success", message: "Record updated", record });
 });
 
-exports.deletePassword = catchAsync(async (req, res) => {
+exports.deleteRecord = catchAsync(async (req, res) => {
   await Record.findByIdAndDelete(req.params.id);
   res.json({ result: "success", message: "Record deleted" });
 });

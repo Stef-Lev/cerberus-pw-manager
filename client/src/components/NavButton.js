@@ -1,15 +1,22 @@
 import React from 'react';
-import { Box, Text, Center } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Text, Center, useColorModeValue } from '@chakra-ui/react';
 
-function NavButton({ navItem }) {
-  const navigate = useNavigate();
+function NavButton({ navItem, selectedItem, handleClick }) {
+  const selectedColor = useColorModeValue('teal.300', 'teal.200');
+
+  const highlightSelected = () => {
+    return navItem.link === selectedItem;
+  };
+
   return (
-    <Center onClick={() => navigate(navItem.link)}>
+    <Center
+      onClick={() => handleClick(navItem)}
+      color={highlightSelected() ? selectedColor : 'white'}
+    >
       <Box>
         <Center>{navItem.icon}</Center>
         <Center>
-          <Text>{navItem.title}</Text>
+          <Text fontSize="14px">{navItem.title}</Text>
         </Center>
       </Box>
     </Center>

@@ -2,10 +2,14 @@ const passwordRoute = require("./passwordRoute");
 const authRoute = require("./authRoute");
 
 module.exports = function (app) {
-  app.get("/api/passwords/get", passwordRoute.getPasswords);
-  app.post("/api/passwords/add", passwordRoute.addPassword);
-  app.put("/api/passwords/edit/:id", passwordRoute.editPassword);
-  app.delete("/api/passwords/delete/:id", passwordRoute.deletePassword);
+  app.get("/api/user/:userId/records/get", passwordRoute.getAllRecords);
+  app.get("/api/user/:userId/records/get/:recordId", passwordRoute.getRecord);
+  app.post("/api/user/:userId/records/add", passwordRoute.addRecord);
+  app.put("/api/user/:userId/records/edit/:recordId", passwordRoute.editRecord);
+  app.delete(
+    "/api/:recordIdrecords/delete/:recordId",
+    passwordRoute.deleteRecord
+  );
   app.post("/api/auth/register", authRoute.registerUser);
   app.post("/api/auth/login", authRoute.loginUser);
   app.get("/api/auth/logout", authRoute.logoutUser);

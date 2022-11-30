@@ -15,6 +15,15 @@ const UserSchema = new Schema({
       message: "Passwords don't match.",
     },
   },
+  records: [
+    {
+      title: String,
+      url: String,
+      username: String,
+      password: String,
+      iv: String,
+    },
+  ],
 });
 
 UserSchema.pre("save", async function (next) {
