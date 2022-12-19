@@ -1,4 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
+const { recordIcon } = require("../utils/logos");
 const User = require("../models/user");
 const { encrypt, decrypt } = require("../encryptionHandler");
 
@@ -12,6 +13,7 @@ exports.getAllRecords = catchAsync(async (req, res) => {
     obj.title = record.title;
     obj.url = record.url;
     obj.username = record.username;
+    obj.logo = record.logo;
     obj.password = decrypt(record);
     recordsDecrypted.push(obj);
   });
@@ -34,8 +36,9 @@ exports.getRecord = catchAsync(async (req, res) => {
 exports.addRecord = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const user = await User.findById(userId);
-  const { password } = req.body;
+  const { password, url } = req.body;
   const hashedPw = encrypt(password);
+  let createdIcon = recordIcon(url);
 
   user.records.push({
     ...req.body,

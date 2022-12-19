@@ -21,6 +21,7 @@ const UserSchema = new Schema({
       url: String,
       username: String,
       password: String,
+      logo: String,
       iv: String,
     },
   ],

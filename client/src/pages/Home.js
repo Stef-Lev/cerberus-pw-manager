@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getAllMethod } from '../helpers/services';
 import { UserContext } from '../context/UserContext';
 import { Box, Text } from '@chakra-ui/react';
+import WebsiteIcon from '../components/WebsiteIcon';
 
 function Home() {
   const [records, setRecords] = useState([]);
@@ -33,6 +34,7 @@ function Home() {
             <Text>{item.username}</Text>
           </Box>
         ))}
+      <WebsiteIcon url="www.stefanos.com" />
     </div>
   );
 }
