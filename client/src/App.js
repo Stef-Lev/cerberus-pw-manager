@@ -20,7 +20,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container maxW="3xl" height="100vh">
+      <Container maxW="3xl" height="100vh" mb="90px">
         <Router>
           <UserContextProvider value={{ user, setUser, isLoading }}>
             <Routes>

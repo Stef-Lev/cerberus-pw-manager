@@ -24,7 +24,7 @@ function Home() {
   }, [user._id]);
 
   return (
-    <div>
+    <Box marginBottom="50px">
       <p>Home</p>
       {records.length > 0 &&
         records.map(item => (
@@ -32,10 +32,10 @@ function Home() {
             <Text>{item.title}</Text>
             <Text>{item.url}</Text>
             <Text>{item.username}</Text>
+            <WebsiteIcon logo={item.logo} />
           </Box>
         ))}
-      <WebsiteIcon url="www.stefanos.com" />
-    </div>
+    </Box>
   );
 }
 

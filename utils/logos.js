@@ -1,4 +1,4 @@
-exports.logos = [
+const logos = [
   "adobe",
   "ebay",
   "facebook",
@@ -14,12 +14,12 @@ exports.logos = [
   "zoom",
 ];
 
-exports.existingIcon = (url) => {
+const existingLogo = (url) => {
   const splitUrl = url.split(".")[1];
   return logos.find((logo) => splitUrl.includes(logo));
 };
 
-exports.randomRGB = () => {
+const randomRGB = () => {
   let R = Math.floor(Math.random() * 160);
   let G = Math.floor(Math.random() * 160);
   let B = Math.floor(Math.random() * 160);
@@ -27,11 +27,11 @@ exports.randomRGB = () => {
   return `rgb(${R},${G},${B})`;
 };
 
-exports.recordIcon = (url) => {
+exports.recordLogo = (url) => {
   const splitUrl = url.split(".")[1];
-  if (existingIcon(url)) {
+  if (existingLogo(url)) {
     return `image:${splitUrl}`;
   } else {
-    return `icon:${randomRGB()}:${splitUrl[0]}`;
+    return `icon:${randomRGB()}:${splitUrl[0].toUpperCase()}`;
   }
 };

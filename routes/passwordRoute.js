@@ -1,5 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
-const { recordIcon } = require("../utils/logos");
+const { recordLogo } = require("../utils/logos");
 const User = require("../models/user");
 const { encrypt, decrypt } = require("../encryptionHandler");
 
@@ -38,12 +38,13 @@ exports.addRecord = catchAsync(async (req, res) => {
   const user = await User.findById(userId);
   const { password, url } = req.body;
   const hashedPw = encrypt(password);
-  let createdIcon = recordIcon(url);
+  let createdLogo = recordLogo(url);
 
   user.records.push({
     ...req.body,
     password: hashedPw.password,
     iv: hashedPw.iv,
+    logo: createdLogo,
   });
   await user.save();
   res.status(200).json({ result: "success", message: "Record added" });
