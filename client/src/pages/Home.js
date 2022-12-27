@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { getAllMethod } from '../helpers/services';
 import { UserContext } from '../context/UserContext';
-import { Box, Text } from '@chakra-ui/react';
-import WebsiteIcon from '../components/WebsiteIcon';
+import { Flex } from '@chakra-ui/react';
+import RecordItem from '../components/RecordItem';
 
 function Home() {
   const [records, setRecords] = useState([]);
@@ -24,18 +24,10 @@ function Home() {
   }, [user._id]);
 
   return (
-    <Box marginBottom="50px">
-      <p>Home</p>
+    <Flex pb="90px" direction="column" gap="10px">
       {records.length > 0 &&
-        records.map(item => (
-          <Box key={item.title.toLowerCase()} border="1px solid white" p="10px">
-            <Text>{item.title}</Text>
-            <Text>{item.url}</Text>
-            <Text>{item.username}</Text>
-            <WebsiteIcon logo={item.logo} />
-          </Box>
-        ))}
-    </Box>
+        records.map(item => <RecordItem key={item.id} record={item} />)}
+    </Flex>
   );
 }
 
