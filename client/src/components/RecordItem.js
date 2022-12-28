@@ -13,9 +13,14 @@ function RecordItem({ record }) {
     navigator.clipboard.writeText(record.password);
   };
   return (
-    <Box p="10px" onClick={() => navigate(`/record/${record.id}`)}>
+    <Box p="10px">
       <Flex justify="space-between" align="center">
-        <Flex gap="16px" align="center">
+        <Flex
+          gap="16px"
+          align="center"
+          width="90%"
+          onClick={() => navigate(`/record/${record.id}`)}
+        >
           <Box>
             <WebsiteIcon logo={record.logo} />
           </Box>

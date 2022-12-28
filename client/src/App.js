@@ -11,6 +11,7 @@ import Auth from './pages/Auth';
 import Home from './pages/Home';
 import RecordEdit from './pages/RecordEdit';
 import RecordShow from './pages/RecordShow';
+import RecordNew from './pages/RecordNew';
 import Profile from './pages/Profile';
 import Error404 from './pages/Error404';
 
@@ -44,6 +45,15 @@ function App() {
               />
               <Route
                 exact
+                path="/record/new"
+                element={
+                  <ProtectedRoute>
+                    <RecordNew />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                exact
                 path="/record/:recordId"
                 element={
                   <ProtectedRoute>
@@ -60,7 +70,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-
               <Route
                 exact
                 path="/profile"
