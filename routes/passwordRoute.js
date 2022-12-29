@@ -24,13 +24,9 @@ exports.getRecord = catchAsync(async (req, res) => {
   const { userId, recordId } = req.params;
   const user = await User.findById(userId);
   const foundRecord = user.records.find((record) => record.id === recordId);
-  let recordDecrypted = { ...foundRecord, password: decrypt(foundRecord) };
-  // recordDecrypted.id = foundRecord
-  // recordDecrypted.title = foundRecord
-  // recordDecrypted.url = foundRecord
-  // recordDecrypted.username = foundRecord
-  // recordDecrypted.password = foundRecord
-  res.status(200).json(recordDecrypted);
+  foundRecord.password = decrypt(foundRecord);
+  foundRecord.iv = undefined;
+  res.status(200).json(foundRecord);
 });
 
 exports.addRecord = catchAsync(async (req, res) => {

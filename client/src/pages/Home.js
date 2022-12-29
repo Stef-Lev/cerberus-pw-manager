@@ -26,7 +26,7 @@ function Home() {
 
   return (
     <Box>
-      <TopNav title="Passwords" />
+      <TopNav title="Passwords" type="basic" />
       <Flex pt="60px" pb="90px" direction="column" gap="10px">
         {records.length > 0 &&
           records.map(item => <RecordItem key={item.id} record={item} />)}

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import { UserContextProvider } from './context/UserContext';
+import ScrollToTop from './helpers/ScrollToTop';
 import BottomNav from './components/BottomNav';
 import useFindUser from './hooks/useFindUser';
 import theme from './theme';
@@ -23,6 +24,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Container maxW="3xl" height="100vh" mb="90px">
         <Router>
+          <ScrollToTop />
           <UserContextProvider value={{ user, setUser, isLoading }}>
             <Routes>
               <Route
