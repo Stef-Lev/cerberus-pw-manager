@@ -10,7 +10,7 @@ function WebsiteIcon({ logo }) {
     if (logoData.length > 2) {
       return (
         <Box background={logoBgColor} w="50px" h="50px" borderRadius="50%">
-          <Center fontSize="32px" fontWeight="700" color={logoTextColor}>
+          <Center fontSize="34px" fontWeight="700" color={logoTextColor}>
             {logoData[2]}
           </Center>
         </Box>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import copyToClipboard from '../helpers/copyToClipboard';
 import { Box, Heading, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import WebsiteIcon from '../components/WebsiteIcon';
 import { FiCopy } from 'react-icons/fi';
@@ -9,9 +10,6 @@ function RecordItem({ record }) {
   const usernameColor = useColorModeValue('#404040', '#dedede');
   const navigate = useNavigate();
 
-  const copyPassword = record => {
-    navigator.clipboard.writeText(record.password);
-  };
   return (
     <Box p="10px">
       <Flex justify="space-between" align="center">
@@ -31,7 +29,7 @@ function RecordItem({ record }) {
             <Text color={usernameColor}>{record.username}</Text>
           </Box>
         </Flex>
-        <Box onClick={() => copyPassword(record)}>
+        <Box onClick={() => copyToClipboard(record.password)}>
           <FiCopy size="26px" />
         </Box>
       </Flex>
