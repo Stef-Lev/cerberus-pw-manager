@@ -51,7 +51,7 @@ function BottomNav() {
       color="dark.color"
     >
       <Container maxW="xl" padding={0}>
-        <Flex justifyContent="space-around" padding="12px 0px">
+        <Flex justifyContent="space-around" padding="8px 0px">
           {icons.map(item => (
             <NavButton
               key={item.id}

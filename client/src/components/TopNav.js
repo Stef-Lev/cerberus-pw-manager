@@ -25,7 +25,7 @@ function TopNav({ title, type }) {
       color={textColor}
       background={background}
     >
-      <Container maxW="3xl" px="26px" py="10px" height="100%">
+      <Container maxW="3xl" px="16px" py="10px" height="100%">
         {type === 'basic' && (
           <Flex justify="space-between" align="center" height="100%">
             <Box
