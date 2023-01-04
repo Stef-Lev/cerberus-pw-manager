@@ -12,6 +12,7 @@ import {
   Grid,
   GridItem,
   Button,
+  Link,
 } from '@chakra-ui/react';
 import Loader from '../components/Loader';
 import TopNav from '../components/TopNav';
@@ -65,18 +66,28 @@ function RecordShow() {
                 <Text>{record.username}</Text>
               </Box>
             </Flex>
-            <Box py="32px">
+            <Box py="26px">
               <Heading as="h4" fontSize="20px" pb="10px">
                 Details
               </Heading>
               <Divider />
               <Grid gridTemplateColumns="3fr 6fr" gap="10px" py="20px">
-                <GridItem w="100%" h="10">
-                  Url
-                </GridItem>
-                <GridItem w="100%" h="10">
-                  {record.url}
-                </GridItem>
+                {record.url && (
+                  <>
+                    <GridItem w="100%" h="10">
+                      Url
+                    </GridItem>
+                    <GridItem w="100%" h="10">
+                      <Link
+                        color="teal.200"
+                        href={`https://${record.url}`}
+                        isExternal
+                      >
+                        {record.url}
+                      </Link>
+                    </GridItem>
+                  </>
+                )}
                 <GridItem w="100%" h="10">
                   Username
                 </GridItem>

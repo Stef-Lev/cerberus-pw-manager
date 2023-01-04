@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RecordNew() {
+function RecordNew({ data = {} }) {
   return <div>RecordNew</div>;
 }
 

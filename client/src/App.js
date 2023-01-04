@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import { UserContextProvider } from './context/UserContext';
+import { ToastContainer } from 'react-toastify';
+import './globalStyle.css';
+import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from './helpers/ScrollToTop';
 import BottomNav from './components/BottomNav';
 import useFindUser from './hooks/useFindUser';
@@ -88,6 +91,7 @@ function App() {
           </UserContextProvider>
         </Router>
       </Container>
+      <ToastContainer />
     </ChakraProvider>
   );
 }
