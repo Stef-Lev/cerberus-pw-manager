@@ -62,7 +62,15 @@ function TopNav({ title, type }) {
           </Flex>
         )}
         {type === 'backAndTitle' && (
-          <Flex justify="space-between" align="center" height="100%"></Flex>
+          <Flex justify="space-between" align="center" height="100%">
+            <Box _hover={{ cursor: 'pointer' }} onClick={() => navigate(-1)}>
+              <FaArrowLeft size="20px" />
+            </Box>
+            <Heading as="h2" fontSize="20px">
+              {title}
+            </Heading>
+            <Box />
+          </Flex>
         )}
         {type === 'search' && (
           <Flex justify="space-between" align="center" height="100%"></Flex>
