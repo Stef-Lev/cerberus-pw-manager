@@ -4,6 +4,8 @@ import {
   Grid,
   GridItem,
   Input,
+  InputGroup,
+  InputRightElement,
   Flex,
   Checkbox,
   Slider,
@@ -11,15 +13,27 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Heading,
+  Button,
 } from '@chakra-ui/react';
+import { FiRefreshCw } from 'react-icons/fi';
 
 function PasswordEditor() {
   return (
     <Box py="10px">
-      <Heading as="h4" textAlign="center">
+      <Heading as="h4" textAlign="center" my="10px" fontSize="22px">
         Password
       </Heading>
-      <Input w="100%" my="10px" />
+      <InputGroup>
+        <Input
+          w="100%"
+          borderBottom="5px solid red"
+          _focusVisible={{ borderBottom: '5px solid red', outline: 'none' }}
+        />
+        <InputRightElement>
+          <FiRefreshCw onClick={() => console.log('clicked')} />
+        </InputRightElement>
+      </InputGroup>
+
       <Box>
         <Grid gridTemplateColumns="1fr 1fr" gap="16px" py="20px">
           <GridItem w="100%" h="10">
@@ -71,6 +85,9 @@ function PasswordEditor() {
             </Flex>
           </GridItem>
         </Grid>
+        <Flex justify="center" gap="20px" mt="30px">
+          <Button w="100%">Save Record</Button>
+        </Flex>
       </Box>
     </Box>
   );
