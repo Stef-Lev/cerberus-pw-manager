@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const jwtSecret = process.env.JWT_SECRET;
 
+mongoose.set("strictQuery", false);
+
 mongoose.connect(database);
 
 function findDatabase(env) {
