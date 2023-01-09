@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, GridItem, Input, Flex, Divider } from '@chakra-ui/react';
 import PasswordEditor from '../components/PasswordEditor';
 import TopNav from '../components/TopNav';
 
 function RecordNew({ type = 'new', record = {} }) {
+  const [password, setPassword] = useState('');
   const title = type === 'new' ? 'New Record' : 'Edit Record';
   return (
     <Box py="60px">
@@ -29,7 +30,7 @@ function RecordNew({ type = 'new', record = {} }) {
         </Grid>
       </Box>
       <Divider />
-      <PasswordEditor />
+      <PasswordEditor password={password} setPassword={setPassword} />
     </Box>
   );
 }
