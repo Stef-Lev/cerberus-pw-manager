@@ -1,26 +1,20 @@
-const generatePassword = (
-  length,
-  withNumbers,
-  withSymbols,
-  lowerCase = true,
-  upperCase
-) => {
+const generatePassword = ({ length, numbers, symbols, lower, upper }) => {
   let charset = '';
   let numbersCharset = '';
   let symbolsCharset = '';
   let lowerCharset = '';
   let upperCharset = '';
 
-  if (withNumbers) {
+  if (numbers) {
     numbersCharset = '0123456789';
   }
-  if (withSymbols) {
+  if (symbols) {
     symbolsCharset = '!@#$%^&*_';
   }
-  if (lowerCase) {
+  if (lower) {
     lowerCharset = 'abcdefghijklmnopqrstuvwxyz';
   }
-  if (upperCase) {
+  if (upper) {
     upperCharset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   }
   charset = numbersCharset + symbolsCharset + lowerCharset + upperCharset;

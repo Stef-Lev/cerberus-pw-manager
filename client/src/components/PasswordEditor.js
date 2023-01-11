@@ -13,21 +13,48 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Heading,
-  Button,
 } from '@chakra-ui/react';
 import { FiRefreshCw } from 'react-icons/fi';
 import passwordChecker from '../helpers/passwordChecker';
+import generatePassword from '../helpers/generatePassword';
 
 function PasswordEditor({ password, setPassword }) {
   const [check, setCheck] = useState({});
+  const [autoGenerateOptions, setAutoGenerateOptions] = useState({
+    length: 10,
+    numbers: false,
+    symbols: false,
+    lower: true,
+    upper: false,
+  });
 
-  const handleChange = e => {
+  const handleInputChange = e => {
     if (password) {
       setCheck(passwordChecker(e.target.value));
     } else {
       setCheck({});
     }
     setPassword(e.target.value);
+  };
+
+  const handleCheckbox = e => {
+    setAutoGenerateOptions(prevState => ({
+      ...prevState,
+      [e.currentTarget.id]: e.currentTarget.checked,
+    }));
+  };
+
+  const handleSlider = val => {
+    setAutoGenerateOptions(prevState => ({
+      ...prevState,
+      length: val,
+    }));
+  };
+
+  const passWordGeneration = () => {
+    let pw = generatePassword(autoGenerateOptions);
+    setCheck(passwordChecker(pw));
+    setPassword(pw);
   };
 
   useEffect(() => {
@@ -48,10 +75,9 @@ function PasswordEditor({ password, setPassword }) {
         Password
       </Heading>
       <InputGroup>
-        <Input w="100%" value={password} onChange={handleChange} />
-
+        <Input w="100%" value={password} onChange={handleInputChange} />
         <InputRightElement>
-          <FiRefreshCw onClick={() => console.log('clicked')} />
+          <FiRefreshCw onClick={passWordGeneration} />
         </InputRightElement>
       </InputGroup>
       <Box my="10px" h="8px" w="100%" bg="gray.800" borderRadius="0.375rem">
@@ -64,16 +90,22 @@ function PasswordEditor({ password, setPassword }) {
       </Box>
 
       <Box>
-        <Grid gridTemplateColumns="1fr 1fr" gap="16px" py="20px">
+        <Grid gridTemplateColumns="1fr 1fr" gap="16px" py="16px">
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%" justifyContent="space-between">
               <Box>Length</Box>
-              <Box>12</Box>
+              <Box>{autoGenerateOptions.length}</Box>
             </Flex>
           </GridItem>
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%" justifyContent="space-between">
-              <Slider aria-label="slider-ex-1" defaultValue={30}>
+              <Slider
+                aria-label="slider-ex-1"
+                value={autoGenerateOptions.length}
+                min={0}
+                max={32}
+                onChange={handleSlider}
+              >
                 <SliderTrack>
                   <SliderFilledTrack bg="teal.200" />
                 </SliderTrack>
@@ -85,7 +117,12 @@ function PasswordEditor({ password, setPassword }) {
             <Flex align="center" h="100%" justifyContent="space-between">
               <Box>Numbers</Box>
               <Box>
-                <Checkbox colorScheme="teal" defaultChecked />
+                <Checkbox
+                  id="numbers"
+                  isChecked={autoGenerateOptions.numbers}
+                  colorScheme="teal"
+                  onChange={handleCheckbox}
+                />
               </Box>
             </Flex>
           </GridItem>
@@ -93,7 +130,12 @@ function PasswordEditor({ password, setPassword }) {
             <Flex align="center" h="100%" justifyContent="space-between">
               <Box>Symbols</Box>
               <Box>
-                <Checkbox colorScheme="teal" defaultChecked />
+                <Checkbox
+                  id="symbols"
+                  isChecked={autoGenerateOptions.symbols}
+                  colorScheme="teal"
+                  onChange={handleCheckbox}
+                />
               </Box>
             </Flex>
           </GridItem>
@@ -101,7 +143,12 @@ function PasswordEditor({ password, setPassword }) {
             <Flex align="center" h="100%" justifyContent="space-between">
               <Box>Lowercase</Box>
               <Box>
-                <Checkbox colorScheme="teal" defaultChecked />
+                <Checkbox
+                  id="lower"
+                  isChecked={autoGenerateOptions.lower}
+                  colorScheme="teal"
+                  onChange={handleCheckbox}
+                />
               </Box>
             </Flex>
           </GridItem>
@@ -109,14 +156,16 @@ function PasswordEditor({ password, setPassword }) {
             <Flex align="center" h="100%" justifyContent="space-between">
               <Box>Uppercase</Box>
               <Box>
-                <Checkbox colorScheme="teal" defaultChecked />
+                <Checkbox
+                  id="upper"
+                  isChecked={autoGenerateOptions.upper}
+                  colorScheme="teal"
+                  onChange={handleCheckbox}
+                />
               </Box>
             </Flex>
           </GridItem>
         </Grid>
-        <Flex justify="center" gap="20px" mt="30px">
-          <Button w="100%">Save Record</Button>
-        </Flex>
       </Box>
     </Box>
   );

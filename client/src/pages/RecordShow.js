@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useFindUser from '../hooks/useFindUser';
 import copyToClipboard from '../helpers/copyToClipboard';
 import { getOneMethod } from '../helpers/services';
@@ -24,6 +24,7 @@ function RecordShow() {
   const { user } = useFindUser();
 
   const { recordId } = useParams();
+  const navigate = useNavigate();
 
   // console.log(record);
 
@@ -108,7 +109,12 @@ function RecordShow() {
                 >
                   Copy Password
                 </Button>
-                <Button w="100%">Edit record</Button>
+                <Button
+                  w="100%"
+                  onClick={() => navigate(`/record/${recordId}/edit`)}
+                >
+                  Edit record
+                </Button>
               </Flex>
             </Box>
           </Box>

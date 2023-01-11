@@ -13,7 +13,6 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import GoHomeRoute from './pages/GoHomeRoute';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
-import RecordEdit from './pages/RecordEdit';
 import RecordShow from './pages/RecordShow';
 import RecordNew from './pages/RecordNew';
 import Profile from './pages/Profile';
@@ -53,7 +52,7 @@ function App() {
                 path="/record/new"
                 element={
                   <ProtectedRoute>
-                    <RecordNew />
+                    <RecordNew type="new" />
                   </ProtectedRoute>
                 }
               />
@@ -71,7 +70,7 @@ function App() {
                 path="/record/:recordId/edit"
                 element={
                   <ProtectedRoute>
-                    <RecordEdit />
+                    <RecordNew type="edit" />
                   </ProtectedRoute>
                 }
               />
