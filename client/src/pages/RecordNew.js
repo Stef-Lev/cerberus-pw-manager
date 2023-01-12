@@ -9,7 +9,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import PasswordEditor from '../components/PasswordEditor';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { postMethod, updateMethod, getOneMethod } from '../helpers/services';
 import TopNav from '../components/TopNav';
@@ -26,6 +26,7 @@ function RecordNew({ type = 'new' }) {
   const title = type === 'new' ? 'New Record' : 'Edit Record';
   const { user } = useContext(UserContext);
   const { recordId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let mounted = true;
@@ -51,7 +52,6 @@ function RecordNew({ type = 'new' }) {
   }, [user, recordId]);
 
   const handleInputChange = e => {
-    console.log(e.target.id);
     setRecordObj(prevState => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -60,9 +60,15 @@ function RecordNew({ type = 'new' }) {
 
   const handleSubmit = () => {
     if (type === 'new') {
-      postMethod(`/api/user/${user._id}/records/add`, recordObj);
+      postMethod(`/api/user/${user._id}/records/add`, {
+        ...recordObj,
+        password,
+      }).then(() => navigate('/'));
     } else {
-      updateMethod(`/api/user/${user._id}/records/:recordId`, recordObj);
+      updateMethod(`/api/user/${user._id}/records/edit/${recordId}`, {
+        ...recordObj,
+        password,
+      }).then(() => navigate('/'));
     }
   };
 

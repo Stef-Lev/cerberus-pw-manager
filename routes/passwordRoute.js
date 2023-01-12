@@ -48,16 +48,44 @@ exports.addRecord = catchAsync(async (req, res) => {
 
 exports.editRecord = catchAsync(async (req, res) => {
   const { password, title, username, url } = req.body;
+  const { userId, recordId } = req.params;
   const hashedPw = encrypt(password);
-  const record = await Record.findByIdAndUpdate(
-    req.params.id,
-    { username, password: hashedPw.password, title, url, iv: hashedPw.iv },
-    { new: true, useFindAndModify: false }
+  const user = await User.findById(userId);
+
+  let foundRecord = await user.records.find((rec) => rec.id == recordId);
+  let createdLogo = recordLogo(url);
+
+  foundRecord = {
+    ...foundRecord,
+    title,
+    username,
+    url,
+    password: hashedPw.password,
+    iv: hashedPw.iv,
+    logo: createdLogo,
+  };
+  const filteredRecords = await user.records.filter(
+    (rec) => rec.id != recordId
   );
-  res.json({ result: "success", message: "Record updated", record });
+  const updatedRecords = [...filteredRecords, foundRecord];
+  user.records = updatedRecords;
+  await user.save();
+  res.status(200).json({
+    result: "success",
+    record: foundRecord,
+    message: `Record ${recordId} is updated`,
+  });
 });
 
 exports.deleteRecord = catchAsync(async (req, res) => {
-  await Record.findByIdAndDelete(req.params.id);
-  res.json({ result: "success", message: "Record deleted" });
+  const { userId, recordId } = req.params;
+  const user = await User.findById(userId);
+
+  const filteredRecords = await user.records.filter(
+    (rec) => rec.id != recordId
+  );
+  user.records = filteredRecords;
+  await user.save();
+
+  res.json({ result: "success", message: `Record ${recordId} was deleted` });
 });

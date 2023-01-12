@@ -1,5 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteMethod } from '../helpers/services';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+
 import {
   Box,
   Container,
@@ -11,9 +15,18 @@ import {
 import { FaUser, FaPlus, FaArrowLeft, FaTrashAlt } from 'react-icons/fa';
 
 function TopNav({ title, type }) {
+  const { user } = useContext(UserContext);
+  const { recordId } = useParams();
   const textColor = useColorModeValue('#171923', '#fafafa');
   const background = useColorModeValue('#fafafa', '#171923');
   const navigate = useNavigate();
+
+  const deleteRecord = () => {
+    deleteMethod(`/api/user/${user._id}/records/delete/${recordId}`).then(() =>
+      navigate('/')
+    );
+  };
+
   return (
     <Box
       backgroundColor="teal"
@@ -56,7 +69,7 @@ function TopNav({ title, type }) {
               <FaArrowLeft size="20px" />
               <Text>back</Text>
             </Flex>
-            <Box color="red.400">
+            <Box color="red.400" onClick={deleteRecord}>
               <FaTrashAlt size="20px" />
             </Box>
           </Flex>
