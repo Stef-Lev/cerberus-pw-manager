@@ -88,6 +88,7 @@ function RecordNew({ type = 'new' }) {
               value={recordObj.title}
               placeholder="Record title"
               onChange={handleInputChange}
+              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
             />
           </GridItem>
           <GridItem w="100%" h="10">
@@ -101,6 +102,7 @@ function RecordNew({ type = 'new' }) {
               value={recordObj.url}
               placeholder="Website url (optional)"
               onChange={handleInputChange}
+              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
             />
           </GridItem>
           <GridItem w="100%" h="10">
@@ -114,6 +116,7 @@ function RecordNew({ type = 'new' }) {
               value={recordObj.username}
               placeholder="Username or email"
               onChange={handleInputChange}
+              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
             />
           </GridItem>
         </Grid>

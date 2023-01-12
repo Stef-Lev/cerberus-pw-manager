@@ -11,8 +11,17 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
-import { FaUser, FaPlus, FaArrowLeft, FaTrashAlt } from 'react-icons/fa';
+import {
+  FaUser,
+  FaPlus,
+  FaArrowLeft,
+  FaTrashAlt,
+  FaSearch,
+} from 'react-icons/fa';
 
 function TopNav({ title, type }) {
   const { user } = useContext(UserContext);
@@ -34,9 +43,10 @@ function TopNav({ title, type }) {
       top={0}
       left={0}
       width="100%"
-      height="50px"
+      height="60px"
       color={textColor}
       background={background}
+      zIndex={100}
     >
       <Container maxW="3xl" px="16px" py="10px" height="100%">
         {type === 'basic' && (
@@ -86,7 +96,20 @@ function TopNav({ title, type }) {
           </Flex>
         )}
         {type === 'search' && (
-          <Flex justify="space-between" align="center" height="100%"></Flex>
+          <Flex justify="space-between" align="center" height="100%">
+            <InputGroup>
+              <Input
+                w="100%"
+                value=""
+                onChange={() => console.log('input')}
+                placeholder="Search for record"
+                _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
+              />
+              <InputRightElement>
+                <FaSearch onClick={() => console.log('search')} />
+              </InputRightElement>
+            </InputGroup>
+          </Flex>
         )}
       </Container>
     </Box>

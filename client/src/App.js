@@ -16,6 +16,8 @@ import Home from './pages/Home';
 import RecordShow from './pages/RecordShow';
 import RecordNew from './pages/RecordNew';
 import Profile from './pages/Profile';
+import Search from './pages/Search';
+import Analysis from './pages/Analysis';
 import Error404 from './pages/Error404';
 
 function App() {
@@ -80,6 +82,24 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                exact
+                path="/search"
+                element={
+                  <ProtectedRoute>
+                    <Search />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                exact
+                path="/analysis"
+                element={
+                  <ProtectedRoute>
+                    <Analysis />
                   </ProtectedRoute>
                 }
               />

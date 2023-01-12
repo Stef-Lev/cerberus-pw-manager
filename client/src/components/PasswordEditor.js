@@ -75,7 +75,12 @@ function PasswordEditor({ password, setPassword }) {
         Password
       </Heading>
       <InputGroup>
-        <Input w="100%" value={password} onChange={handleInputChange} />
+        <Input
+          w="100%"
+          value={password}
+          onChange={handleInputChange}
+          _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
+        />
         <InputRightElement>
           <FiRefreshCw onClick={passWordGeneration} />
         </InputRightElement>
