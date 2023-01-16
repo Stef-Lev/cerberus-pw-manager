@@ -4,6 +4,7 @@ import TopNav from '../components/TopNav';
 import { getAllMethod } from '../helpers/services';
 import { UserContext } from '../context/UserContext';
 import AnalysisItem from '../components/AnalysisItem';
+import RecordsSecurity from '../components/RecordsSecurity';
 import Loader from '../components/Loader';
 
 function Analysis() {
@@ -27,14 +28,19 @@ function Analysis() {
   }, [user._id]);
 
   return (
-    <Box py="60px">
+    <Box>
       <TopNav title="Security" type="basic" />
-      <Flex pt="60px" pb="90px" direction="column" gap="10px">
-        <Loader visible={loading} />
-        {!loading &&
-          records.length > 0 &&
-          records.map(item => <AnalysisItem key={item.id} record={item} />)}
-      </Flex>
+      <Loader visible={loading} />
+      {!loading && records.length > 0 && (
+        <Box pt="60px">
+          <RecordsSecurity records={records} />
+          <Flex pb="90px" direction="column" gap="10px">
+            {records.map(item => (
+              <AnalysisItem key={item.id} record={item} />
+            ))}
+          </Flex>
+        </Box>
+      )}
     </Box>
   );
 }
