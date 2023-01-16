@@ -18,13 +18,13 @@ function passwordChecker(password) {
   }
 
   if (strength < 2) {
-    return { percent: '20%', color: '#d63a47' };
+    return { percent: '20%', color: '#d63a47', text: 'Weak' };
   } else if (strength === 2) {
-    return { percent: '50%', color: '#edc679' };
+    return { percent: '50%', color: '#edc679', text: 'Medium' };
   } else if (strength === 3) {
-    return { percent: '85%', color: '#35f57f' };
+    return { percent: '85%', color: '#10c455', text: 'Strong' };
   } else {
-    return { percent: '100%', color: '#10c455' };
+    return { percent: '100%', color: '#35f57f', text: 'Very strong' };
   }
 }
 
