@@ -19,6 +19,7 @@ import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Analysis from './pages/Analysis';
 import Error404 from './pages/Error404';
+import Settings from './pages/Settings';
 
 function App() {
   const { user, setUser, isLoading } = useFindUser();
@@ -100,6 +101,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Analysis />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                exact
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
                   </ProtectedRoute>
                 }
               />
