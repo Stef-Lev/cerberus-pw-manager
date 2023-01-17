@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
+import ScrollTopButton from '../components/ScrollTopButton';
 import TopNav from '../components/TopNav';
 import { getAllMethod } from '../helpers/services';
 import { UserContext } from '../context/UserContext';
@@ -41,6 +42,7 @@ function Analysis() {
           </Flex>
         </Box>
       )}
+      <ScrollTopButton />
     </Box>
   );
 }

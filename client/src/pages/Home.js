@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import ScrollTopButton from '../components/ScrollTopButton';
 import { getAllMethod } from '../helpers/services';
 import { UserContext } from '../context/UserContext';
 import { Flex, Box } from '@chakra-ui/react';
@@ -35,6 +36,7 @@ function Home() {
           records.length > 0 &&
           records.map(item => <RecordItem key={item.id} record={item} />)}
       </Flex>
+      <ScrollTopButton />
     </Box>
   );
 }

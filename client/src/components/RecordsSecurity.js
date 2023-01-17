@@ -31,7 +31,7 @@ function RecordsSecurity({ records }) {
         </CircularProgress>
       </Center>
       <Center mb="20px">
-        <Text>Security Level {securityLevel}%</Text>
+        <Text>Security Level</Text>
       </Center>
 
       <Flex justifyContent="space-between">

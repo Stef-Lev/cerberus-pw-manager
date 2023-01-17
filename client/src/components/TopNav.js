@@ -14,6 +14,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  InputLeftElement,
 } from '@chakra-ui/react';
 import {
   FaUser,
@@ -22,8 +23,9 @@ import {
   FaTrashAlt,
   FaSearch,
 } from 'react-icons/fa';
+import { FiX } from 'react-icons/fi';
 
-function TopNav({ title, type }) {
+function TopNav({ title, type, onSearch, searchQuery, onClear }) {
   const { user } = useContext(UserContext);
   const { recordId } = useParams();
   const textColor = useColorModeValue('#171923', '#fafafa');
@@ -100,13 +102,16 @@ function TopNav({ title, type }) {
             <InputGroup>
               <Input
                 w="100%"
-                value=""
-                onChange={() => console.log('input')}
+                value={searchQuery}
+                onChange={onSearch}
                 placeholder="Search for record"
                 _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
               />
+              <InputLeftElement>
+                <FaSearch />
+              </InputLeftElement>
               <InputRightElement>
-                <FaSearch onClick={() => console.log('search')} />
+                <FiX onClick={onClear} />
               </InputRightElement>
             </InputGroup>
           </Flex>
