@@ -13,6 +13,7 @@ import {
   GridItem,
   Button,
   Link,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import Loader from '../components/Loader';
 import TopNav from '../components/TopNav';
@@ -25,6 +26,8 @@ function RecordShow() {
 
   const { recordId } = useParams();
   const navigate = useNavigate();
+
+  const buttonBg = useColorModeValue('#dbdbdb', '#2a2c38');
 
   // console.log(record);
 
@@ -105,12 +108,16 @@ function RecordShow() {
               <Flex justify="center" gap="20px">
                 <Button
                   w="100%"
+                  background={buttonBg}
+                  _focus={{ background: buttonBg }}
                   onClick={() => copyToClipboard(record.password)}
                 >
                   Copy Password
                 </Button>
                 <Button
                   w="100%"
+                  background={buttonBg}
+                  _focus={{ background: buttonBg }}
                   onClick={() => navigate(`/record/${recordId}/edit`)}
                 >
                   Edit record

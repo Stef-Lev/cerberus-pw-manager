@@ -8,6 +8,7 @@ import { FiCopy } from 'react-icons/fi';
 function RecordItem({ record }) {
   const titleColor = useColorModeValue('#121212', '#f5f5f5');
   const usernameColor = useColorModeValue('#404040', '#dedede');
+  const copyIconColor = useColorModeValue('#a19f9f', '#dedede');
   const navigate = useNavigate();
 
   return (
@@ -29,7 +30,10 @@ function RecordItem({ record }) {
             <Text color={usernameColor}>{record.username}</Text>
           </Box>
         </Flex>
-        <Box onClick={() => copyToClipboard(record.password)}>
+        <Box
+          onClick={() => copyToClipboard(record.password)}
+          color={copyIconColor}
+        >
           <FiCopy size="26px" />
         </Box>
       </Flex>

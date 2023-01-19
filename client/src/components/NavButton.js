@@ -3,6 +3,7 @@ import { Box, Text, Center, useColorModeValue } from '@chakra-ui/react';
 
 function NavButton({ navItem, selectedItem, handleClick }) {
   const selectedColor = useColorModeValue('teal.300', 'teal.200');
+  const iconColor = useColorModeValue('#a19f9f', 'white');
 
   const highlightSelected = () => {
     return navItem.link === selectedItem;
@@ -11,7 +12,7 @@ function NavButton({ navItem, selectedItem, handleClick }) {
   return (
     <Center
       onClick={() => handleClick(navItem)}
-      color={highlightSelected() ? selectedColor : 'white'}
+      color={highlightSelected() ? selectedColor : iconColor}
     >
       <Box>
         <Center>{navItem.icon}</Center>

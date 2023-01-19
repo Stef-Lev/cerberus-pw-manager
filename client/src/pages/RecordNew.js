@@ -7,6 +7,7 @@ import {
   Flex,
   Divider,
   Button,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import PasswordEditor from '../components/PasswordEditor';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -27,6 +28,7 @@ function RecordNew({ type = 'new' }) {
   const { user } = useContext(UserContext);
   const { recordId } = useParams();
   const navigate = useNavigate();
+  const buttonBg = useColorModeValue('#dbdbdb', '#2a2c38');
 
   useEffect(() => {
     let mounted = true;
@@ -124,7 +126,13 @@ function RecordNew({ type = 'new' }) {
       <Divider />
       <PasswordEditor password={password} setPassword={setPassword} />
       <Box mt="20px">
-        <Button type="submit" w="100%" onClick={handleSubmit}>
+        <Button
+          type="submit"
+          w="100%"
+          background={buttonBg}
+          _focus={{ background: buttonBg }}
+          onClick={handleSubmit}
+        >
           Save Record
         </Button>
       </Box>

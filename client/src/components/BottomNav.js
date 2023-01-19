@@ -33,7 +33,7 @@ const icons = [
 ];
 
 function BottomNav() {
-  const barColor = useColorModeValue('gray.700', 'blue.850');
+  const barColor = useColorModeValue('#dbdbdb', 'blue.850');
   const navigate = useNavigate();
   const location = useLocation();
 

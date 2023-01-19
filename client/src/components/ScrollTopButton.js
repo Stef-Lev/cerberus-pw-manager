@@ -46,6 +46,7 @@ function ScrollTopButton() {
               h="60px"
               borderRadius="50px"
               background="teal.300"
+              color="white"
               _active={{ background: 'teal.300' }}
               _hover={{ background: 'teal.300' }}
               opacity={opacity}
