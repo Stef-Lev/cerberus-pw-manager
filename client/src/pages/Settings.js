@@ -7,7 +7,7 @@ import SettingItem from '../components/SettingItem';
 
 function Settings() {
   const navigate = useNavigate();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
 
   const goToProfile = () => {
     navigate('/profile');
@@ -15,7 +15,6 @@ function Settings() {
   const toggleDarkMode = () => {
     toggleColorMode();
   };
-  console.log(colorMode);
 
   return (
     <Box>
@@ -23,7 +22,7 @@ function Settings() {
       <Box pt="60px">
         <SettingItem title="Profile" type="route" onClick={goToProfile} />
         <SettingItem title="Dark Mode" type="switch" onClick={toggleDarkMode} />
-        <SettingItem title="Version" type="text" text="3.3.7" />
+        <SettingItem title="Version" type="text" text="3.3.8" />
       </Box>
     </Box>
   );
