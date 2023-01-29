@@ -9,7 +9,7 @@
     "server": "nodemon server.js --ignore client",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": "npx concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
   },
   "author": "",
@@ -17,6 +17,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
+    "concurrently": "^7.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
