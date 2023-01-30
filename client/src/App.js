@@ -23,7 +23,6 @@ import Settings from './pages/Settings';
 
 function App() {
   const { user, setUser, isLoading } = useFindUser();
-  console.log(user);
 
   return (
     <ChakraProvider theme={theme}>

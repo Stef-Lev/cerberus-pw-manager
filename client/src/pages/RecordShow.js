@@ -29,8 +29,6 @@ function RecordShow() {
 
   const buttonBg = useColorModeValue('#dbdbdb', '#2a2c38');
 
-  // console.log(record);
-
   useEffect(() => {
     let mounted = true;
     if (user) {

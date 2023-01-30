@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TopNav from '../components/TopNav';
-import SettingItem from '../components/SettingItem';
+import useFindUser from '../hooks/useFindUser';
+import useAuth from '../hooks/useAuth';
 import {
   Box,
   Center,
@@ -13,9 +14,36 @@ import {
 } from '@chakra-ui/react';
 
 function Profile() {
-  const handleInputChange = e => {
-    console.log(e.target.value);
+  const { user } = useFindUser();
+  const defaultProfile = {
+    fullname: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
   };
+  const { logoutUser } = useAuth();
+
+  const [editMode, setEditMode] = useState(false);
+  const [userData, setUserData] = useState(defaultProfile);
+
+  const handleInputChange = e => {
+    setUserData(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const toggleEdit = () => {
+    setEditMode(prev => !prev);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        fullname: user.fullname,
+        username: user.username,
+        password: '',
+        confirmPassword: '',
+      });
+    }
+  }, [user]);
 
   return (
     <Box>
@@ -23,43 +51,42 @@ function Profile() {
       <Box pt="100px">
         <Center textAlign="center">
           <Flex flexDirection="column" gap="6px">
-            <Box
-              borderRadius="50%"
-              background="#ff55ee"
-              w="100px"
-              h="100px"
-            ></Box>
-            <Text fontSize="26px">Name</Text>
-            <Text fontSize="14px">Username</Text>
+            <Box borderRadius="50%" background="teal" w="100px" h="100px"></Box>
+            <Text fontSize="26px">{user?.fullname}</Text>
+            <Button
+              borderRadius="32px"
+              fontSize="14px"
+              h="30px"
+              onClick={toggleEdit}
+            >
+              Edit Profile
+            </Button>
           </Flex>
         </Center>
 
         <Grid gridTemplateColumns="3fr 6fr" gap="10px" py="20px">
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%">
-              Title
+              Full name
             </Flex>
-          </GridItem>
-          <GridItem w="100%" h="10">
-            <Input
-              id="title"
-              placeholder="Record title"
-              onChange={handleInputChange}
-              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
-            />
           </GridItem>
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%">
-              Url
+              {editMode ? (
+                <Input
+                  id="fullname"
+                  value={userData.fullname}
+                  placeholder="Edit full name"
+                  onChange={handleInputChange}
+                  _focusVisible={{
+                    border: '2px solid',
+                    borderColor: 'teal.200',
+                  }}
+                />
+              ) : (
+                <Text>{userData.fullname}</Text>
+              )}
             </Flex>
-          </GridItem>
-          <GridItem w="100%" h="10">
-            <Input
-              id="url"
-              placeholder="Website url (optional)"
-              onChange={handleInputChange}
-              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
-            />
           </GridItem>
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%">
@@ -67,16 +94,53 @@ function Profile() {
             </Flex>
           </GridItem>
           <GridItem w="100%" h="10">
-            <Input
-              id="username"
-              placeholder="Username or email"
-              onChange={handleInputChange}
-              _focusVisible={{ border: '2px solid', borderColor: 'teal.200' }}
-            />
+            <Flex align="center" h="100%">
+              {editMode ? (
+                <Input
+                  id="username"
+                  value={userData.username}
+                  placeholder="Edit username"
+                  onChange={handleInputChange}
+                  _focusVisible={{
+                    border: '2px solid',
+                    borderColor: 'teal.200',
+                  }}
+                />
+              ) : (
+                <Text>{userData.username}</Text>
+              )}
+            </Flex>
           </GridItem>
         </Grid>
-        <Button>Export Records</Button>
-        <Button>Logout</Button>
+        {editMode ? (
+          <Flex flexDirection="column" gap={3}>
+            <Text textAlign="center">Change master password</Text>
+            <Input
+              id="password"
+              value={userData.password}
+              placeholder="Password"
+              onChange={handleInputChange}
+              _focusVisible={{
+                border: '2px solid',
+                borderColor: 'teal.200',
+              }}
+            />
+            <Input
+              id="confirmPassword"
+              value={userData.confirmPassword}
+              placeholder="Confirm password"
+              onChange={handleInputChange}
+              _focusVisible={{
+                border: '2px solid',
+                borderColor: 'teal.200',
+              }}
+            />
+          </Flex>
+        ) : null}
+        <Flex justifyContent="space-between" mt="20px">
+          <Button>Export Records</Button>
+          <Button onClick={logoutUser}>Logout</Button>
+        </Flex>
       </Box>
     </Box>
   );

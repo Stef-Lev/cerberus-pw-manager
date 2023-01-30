@@ -22,7 +22,7 @@ function Settings() {
       <Box pt="60px">
         <SettingItem title="Profile" type="route" onClick={goToProfile} />
         <SettingItem title="Dark Mode" type="switch" onClick={toggleDarkMode} />
-        <SettingItem title="Version" type="text" text="3.3.8" />
+        <SettingItem title="Version" type="text" text="3.4.1" />
       </Box>
     </Box>
   );

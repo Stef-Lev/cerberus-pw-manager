@@ -56,6 +56,20 @@ export default function useAuth() {
       });
   };
 
+  const logoutUser = async () => {
+    try {
+      await axios({
+        method: 'GET',
+        url: '/api/auth/logout',
+      }).then(() => {
+        setUser(null);
+        navigate('/');
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const clearError = () => {
     setError(null);
   };
@@ -63,6 +77,7 @@ export default function useAuth() {
   return {
     registerUser,
     loginUser,
+    logoutUser,
     clearError,
     error,
   };
