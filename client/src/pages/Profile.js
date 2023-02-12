@@ -13,6 +13,8 @@ import {
   Flex,
 } from '@chakra-ui/react';
 
+import { updateMethod } from '../helpers/services';
+
 function Profile() {
   const { user } = useFindUser();
   const defaultProfile = {
@@ -31,7 +33,21 @@ function Profile() {
   };
 
   const toggleEdit = () => {
+    if (editMode && user) {
+      setUserData({
+        fullname: user.fullname,
+        username: user.username,
+        password: '',
+        confirmPassword: '',
+      });
+    }
     setEditMode(prev => !prev);
+  };
+
+  const saveChanges = () => {
+    updateMethod(`/api/user/${user._id}/change`, userData).then(res =>
+      console.log(res)
+    );
   };
 
   useEffect(() => {
@@ -135,6 +151,9 @@ function Profile() {
                 borderColor: 'teal.200',
               }}
             />
+            <Center>
+              <Button onClick={saveChanges}>Save changes</Button>
+            </Center>
           </Flex>
         ) : null}
         <Flex justifyContent="space-between" mt="20px">

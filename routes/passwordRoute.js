@@ -89,3 +89,12 @@ exports.deleteRecord = catchAsync(async (req, res) => {
 
   res.json({ result: "success", message: `Record ${recordId} was deleted` });
 });
+
+exports.editUserProfile = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  console.log(req.body);
+  // await user.save();
+
+  res.json({ result: "success", message: `User profile changed` });
+});

@@ -6,6 +6,7 @@ module.exports = function (app) {
   app.get("/api/user/:userId/records/get/:recordId", passwordRoute.getRecord);
   app.post("/api/user/:userId/records/add", passwordRoute.addRecord);
   app.put("/api/user/:userId/records/edit/:recordId", passwordRoute.editRecord);
+  app.put("/api/user/:userId/change", passwordRoute.editUserProfile);
   app.delete(
     "/api/user/:userId/records/delete/:recordId",
     passwordRoute.deleteRecord
