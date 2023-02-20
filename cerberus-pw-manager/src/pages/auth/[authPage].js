@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Form from "@/components/Form";
-import useAuth from "@/helpers/useAuth";
-import LogoIcon from "../components/LogoIcon";
+import LogoIcon from "@/components/LogoIcon";
 import { useRouter } from "next/router";
 
 import {
@@ -18,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 
 function AuthPage() {
-  const { loginUser, registerUser, clearError } = useAuth();
   const router = useRouter();
   const [user, setUser] = useState({
     fullname: "",
@@ -33,12 +31,18 @@ function AuthPage() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    await loginUser(user);
+    dummy();
+    // await loginUser(user);
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    await registerUser(user);
+    dummy();
+    // await registerUser(user);
+  };
+
+  const dummy = () => {
+    console.log("Test");
   };
 
   const borderColor = useColorModeValue("gray.800", "gray.700");
@@ -47,8 +51,8 @@ function AuthPage() {
     fontWeight: 500,
     color: "white",
   };
-  //   const navigate = useNavigate();
-  //   const { authPage } = useParams();
+
+  const { authPage } = router.query;
 
   const selectedTab = (pageRoute) => {
     if (pageRoute === "register") {
@@ -60,7 +64,6 @@ function AuthPage() {
     return 0;
   };
 
-  console.log("ROUTER", router);
   return (
     <Box>
       <Center display="flex" flexDirection="column" mb="20px">
@@ -94,7 +97,7 @@ function AuthPage() {
               <Tab
                 borderRadius="10px"
                 width="50%"
-                onClick={() => navigate("/auth/register")}
+                onClick={() => router.push("/auth/register")}
                 _selected={selectedStyle}
               >
                 Register
@@ -102,7 +105,7 @@ function AuthPage() {
               <Tab
                 borderRadius="10px"
                 width="50%"
-                onClick={() => navigate("/auth/login")}
+                onClick={() => router.push("/auth/login")}
                 _selected={selectedStyle}
               >
                 Login
