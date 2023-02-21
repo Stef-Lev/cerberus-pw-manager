@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import Cookies from "cookies";
 
 export const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -12,7 +13,8 @@ export const createUserToken = async (user, statusCode, req, res) => {
   let d = new Date();
   d.setDate(d.getDate() + 30);
 
-  res.cookie("cerberus_token", token, {
+  const cookies = new Cookies(req, res);
+  cookies.set("cerberus_token", token, {
     expires: d,
     httpOnly: true,
   });

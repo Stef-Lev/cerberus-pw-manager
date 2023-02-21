@@ -4,31 +4,39 @@ import { createUserToken } from "@/helpers/token";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).json({ message: "Method not allowed" });
+    return;
   }
 
   await connectDB();
 
+  const { username, password, passwordCheck, fullname } = req.body;
+  if (!username || !password || !passwordCheck) {
+    return res.status(400).json({ message: "Please fill in all fields." });
+  }
+
+  if (password !== passwordCheck) {
+    return res.status(400).json({ message: "Passwords do not match." });
+  }
+
+  const existingUser = await User.findOne({ username: username });
+
+  if (existingUser) {
+    return res.status(400).json({ message: "User already exists." });
+  }
+
+  const newUser = new User({
+    username: username,
+    password: password,
+    fullname: fullname || username,
+  });
+
   try {
-    let { username, password, passwordCheck, fullname } = req.body;
-    if (!username || !password || !passwordCheck)
-      return res.status(400).json({ msg: "Not all fields have been entered." });
-
-    if (password !== passwordCheck)
-      return res
-        .status(400)
-        .json({ msg: "Enter the same password twice for verification." });
-
-    if (!fullname) fullname = username;
-
-    const newUser = await User.create({
-      fullname: fullname,
-      username: username,
-      password: password,
-      passwordCheck: passwordCheck,
-    });
+    await newUser.save();
     createUserToken(newUser, 201, req, res);
-  } catch (err) {
-    res.status(400).json({ message: "Error creating user" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error creating user." });
   }
 }
