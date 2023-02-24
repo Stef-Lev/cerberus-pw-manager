@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "@/components/Form";
 import LogoIcon from "@/components/LogoIcon";
 import { useRouter } from "next/router";
+import createUser from "@/helpers/createUser";
+import { useSession, signIn } from "next-auth/react";
 
 import {
   Box,
@@ -18,6 +20,8 @@ import {
 
 function AuthPage() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const [isLogin, setIsLogin] = useState(true);
   const [user, setUser] = useState({
     fullname: "",
     username: "",
@@ -26,23 +30,30 @@ function AuthPage() {
   });
 
   const handleInputChange = (e, field) => {
-    clearError();
     setUser({ ...user, [field]: e.target.value });
   };
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    dummy();
-    // await loginUser(user);
+
+  const toggleAuthMode = () => {
+    setIsLogin((prevState) => !prevState);
   };
 
-  const handleRegister = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dummy();
-    // await registerUser(user);
-  };
-
-  const dummy = () => {
-    console.log("Test");
+    if (isLogin) {
+      const result = await signIn("credentials", {
+        redirect: false,
+        username: user.username,
+        password: user.password,
+      });
+      console.log(result);
+    } else {
+      try {
+        const result = await createUser(user);
+        console.log(result);
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   const borderColor = useColorModeValue("gray.800", "gray.700");
@@ -63,6 +74,14 @@ function AuthPage() {
     }
     return 0;
   };
+
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session, router]);
+
+  console.log(session);
 
   return (
     <Box>
@@ -132,7 +151,7 @@ function AuthPage() {
                   buttonText="Sign up"
                   state={user}
                   onChange={handleInputChange}
-                  onButtonClick={handleRegister}
+                  onButtonClick={handleSubmit}
                 />
               </TabPanel>
               <TabPanel p="10px">
@@ -149,7 +168,7 @@ function AuthPage() {
                   buttonText="Sign in"
                   state={user}
                   onChange={handleInputChange}
-                  onButtonClick={handleLogin}
+                  onButtonClick={handleSubmit}
                 />
               </TabPanel>
             </TabPanels>

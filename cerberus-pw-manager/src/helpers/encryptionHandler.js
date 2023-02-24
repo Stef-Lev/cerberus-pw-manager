@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+import crypto from "crypto";
 const secret = process.env.CRYPTO_SCRT;
 
 export const encrypt = (password) => {
