@@ -7,6 +7,13 @@ export default NextAuth({
   session: {
     jwt: true,
     maxAge: 30 * 24 * 60 * 60,
+    cookie: {
+      name: "cerberus_token",
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      path: "/",
+      sameSite: "lax",
+    },
   },
   callbacks: {
     async jwt({ token, account, user }) {
@@ -58,4 +65,5 @@ export default NextAuth({
       },
     }),
   ],
+  secret: process.env.JWT_SECRET,
 });

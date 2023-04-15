@@ -41,11 +41,11 @@ function AuthPage() {
     e.preventDefault();
     if (isLogin) {
       const result = await signIn("credentials", {
-        redirect: false,
+        redirect: true,
         username: user.username,
         password: user.password,
       });
-      console.log(result);
+      console.log("result", result);
     } else {
       try {
         const result = await createUser(user);
@@ -81,7 +81,7 @@ function AuthPage() {
     }
   }, [session, router]);
 
-  console.log(session);
+  console.log("session", session);
 
   return (
     <Box>

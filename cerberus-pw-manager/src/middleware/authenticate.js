@@ -1,19 +1,14 @@
-import jwt from "jsonwebtoken";
+import { getSession } from "next-auth/react";
 
-export default function authenticate(handler) {
-  const secret = process.env.JWT_SECRET;
-  return async (req, res) => {
-    try {
-      const { cerberus_token } = req.cookies;
+export default function authenticate() {
+  return async function (req, res, next) {
+    const session = await getSession({ req });
 
-      if (!cerberus_token) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-      const decoded = await promisify(jwt.verify)(token, secret);
-      req.user = decoded.user;
-      return handler(req, res);
-    } catch (err) {
-      return res.status(401).json({ message: "Unauthorized" });
+    if (!session) {
+      res.writeHead(302, { Location: "/auth/login" });
+      res.end();
+    } else {
+      next();
     }
   };
 }
