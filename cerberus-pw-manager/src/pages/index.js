@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import ScrollTopButton from "../components/ScrollTopButton";
 import { getAllMethod } from "../helpers/services";
 import { useSession } from "next-auth/react";
@@ -36,7 +36,9 @@ function Home() {
         <Loader visible={loading} />
         {!loading &&
           records.length > 0 &&
-          records.map((item) => <RecordItem key={item.id} record={item} />)}
+          records.map((item) => (
+            <RecordItem key={item.id} record={item} userId={session?.user.id} />
+          ))}
       </Flex>
       <ScrollTopButton />
     </Box>

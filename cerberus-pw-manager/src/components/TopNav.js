@@ -2,8 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import { deleteMethod } from "../helpers/services";
 import { useSession } from "next-auth/react";
-// import { useContext } from "react";
-// import { UserContext } from "../context/UserContext";
 
 import {
   Box,
@@ -27,16 +25,15 @@ import {
 import { FiX } from "react-icons/fi";
 
 function TopNav({ title, type, onSearch, searchQuery, onClear }) {
-  // const { user } = useContext(UserContext);
   const textColor = useColorModeValue("#171923", "#fafafa");
   const background = useColorModeValue("#fafafa", "#171923");
   const router = useRouter();
   const { recordId } = router.query;
-  const { session, loading } = useSession();
+  const { data: session, loading } = useSession();
 
   const deleteRecord = () => {
     deleteMethod(
-      `/api/user/${session.user._id}/records/delete/${recordId}`
+      `/api/user/${session?.user.id}/records/delete/${recordId}`
     ).then(() => router.push("/"));
   };
 
@@ -78,7 +75,7 @@ function TopNav({ title, type, onSearch, searchQuery, onClear }) {
               gap={2}
               align="center"
               _hover={{ cursor: "pointer" }}
-              onClick={() => router.push(-1)}
+              onClick={() => router.back()}
             >
               <FaArrowLeft size="20px" />
               <Text>back</Text>
