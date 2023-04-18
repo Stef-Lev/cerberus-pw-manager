@@ -6,7 +6,7 @@ const showMsg = (message, options) => {
     toastOptions = options;
   } else {
     toastOptions = {
-      position: 'bottom-center',
+      position: 'bottom-center', 
       autoClose: 2000,
       hideProgressBar: true,
       closeButton: false,
