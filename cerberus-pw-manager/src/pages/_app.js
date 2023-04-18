@@ -5,6 +5,8 @@ import theme from "theme";
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import authenticate from "@/middleware/authenticate";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -26,6 +28,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
       <ChakraProvider theme={theme}>
         <Layout>
           <Component {...pageProps} />
+          <ToastContainer />
         </Layout>
       </ChakraProvider>
     </SessionProvider>
