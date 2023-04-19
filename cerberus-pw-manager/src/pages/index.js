@@ -48,17 +48,21 @@ function Home({ user }) {
 
 export default Home;
 
-export async function getServerSideProps({ ctx }) {
-  const session = await getSession({ ctx });
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/auth/login",
         permanent: false,
       },
     };
-  } else {
-    return { props: { user: session.user } };
   }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
