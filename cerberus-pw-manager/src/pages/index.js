@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ScrollTopButton from "../components/ScrollTopButton";
 import { getAllMethod } from "../helpers/services";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import { Flex, Box } from "@chakra-ui/react";
 import RecordItem from "../components/RecordItem";
 import TopNav from "../components/TopNav";
 import Loader from "../components/Loader";
 
-function Home() {
+function Home({ user }) {
   const [records, setRecords] = useState([]);
   const { data: session, loading } = useSession();
 
@@ -46,3 +47,18 @@ function Home() {
 }
 
 export default Home;
+
+export async function getServerSideProps({ ctx }) {
+  const session = await getSession({ ctx });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  } else {
+    return { props: { user: session.user } };
+  }
+}
