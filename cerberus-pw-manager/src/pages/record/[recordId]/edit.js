@@ -1,6 +1,6 @@
 import RecordEditing from "@/components/RecordEditing";
 
-function EditPage() {
+function RecordEditPage() {
   return (
     <div>
       <RecordEditing type="edit" />
@@ -8,4 +8,4 @@ function EditPage() {
   );
 }
 
-export default EditPage;
+export default RecordEditPage;
