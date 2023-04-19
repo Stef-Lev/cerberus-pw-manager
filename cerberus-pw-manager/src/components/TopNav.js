@@ -87,7 +87,7 @@ function TopNav({ title, type, onSearch, searchQuery, onClear }) {
         )}
         {type === "backAndTitle" && (
           <Flex justify="space-between" align="center" height="100%">
-            <Box _hover={{ cursor: "pointer" }} onClick={() => router.push(-1)}>
+            <Box _hover={{ cursor: "pointer" }} onClick={() => router.back()}>
               <FaArrowLeft size="20px" />
             </Box>
             <Heading as="h2" fontSize="20px">
