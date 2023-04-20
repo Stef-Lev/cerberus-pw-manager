@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import copyToClipboard from "@/helpers/copyToClipboard";
 import { getOneMethod } from "@/helpers/services";
 import {
@@ -15,45 +14,18 @@ import {
   Link,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Loader from "@/components/Loader";
 import TopNav from "@/components/TopNav";
 import WebsiteIcon from "@/components/WebsiteIcon";
 
-function RecordShow() {
-  const [record, setRecord] = useState({});
-  const { data: session, loading } = useSession();
-  const router = useRouter();
-
-  const { recordId } = router.query;
-
+function RecordShow({ record }) {
   const buttonBg = useColorModeValue("#dbdbdb", "#2a2c38");
-
-  useEffect(() => {
-    let mounted = true;
-    if (session?.user) {
-      getOneMethod(`/api/user/${session.user.id}/records/${recordId}`).then(
-        (record) => {
-          if (mounted) {
-            setRecord(record);
-          }
-        }
-      );
-      console.log(session?.user);
-    }
-
-    return () => {
-      mounted = false;
-    };
-  }, [session, recordId]);
-
-  console.log(record);
+  const router = useRouter();
 
   return (
     <Box>
       <TopNav title="Passwords" type="backAndDelete" />
       <Box pt="60px" pb="90px">
-        <Loader visible={loading} />
-        {!loading && record.logo && (
+        {record && (
           <Box>
             <Flex gap="20px" align="center">
               <Box>
@@ -114,7 +86,7 @@ function RecordShow() {
                   w="100%"
                   background={buttonBg}
                   _focus={{ background: buttonBg }}
-                  onClick={() => router.push(`/record/${recordId}/edit`)}
+                  onClick={() => router.push(`/record/${record._id}/edit`)}
                 >
                   Edit record
                 </Button>
@@ -128,3 +100,33 @@ function RecordShow() {
 }
 
 export default RecordShow;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  const { recordId } = context.query;
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  let record = {};
+
+  const fetchedData = await getOneMethod(
+    `http://localhost:3000/api/user/${session.user.id}/records/${recordId}`
+  );
+
+  if (fetchedData) {
+    record = fetchedData;
+  }
+
+  return {
+    props: {
+      record,
+    },
+  };
+}
