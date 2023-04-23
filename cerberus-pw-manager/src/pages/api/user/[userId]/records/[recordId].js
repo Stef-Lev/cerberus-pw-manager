@@ -1,11 +1,10 @@
 import connectDB from "@/connectDB";
-import { decrypt } from "@/helpers/encryptionHandler";
+import { decrypt, encrypt } from "@/helpers/encryptionHandler";
 import User from "@/models/user";
 
 export default async function handler(req, res) {
   try {
     await connectDB();
-    console.log(req.method);
     if (req.method === "GET") {
       const { userId, recordId } = req.query;
       const user = await User.findById(userId);
@@ -20,27 +19,26 @@ export default async function handler(req, res) {
       const hashedPw = encrypt(password);
       const user = await User.findById(userId);
 
-      let foundRecord = await user.records.find((rec) => rec.id == recordId);
-      let createdLogo = recordLogo(url);
+      const foundRecord = await user.records.find((rec) => rec.id == recordId);
+      const updatedRecord = {};
 
-      foundRecord = {
-        ...foundRecord,
-        title,
-        username,
-        url,
-        password: hashedPw.password,
-        iv: hashedPw.iv,
-        logo: createdLogo,
-      };
+      updatedRecord.title = title;
+      updatedRecord.url = url;
+      updatedRecord.username = username;
+      updatedRecord.password = hashedPw.password;
+      updatedRecord.logo = foundRecord.logo;
+      updatedRecord.iv = hashedPw.iv;
+      updatedRecord._id = foundRecord._id;
+
       const filteredRecords = await user.records.filter(
         (rec) => rec.id != recordId
       );
-      const updatedRecords = [...filteredRecords, foundRecord];
+      const updatedRecords = [...filteredRecords, updatedRecord];
       user.records = updatedRecords;
       await user.save();
       res.status(200).json({
         result: "success",
-        record: foundRecord,
+        record: updatedRecord,
         message: `Record ${recordId} is updated`,
       });
     }

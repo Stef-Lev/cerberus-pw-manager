@@ -29,12 +29,12 @@ function TopNav({ title, type, onSearch, searchQuery, onClear }) {
   const background = useColorModeValue("#fafafa", "#171923");
   const router = useRouter();
   const { recordId } = router.query;
-  const { data: session, loading } = useSession();
+  const { data: session } = useSession();
 
   const deleteRecord = () => {
-    deleteMethod(
-      `/api/user/${session?.user.id}/records/delete/${recordId}`
-    ).then(() => router.push("/"));
+    deleteMethod(`/api/user/${session?.user.id}/records/${recordId}`).then(() =>
+      router.push("/")
+    );
   };
 
   return (

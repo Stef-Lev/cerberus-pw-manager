@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Grid,
@@ -10,48 +10,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import PasswordEditor from "@/components/PasswordEditor";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { postMethod, updateMethod, getOneMethod } from "@/helpers/services";
+import { postMethod, updateMethod } from "@/helpers/services";
 import TopNav from "./TopNav";
 
-function RecordEditing({ type = "new" }) {
-  const defaultRecordData = {
-    title: "",
-    url: "",
-    username: "",
-    password: "",
-  };
-  const [recordObj, setRecordObj] = useState(defaultRecordData);
-  const [password, setPassword] = useState(recordObj.password);
+function RecordEditing({ type, record, user }) {
+  const [recordObj, setRecordObj] = useState(record);
+  const [password, setPassword] = useState(record.password);
   const title = type === "new" ? "New Record" : "Edit Record";
   const router = useRouter();
   const { recordId } = router.query;
-  const { data: session, loading } = useSession();
   const buttonBg = useColorModeValue("#dbdbdb", "#2a2c38");
-
-  useEffect(() => {
-    let mounted = true;
-    if (session && recordId) {
-      getOneMethod(`/api/user/${session.user.id}/records/${recordId}`).then(
-        (record) => {
-          if (mounted) {
-            const defaultRecordData = {
-              title: record.title,
-              url: record.url,
-              username: record.username,
-              password: record.password,
-            };
-            setRecordObj(defaultRecordData);
-            setPassword(defaultRecordData.password);
-          }
-        }
-      );
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [session, recordId]);
 
   const handleInputChange = (e) => {
     setRecordObj((prevState) => ({
@@ -62,12 +31,12 @@ function RecordEditing({ type = "new" }) {
 
   const handleSubmit = () => {
     if (type === "new") {
-      postMethod(`/api/user/${session.user.id}/records`, {
+      postMethod(`/api/user/${user.id}/records`, {
         ...recordObj,
         password,
       }).then(() => router.push("/"));
     } else {
-      updateMethod(`/api/user/${session.user.id}/records/${recordId}`, {
+      updateMethod(`/api/user/${user.id}/records/${recordId}`, {
         ...recordObj,
         password,
       }).then(() => router.push("/"));

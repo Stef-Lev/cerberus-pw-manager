@@ -116,9 +116,12 @@ export async function getServerSideProps(context) {
 
   let record = {};
 
-  const fetchedData = await getOneMethod(
-    `http://localhost:3000/api/user/${session.user.id}/records/${recordId}`
-  );
+  const { req } = context;
+  const baseUrl = req.headers.host;
+  const protocol = req.headers["x-forwarded-proto"] || "http";
+  const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records/${recordId}`;
+
+  const fetchedData = await getOneMethod(apiUrl);
 
   if (fetchedData) {
     record = fetchedData;

@@ -34,9 +34,12 @@ export async function getServerSideProps(context) {
 
   let records = [];
 
-  const fetchedData = await getAllMethod(
-    `http://localhost:3000/api/user/${session.user.id}/records`
-  );
+  const { req } = context;
+  const baseUrl = req.headers.host;
+  const protocol = req.headers["x-forwarded-proto"] || "http";
+  const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records`;
+
+  const fetchedData = await getAllMethod(apiUrl);
   if (fetchedData) {
     records = fetchedData;
   }
