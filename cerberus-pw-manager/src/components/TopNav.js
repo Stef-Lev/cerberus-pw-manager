@@ -93,7 +93,7 @@ function TopNav({ title, type, onSearch, searchQuery, onClear }) {
             <Heading as="h2" fontSize="20px">
               {title}
             </Heading>
-            <Box />
+            <Box h="100%" w="20px" />
           </Flex>
         )}
         {type === "search" && (

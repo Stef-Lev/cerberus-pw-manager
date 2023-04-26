@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "@/connectDB";
 import User from "@/models/user";
+import bcrypt from "bcrypt";
 
 export default NextAuth({
   session: {
@@ -47,19 +48,42 @@ export default NextAuth({
             credentials.password,
             user.password
           );
-          console.log("credentials.password", credentials.password);
-          console.log("correctPassword", correctPassword);
           if (!correctPassword) {
             (await connectDB()).closeConnection();
             throw new Error("Invalid password");
           }
 
           (await connectDB()).closeConnection();
-          console.log({ name: user.username, id: user.id });
 
           return { name: user.username, id: user.id };
         } catch (error) {
           throw new Error("Authentication failed");
+        }
+      },
+    }),
+    CredentialsProvider({
+      async authorize(credentials, req) {
+        const { oldPassword, newPassword } = credentials;
+        try {
+          // Authenticate the user and get their record
+          const user = await User.findOne({ _id: req.user._id });
+          if (!user) {
+            throw new Error("User not found");
+          }
+
+          // Check if the old password matches
+          const isMatch = await bcrypt.compare(oldPassword, user.password);
+          if (!isMatch) {
+            throw new Error("Old password is incorrect");
+          }
+
+          // Hash the new password and update the user record
+          user.password = await bcrypt.hash(newPassword, 12);
+          await user.save();
+
+          return { success: true };
+        } catch (error) {
+          throw new Error(error.message);
         }
       },
     }),

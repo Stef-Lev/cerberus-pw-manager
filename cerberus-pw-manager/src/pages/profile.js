@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TopNav from "@/components/TopNav";
 import { signOut } from "next-auth/react";
 import { getSession } from "next-auth/react";
-import { getOneMethod } from "@/helpers/services";
+import { getOneMethod, postMethod } from "@/helpers/services";
 import {
   Box,
   Center,
@@ -14,13 +14,13 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import { updateMethod } from "@/helpers/services";
-
 function Profile({ user, defaultData }) {
   const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState(defaultData);
+  const [valid, setValid] = useState(true);
 
   const handleInputChange = (e) => {
+    setValid(true);
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
@@ -29,25 +29,29 @@ function Profile({ user, defaultData }) {
       setUserData({
         fullname: user.fullname,
         username: user.username,
-        password: "",
-        confirmPassword: "",
+        oldPassword: "",
+        newPassword: "",
+        confirmNewPassword: "",
       });
     }
     setEditMode((prev) => !prev);
   };
 
   const saveChanges = () => {
-    updateMethod(`/api/user/${user._id}/change`, userData).then((res) =>
-      console.log(res)
-    );
+    if (userData.newPassword !== userData.confirmNewPassword) {
+      setValid(false);
+      return;
+    }
+    postMethod(`/api/auth/change`, {
+      oldPassword: userData.oldPassword,
+      newPassword: userData.newPassword,
+    }).then((res) => console.log(res));
   };
-
-  console.log(user);
 
   return (
     <Box>
-      <TopNav title="Profile" type="basic" />
-      <Box pt="100px">
+      <TopNav title="Profile" type="backAndTitle" />
+      <Box pt="80px">
         <Center textAlign="center">
           <Flex flexDirection="column" gap="6px">
             <Box borderRadius="50%" background="teal" w="100px" h="100px"></Box>
@@ -115,9 +119,10 @@ function Profile({ user, defaultData }) {
           <Flex flexDirection="column" gap={3}>
             <Text textAlign="center">Change master password</Text>
             <Input
-              id="password"
-              value={userData.password}
-              placeholder="Password"
+              id="oldPassword"
+              type="password"
+              value={userData.oldPassword}
+              placeholder="Old password"
               onChange={handleInputChange}
               _focusVisible={{
                 border: "2px solid",
@@ -125,15 +130,32 @@ function Profile({ user, defaultData }) {
               }}
             />
             <Input
-              id="confirmPassword"
-              value={userData.confirmPassword}
-              placeholder="Confirm password"
+              id="newPassword"
+              type="password"
+              value={userData.newPassword}
+              placeholder="New password"
               onChange={handleInputChange}
               _focusVisible={{
                 border: "2px solid",
                 borderColor: "teal.200",
               }}
+              isInvalid={!valid}
+              errorBorderColor="red.200"
             />
+            <Input
+              id="confirmNewPassword"
+              type="password"
+              value={userData.confirmNewPassword}
+              placeholder="Confirm new password"
+              onChange={handleInputChange}
+              _focusVisible={{
+                border: "2px solid",
+                borderColor: "teal.200",
+              }}
+              isInvalid={!valid}
+              errorBorderColor="red.200"
+            />
+            {!valid && <Text color="red.200">Passwords don't match</Text>}
             <Center>
               <Button onClick={saveChanges}>Save changes</Button>
             </Center>
@@ -176,8 +198,9 @@ export async function getServerSideProps(context) {
     user = fetchedData.user;
     userData.fullname = fetchedData.user.fullname;
     userData.username = fetchedData.user.username;
-    userData.password = "";
-    userData.confirmPassword = "";
+    userData.oldPassword = "";
+    userData.newPassword = "";
+    userData.confirmNewPassword = "";
   }
 
   return {

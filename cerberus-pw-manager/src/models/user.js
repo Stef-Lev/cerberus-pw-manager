@@ -43,6 +43,21 @@ UserSchema.methods.correctPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+UserSchema.methods.changePassword = async function (oldPassword, newPassword) {
+  const isCorrectPassword = await this.correctPassword(
+    oldPassword,
+    this.password
+  );
+  if (!isCorrectPassword) {
+    throw new Error("Incorrect old password");
+  }
+
+  // Hash the new password and update the user document
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+  this.password = hashedPassword;
+  await this.save();
+};
+
 const User = models.User || model("User", UserSchema);
 
 export default User;
