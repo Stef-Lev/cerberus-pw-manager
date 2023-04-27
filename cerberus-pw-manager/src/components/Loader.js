@@ -1,19 +1,17 @@
-import { Box, Spinner, Center } from '@chakra-ui/react';
+import { Box, Spinner, Center } from "@chakra-ui/react";
 
-function Loader({ visible }) {
+function Loader() {
   return (
     <Box>
-      {visible && (
-        <Center height="50vh">
-          <Spinner
-            thickness="8px"
-            speed="1s"
-            emptyColor="teal.200"
-            color="teal.600"
-            size="xl"
-          />
-        </Center>
-      )}
+      <Center height="50vh">
+        <Spinner
+          thickness="8px"
+          speed="1s"
+          emptyColor="teal.200"
+          color="teal.600"
+          size="xl"
+        />
+      </Center>
     </Box>
   );
 }

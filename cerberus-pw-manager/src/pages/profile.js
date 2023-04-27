@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TopNav from "@/components/TopNav";
 import { signOut } from "next-auth/react";
 import { getSession } from "next-auth/react";

@@ -1,16 +1,15 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useColorMode } from "@chakra-ui/react";
 import TopNav from "../components/TopNav";
 import { Box } from "@chakra-ui/react";
 import SettingItem from "../components/SettingItem";
 
 function Settings() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toggleColorMode } = useColorMode();
 
   const goToProfile = () => {
-    navigate("/profile");
+    router.push("/profile");
   };
   const toggleDarkMode = () => {
     toggleColorMode();

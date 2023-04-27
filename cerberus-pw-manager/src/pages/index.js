@@ -1,9 +1,9 @@
-import ScrollTopButton from "../components/ScrollTopButton";
-import { getAllMethod } from "../helpers/services";
+import ScrollTopButton from "@/components/ScrollTopButton";
+import { getAllMethod } from "@/helpers/services";
 import { getSession } from "next-auth/react";
 import { Flex, Box } from "@chakra-ui/react";
-import RecordItem from "../components/RecordItem";
-import TopNav from "../components/TopNav";
+import RecordItem from "@/components/RecordItem";
+import TopNav from "@/components/TopNav";
 
 function Home({ records }) {
   return (
