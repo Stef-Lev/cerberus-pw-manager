@@ -19,29 +19,25 @@ import {
 } from "@chakra-ui/react";
 
 function AuthPage() {
-  const router = useRouter();
-  const { data: session } = useSession();
-  const [isLogin, setIsLogin] = useState(true);
-  const [user, setUser] = useState({
+  const defaultUser = {
     fullname: "",
     username: "",
     password: "",
     passwordCheck: "",
-  });
+  };
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [user, setUser] = useState(defaultUser);
 
   const handleInputChange = (e, field) => {
     setUser({ ...user, [field]: e.target.value });
   };
 
-  const toggleAuthMode = () => {
-    setIsLogin((prevState) => !prevState);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
+    if (authPage === "login") {
       const result = await signIn("credentials", {
-        redirect: true,
+        redirect: false,
         username: user.username,
         password: user.password,
       });
@@ -66,10 +62,10 @@ function AuthPage() {
   const { authPage } = router.query;
 
   const selectedTab = (pageRoute) => {
-    if (pageRoute === "register") {
+    if (pageRoute === "login") {
       return 0;
     }
-    if (pageRoute === "login") {
+    if (pageRoute === "register") {
       return 1;
     }
     return 0;
@@ -80,8 +76,6 @@ function AuthPage() {
       router.push("/");
     }
   }, [session, router]);
-
-  console.log("session", session);
 
   return (
     <Box>
@@ -116,21 +110,44 @@ function AuthPage() {
               <Tab
                 borderRadius="10px"
                 width="50%"
-                onClick={() => router.push("/auth/register")}
-                _selected={selectedStyle}
-              >
-                Register
-              </Tab>
-              <Tab
-                borderRadius="10px"
-                width="50%"
-                onClick={() => router.push("/auth/login")}
+                onClick={() => {
+                  setUser(defaultUser);
+                  router.push("/auth/login");
+                }}
                 _selected={selectedStyle}
               >
                 Login
               </Tab>
+              <Tab
+                borderRadius="10px"
+                width="50%"
+                onClick={() => {
+                  setUser(defaultUser);
+                  router.push("/auth/register");
+                }}
+                _selected={selectedStyle}
+              >
+                Register
+              </Tab>
             </TabList>
             <TabPanels>
+              <TabPanel p="10px">
+                <Form
+                  title="Login your account"
+                  inputs={[
+                    { placeholder: "Username", id: "username", type: "text" },
+                    {
+                      placeholder: "Password",
+                      id: "password",
+                      type: "password",
+                    },
+                  ]}
+                  buttonText="Sign in"
+                  state={user}
+                  onChange={handleInputChange}
+                  onButtonClick={handleSubmit}
+                />
+              </TabPanel>
               <TabPanel p="10px">
                 <Form
                   title="Create your account"
@@ -149,23 +166,6 @@ function AuthPage() {
                     },
                   ]}
                   buttonText="Sign up"
-                  state={user}
-                  onChange={handleInputChange}
-                  onButtonClick={handleSubmit}
-                />
-              </TabPanel>
-              <TabPanel p="10px">
-                <Form
-                  title="Login your account"
-                  inputs={[
-                    { placeholder: "Username", id: "username", type: "text" },
-                    {
-                      placeholder: "Password",
-                      id: "password",
-                      type: "password",
-                    },
-                  ]}
-                  buttonText="Sign in"
                   state={user}
                   onChange={handleInputChange}
                   onButtonClick={handleSubmit}

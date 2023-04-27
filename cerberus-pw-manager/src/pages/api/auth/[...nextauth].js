@@ -60,32 +60,7 @@ export default NextAuth({
           throw new Error("Authentication failed");
         }
       },
-    }),
-    CredentialsProvider({
-      async authorize(credentials, req) {
-        const { oldPassword, newPassword } = credentials;
-        try {
-          // Authenticate the user and get their record
-          const user = await User.findOne({ _id: req.user._id });
-          if (!user) {
-            throw new Error("User not found");
-          }
-
-          // Check if the old password matches
-          const isMatch = await bcrypt.compare(oldPassword, user.password);
-          if (!isMatch) {
-            throw new Error("Old password is incorrect");
-          }
-
-          // Hash the new password and update the user record
-          user.password = await bcrypt.hash(newPassword, 12);
-          await user.save();
-
-          return { success: true };
-        } catch (error) {
-          throw new Error(error.message);
-        }
-      },
+      redirect: false,
     }),
   ],
   secret: process.env.JWT_SECRET,

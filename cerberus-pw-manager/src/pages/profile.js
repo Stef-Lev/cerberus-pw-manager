@@ -42,7 +42,7 @@ function Profile({ user, defaultData }) {
       setValid(false);
       return;
     }
-    postMethod(`/api/auth/change`, {
+    postMethod(`/api/auth/change/${user._id}`, {
       oldPassword: userData.oldPassword,
       newPassword: userData.newPassword,
     }).then((res) => console.log(res));
