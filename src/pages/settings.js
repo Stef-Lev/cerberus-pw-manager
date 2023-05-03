@@ -3,6 +3,7 @@ import { useColorMode } from "@chakra-ui/react";
 import TopNav from "../components/TopNav";
 import { Box } from "@chakra-ui/react";
 import SettingItem from "../components/SettingItem";
+import { getSession } from "next-auth/react";
 
 function Settings() {
   const router = useRouter();
@@ -21,10 +22,27 @@ function Settings() {
       <Box pt="60px">
         <SettingItem title="Profile" type="route" onClick={goToProfile} />
         <SettingItem title="Dark Mode" type="switch" onClick={toggleDarkMode} />
-        <SettingItem title="Version" type="text" text="3.4.1" />
+        <SettingItem title="Version" type="text" text="4.1.2" />
       </Box>
     </Box>
   );
 }
 
 export default Settings;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

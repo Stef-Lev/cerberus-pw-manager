@@ -2,7 +2,9 @@ import { useState } from "react";
 import TopNav from "@/components/TopNav";
 import { signOut } from "next-auth/react";
 import { getSession } from "next-auth/react";
-import { getOneMethod, postMethod } from "@/helpers/services";
+import { CSVLink } from "react-csv";
+import { getOneMethod, postMethod, getAllMethod } from "@/helpers/services";
+import convertToCsv from "@/helpers/convertToCsv";
 import {
   Box,
   Center,
@@ -14,7 +16,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-function Profile({ user, defaultData }) {
+function Profile({ user, defaultData, records }) {
   const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState(defaultData);
   const [valid, setValid] = useState(true);
@@ -35,6 +37,10 @@ function Profile({ user, defaultData }) {
       });
     }
     setEditMode((prev) => !prev);
+  };
+
+  const exportRecords = (records) => {
+    return convertToCsv(records);
   };
 
   const saveChanges = () => {
@@ -162,8 +168,28 @@ function Profile({ user, defaultData }) {
           </Flex>
         ) : null}
         <Flex justifyContent="space-between" mt="20px">
-          <Button>Export Records</Button>
-          <Button onClick={signOut}>Logout</Button>
+          <Box
+            bg="whiteAlpha.200"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            borderRadius="0.375rem"
+          >
+            <CSVLink
+              style={{ padding: "7px 14px", fontWeight: "bold" }}
+              data={exportRecords(records)}
+            >
+              Export Records
+            </CSVLink>
+          </Box>
+
+          <Button
+            bg="red.200"
+            _hover={{ background: "red.200" }}
+            onClick={signOut}
+          >
+            Logout
+          </Button>
         </Flex>
       </Box>
     </Box>
@@ -190,14 +216,16 @@ export async function getServerSideProps(context) {
   const { req } = context;
   const baseUrl = req.headers.host;
   const protocol = req.headers["x-forwarded-proto"] || "http";
-  const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}`;
+  const userUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}`;
+  const recordsUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records`;
 
-  const fetchedData = await getOneMethod(apiUrl);
+  const fetchedUser = await getOneMethod(userUrl);
+  const fetchedRecords = await getAllMethod(recordsUrl);
 
-  if (fetchedData) {
-    user = fetchedData.user;
-    userData.fullname = fetchedData.user.fullname;
-    userData.username = fetchedData.user.username;
+  if (fetchedUser) {
+    user = fetchedUser.user;
+    userData.fullname = fetchedUser.user.fullname;
+    userData.username = fetchedUser.user.username;
     userData.oldPassword = "";
     userData.newPassword = "";
     userData.confirmNewPassword = "";
@@ -207,6 +235,7 @@ export async function getServerSideProps(context) {
     props: {
       user,
       defaultData: userData,
+      records: fetchedRecords,
     },
   };
 }
