@@ -47,7 +47,7 @@ function RecordEditing({ type, record, user }) {
     <Box py="60px">
       <TopNav title={title} type="backAndTitle" />
       <Box>
-        <Grid gridTemplateColumns="3fr 6fr" gap="10px" py="20px">
+        <Grid gridTemplateColumns="3fr 6fr" gap="10px" py="10px">
           <GridItem w="100%" h="10">
             <Flex align="center" h="100%">
               Title
@@ -92,7 +92,6 @@ function RecordEditing({ type, record, user }) {
           </GridItem>
         </Grid>
       </Box>
-      <Divider />
       <PasswordEditor password={password} setPassword={setPassword} />
       <Box mt="20px">
         <Button

@@ -71,7 +71,7 @@ function PasswordEditor({ password, setPassword }) {
 
   return (
     <Box py="10px">
-      <Heading as="h4" textAlign="center" my="10px" fontSize="22px">
+      <Heading as="h4" textAlign="center" mb="10px" fontSize="18px">
         Password
       </Heading>
       <InputGroup>
