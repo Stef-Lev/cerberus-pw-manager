@@ -12,6 +12,7 @@ import PasswordEditor from "@/components/PasswordEditor";
 import { useRouter } from "next/router";
 import { postMethod, updateMethod } from "@/helpers/services";
 import TopNav from "./TopNav";
+import showMsg from "@/helpers/showMsg";
 
 function RecordEditing({ type, record, user }) {
   const [recordObj, setRecordObj] = useState(record);
@@ -30,15 +31,19 @@ function RecordEditing({ type, record, user }) {
 
   const handleSubmit = () => {
     if (type === "new") {
-      postMethod(`/api/user/${user.id}/records`, {
+      postMethod(`/api/usr/${user.id}/records`, {
         ...recordObj,
         password,
-      }).then(() => router.push("/"));
+      })
+        .then(() => router.push("/"))
+        .catch(() => showMsg("Something went wrong", { type: "error" }));
     } else {
-      updateMethod(`/api/user/${user.id}/records/${recordId}`, {
+      updateMethod(`/api/usr/${user.id}/records/${recordId}`, {
         ...recordObj,
         password,
-      }).then(() => router.push("/"));
+      })
+        .then(() => router.push("/"))
+        .catch(() => showMsg("Something went wrong", { type: "error" }));
     }
   };
 
