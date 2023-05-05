@@ -6,7 +6,6 @@ import RecordItem from "@/components/RecordItem";
 import TopNav from "@/components/TopNav";
 
 function Home({ records }) {
-  console.log("records", records);
   return (
     <Box>
       <TopNav title="Passwords" type="basic" />

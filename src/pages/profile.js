@@ -9,12 +9,12 @@ import {
   Box,
   Center,
   Text,
-  Button,
   Grid,
   GridItem,
   Input,
   Flex,
 } from "@chakra-ui/react";
+import Button from "@/components/Button";
 
 function Profile({ user, defaultData, records }) {
   const [editMode, setEditMode] = useState(false);
@@ -59,10 +59,11 @@ function Profile({ user, defaultData, records }) {
       <TopNav title="Profile" type="backAndTitle" />
       <Box pt="80px">
         <Center textAlign="center">
-          <Flex flexDirection="column" gap="6px">
+          <Flex flexDirection="column" gap="10px">
             <Box borderRadius="50%" background="teal" w="100px" h="100px"></Box>
-            <Text fontSize="26px">{user?.fullname}</Text>
+
             <Button
+              type={editMode ? "primary" : "transparent"}
               borderRadius="32px"
               fontSize="14px"
               h="30px"
@@ -167,30 +168,32 @@ function Profile({ user, defaultData, records }) {
             </Center>
           </Flex>
         ) : null}
-        <Flex justifyContent="space-between" mt="20px">
-          <Box
-            bg="whiteAlpha.200"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            borderRadius="0.375rem"
-          >
-            <CSVLink
-              style={{ padding: "7px 14px", fontWeight: "bold" }}
-              data={exportRecords(records)}
+        {!editMode ? (
+          <Flex justifyContent="space-between" mt="20px">
+            <Box
+              bg="whiteAlpha.200"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="0.375rem"
             >
-              Export Records
-            </CSVLink>
-          </Box>
+              <CSVLink
+                style={{ padding: "7px 14px", fontWeight: "bold" }}
+                data={exportRecords(records)}
+              >
+                Export Records
+              </CSVLink>
+            </Box>
 
-          <Button
-            bg="red.200"
-            _hover={{ background: "red.200" }}
-            onClick={signOut}
-          >
-            Logout
-          </Button>
-        </Flex>
+            <Button
+              bg="red.200"
+              _hover={{ background: "red.200" }}
+              onClick={signOut}
+            >
+              Logout
+            </Button>
+          </Flex>
+        ) : null}
       </Box>
     </Box>
   );
