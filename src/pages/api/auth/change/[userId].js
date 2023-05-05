@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   const { userId } = req.query;
-  const { oldPassword, newPassword } = req.body;
+  const { oldPassword, newPassword, fullname, username } = req.body;
 
   try {
     await connectDB();
@@ -18,12 +18,23 @@ export default async function handler(req, res) {
       throw new Error("User not found");
     }
 
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) {
-      throw new Error("Old password is incorrect");
+    if (fullname !== user.fullname) {
+      user.fullname = fullname;
     }
 
-    user.password = newPassword;
+    if (username !== user.username) {
+      user.username = username;
+    }
+
+    if (newPassword) {
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        throw new Error("Old password is incorrect");
+      }
+
+      user.password = newPassword;
+    }
+
     await user.save();
 
     res.status(200).json({ message: "Password changed successfully" });

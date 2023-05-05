@@ -34,7 +34,7 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {loading ? (
-        <Loader />
+        <Loader fullScreen />
       ) : (
         <Container maxW="3xl" height="100vh" mb="90px">
           {children}

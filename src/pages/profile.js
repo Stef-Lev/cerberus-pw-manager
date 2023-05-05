@@ -1,7 +1,9 @@
 import { useState } from "react";
+import Loader from "@/components/Loader";
 import TopNav from "@/components/TopNav";
 import { signOut } from "next-auth/react";
 import { getSession } from "next-auth/react";
+import showMsg from "@/helpers/showMsg";
 import { CSVLink } from "react-csv";
 import { getOneMethod, postMethod, getAllMethod } from "@/helpers/services";
 import convertToCsv from "@/helpers/convertToCsv";
@@ -20,6 +22,7 @@ function Profile({ user, defaultData, records }) {
   const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState(defaultData);
   const [valid, setValid] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   const handleInputChange = (e) => {
     setValid(true);
@@ -48,11 +51,25 @@ function Profile({ user, defaultData, records }) {
       setValid(false);
       return;
     }
+    setSaving(true);
     postMethod(`/api/auth/change/${user._id}`, {
+      fullname: userData.fullname,
+      username: userData.username,
       oldPassword: userData.oldPassword,
       newPassword: userData.newPassword,
-    }).then((res) => console.log(res));
+    })
+      .then((res) => showMsg(res.message))
+      .then(() => {
+        setEditMode(false);
+        setSaving(false);
+      })
+      .catch(() => {
+        showMsg("Something went wrong", { type: "error" });
+        setEditMode(false);
+        setSaving(false);
+      });
   };
+  // console.log(user, userData);
 
   return (
     <Box>
@@ -163,9 +180,14 @@ function Profile({ user, defaultData, records }) {
               errorBorderColor="red.200"
             />
             {!valid && <Text color="red.200">Passwords don't match</Text>}
-            <Center>
-              <Button onClick={saveChanges}>Save changes</Button>
-            </Center>
+            {saving && <Loader size="md" thickness="5px" text="Saving..." />}
+            {!saving && (
+              <Center>
+                <Button type="primary" onClick={saveChanges}>
+                  Save changes
+                </Button>
+              </Center>
+            )}
           </Flex>
         ) : null}
         {!editMode ? (
@@ -185,11 +207,7 @@ function Profile({ user, defaultData, records }) {
               </CSVLink>
             </Box>
 
-            <Button
-              bg="red.200"
-              _hover={{ background: "red.200" }}
-              onClick={signOut}
-            >
+            <Button type="error" onClick={signOut}>
               Logout
             </Button>
           </Flex>
