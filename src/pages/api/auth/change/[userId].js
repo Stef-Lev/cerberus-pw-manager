@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   const { userId } = req.query;
-  const { oldPassword, newPassword, fullname, username } = req.body;
+  const { oldPassword, newPassword, fullname, username, avatar } = req.body;
 
   try {
     await connectDB();
@@ -24,6 +24,10 @@ export default async function handler(req, res) {
 
     if (username !== user.username) {
       user.username = username;
+    }
+
+    if (avatar !== user.avatar) {
+      user.avatar = avatar;
     }
 
     if (newPassword) {

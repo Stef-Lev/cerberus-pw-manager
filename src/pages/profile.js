@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { avatarsPositions } from "@/helpers/avatarPositions";
 import Loader from "@/components/Loader";
 import TopNav from "@/components/TopNav";
 import { signOut } from "next-auth/react";
@@ -15,14 +16,20 @@ import {
   GridItem,
   Input,
   Flex,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Button from "@/components/Button";
+import AvatarSelector from "@/components/AvatarSelector";
+import { FaPen } from "react-icons/fa";
 
 function Profile({ user, defaultData, records }) {
   const [editMode, setEditMode] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [userData, setUserData] = useState(defaultData);
   const [valid, setValid] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  const csvBg = useColorModeValue("blackAlpha.300", "whiteAlpha.200");
 
   const handleInputChange = (e) => {
     setValid(true);
@@ -37,6 +44,7 @@ function Profile({ user, defaultData, records }) {
         oldPassword: "",
         newPassword: "",
         confirmNewPassword: "",
+        avatar: user.avatar,
       });
     }
     setEditMode((prev) => !prev);
@@ -57,6 +65,7 @@ function Profile({ user, defaultData, records }) {
       username: userData.username,
       oldPassword: userData.oldPassword,
       newPassword: userData.newPassword,
+      avatar: userData.avatar,
     })
       .then((res) => showMsg(res.message))
       .then(() => {
@@ -69,7 +78,9 @@ function Profile({ user, defaultData, records }) {
         setSaving(false);
       });
   };
-  // console.log(user, userData);
+
+  console.log(user);
+  console.log("userData", userData);
 
   return (
     <Box>
@@ -77,7 +88,33 @@ function Profile({ user, defaultData, records }) {
       <Box pt="80px">
         <Center textAlign="center">
           <Flex flexDirection="column" gap="10px">
-            <Box borderRadius="50%" background="teal" w="100px" h="100px"></Box>
+            <Box position="relative">
+              <Box
+                backgroundImage="url('/avatars_n.jpg')"
+                backgroundPosition={avatarsPositions[userData.avatar]}
+                backgroundSize="2000px"
+                width="200px"
+                height="200px"
+                border="3px solid #171923"
+                borderRadius="full"
+              />
+              {editMode && (
+                <Center
+                  borderRadius="full"
+                  w="40px"
+                  h="40px"
+                  bg="#4AD6B4"
+                  position="absolute"
+                  bottom="10px"
+                  right="10px"
+                  border="2px solid #171923"
+                  color="#171923"
+                  onClick={() => setModalOpen(true)}
+                >
+                  <FaPen />
+                </Center>
+              )}
+            </Box>
 
             <Button
               type={editMode ? "primary" : "transparent"}
@@ -193,7 +230,7 @@ function Profile({ user, defaultData, records }) {
         {!editMode ? (
           <Flex justifyContent="space-between" mt="20px">
             <Box
-              bg="whiteAlpha.200"
+              bg={csvBg}
               display="flex"
               justifyContent="center"
               alignItems="center"
@@ -213,6 +250,12 @@ function Profile({ user, defaultData, records }) {
           </Flex>
         ) : null}
       </Box>
+      <AvatarSelector
+        index={userData.avatar}
+        onSelect={setUserData}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
     </Box>
   );
 }
@@ -250,6 +293,7 @@ export async function getServerSideProps(context) {
     userData.oldPassword = "";
     userData.newPassword = "";
     userData.confirmNewPassword = "";
+    userData.avatar = fetchedUser.user.avatar;
   }
 
   return {

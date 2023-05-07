@@ -8,6 +8,7 @@ import WebsiteIcon from "./WebsiteIcon";
 function AnalysisItem({ record }) {
   const titleColor = useColorModeValue("#121212", "#f5f5f5");
   const usernameColor = useColorModeValue("#404040", "#dedede");
+  const barColor = useColorModeValue("gray.200", "gray.800");
   const router = useRouter();
   const checkedPw = passwordChecker(record.password);
 
@@ -46,7 +47,7 @@ function AnalysisItem({ record }) {
               {checkedPw?.text}
             </Text>
           </Box>
-          <Box my="10px" h="8px" w="100%" bg="gray.800" borderRadius="0.375rem">
+          <Box my="10px" h="8px" w="100%" bg={barColor} borderRadius="0.375rem">
             <Box
               h="8px"
               w={checkedPw.percent || "0%"}

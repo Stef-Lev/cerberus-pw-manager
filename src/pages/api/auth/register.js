@@ -29,6 +29,7 @@ export default async function handler(req, res) {
     const newUser = new User({
       username: username,
       password: password,
+      avatar: 5,
       fullname: fullname || username,
     });
 

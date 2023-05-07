@@ -4,7 +4,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 function Button({ type, ...props }) {
   const buttonTypes = {
     primary: useColorModeValue("teal.300", "teal.200"),
-    transparent: "whiteAlpha.200",
+    transparent: useColorModeValue("blackAlpha.300", "whiteAlpha.200"),
     disabled: "gray.400",
     success: "green.300",
     error: "red.200",
