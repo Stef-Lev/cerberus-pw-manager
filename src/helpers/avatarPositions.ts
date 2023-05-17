@@ -1,4 +1,6 @@
-export const avatarsPositions = {
+import { IAvatarsPositions } from "@/types/helpers";
+
+export const avatarsPositions: IAvatarsPositions = {
   0: "-50px -66px",
   1: "-294px -66px",
   2: "-538px -66px",

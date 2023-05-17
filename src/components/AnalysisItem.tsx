@@ -4,8 +4,13 @@ import passwordChecker from "../helpers/passwordChecker";
 import { Box, Text, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
 import WebsiteIcon from "./WebsiteIcon";
+import { IRecord } from "@/types/pages";
 
-function AnalysisItem({ record }) {
+interface AnalysisItemProps {
+  record: IRecord;
+}
+
+const AnalysisItem: React.FC<AnalysisItemProps> = ({ record }) => {
   const titleColor = useColorModeValue("#121212", "#f5f5f5");
   const usernameColor = useColorModeValue("#404040", "#dedede");
   const barColor = useColorModeValue("gray.200", "gray.800");
@@ -59,6 +64,6 @@ function AnalysisItem({ record }) {
       </Flex>
     </Box>
   );
-}
+};
 
 export default AnalysisItem;

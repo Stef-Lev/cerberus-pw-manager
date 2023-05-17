@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import copyToClipboard from "../helpers/copyToClipboard";
 import { Box, Heading, Text, Flex, useColorModeValue } from "@chakra-ui/react";
-import WebsiteIcon from "../components/WebsiteIcon";
+import WebsiteIcon from "./WebsiteIcon";
 import { FiCopy } from "react-icons/fi";
 
 function RecordItem({ record }) {
