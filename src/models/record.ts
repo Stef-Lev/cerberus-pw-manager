@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
+import { IRecord } from "@/types/schemas";
 
-const RecordSchema = new Schema({
+const RecordSchema = new Schema<IRecord>({
   title: {
     type: String,
     required: true,

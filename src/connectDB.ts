@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IDBConnection } from "./types/helpers";
 
-const connectDB = async () => {
+const connectDB = async (): Promise<IDBConnection> => {
   mongoose.set("strictQuery", false);
   await mongoose.connect(process.env.MONGODB_URI);
 

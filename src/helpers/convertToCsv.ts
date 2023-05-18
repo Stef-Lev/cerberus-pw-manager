@@ -1,13 +1,15 @@
-const convertToCsv = (records) => {
-  let csvData = [];
-  let headers = ["TITLE", "URL", "USERNAME", "PASSWORD"];
+import { IRecord } from "@/types/pages";
+
+const convertToCsv = (records: IRecord[]): any[][] => {
+  const csvData: any[][] = [];
+  const headers = ["TITLE", "URL", "USERNAME", "PASSWORD"];
   csvData.push(headers);
-  records.forEach((rec) => {
+  records.forEach((record) => {
     let fieldsArray = [];
-    fieldsArray.push(rec.title);
-    fieldsArray.push(rec.url);
-    fieldsArray.push(rec.username);
-    fieldsArray.push(rec.password);
+    fieldsArray.push(record.title);
+    fieldsArray.push(record.url);
+    fieldsArray.push(record.username);
+    fieldsArray.push(record.password);
     csvData.push(fieldsArray);
   });
   return csvData;

@@ -1,7 +1,8 @@
 import { Schema, model, models } from "mongoose";
+import { IUser } from "@/types/schemas";
 const bcrypt = require("bcrypt");
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   fullname: String,
   avatar: Number,
   username: { type: String, required: true },
