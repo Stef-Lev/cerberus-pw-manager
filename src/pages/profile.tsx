@@ -79,9 +79,6 @@ function Profile({ user, defaultData, records }) {
       });
   };
 
-  console.log(user);
-  console.log("userData", userData);
-
   return (
     <Box>
       <TopNav title="Profile" type="backAndTitle" />

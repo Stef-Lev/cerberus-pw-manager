@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
     await newUser.save();
 
-    res.status(201).json({ msg: "Created user" });
+    res.status(201).json({ message: "Created user" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error creating user." });

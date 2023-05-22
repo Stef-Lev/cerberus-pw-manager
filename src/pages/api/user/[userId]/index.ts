@@ -6,7 +6,6 @@ export default async function handler(req, res) {
     await connectDB();
     const { userId } = req.query;
     const user = await User.findById(userId);
-    console.log(req.body);
     // await user.save();
 
     res.json({

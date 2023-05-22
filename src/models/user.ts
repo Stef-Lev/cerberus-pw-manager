@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import { IUser } from "@/types/schemas";
+import { IUser, IUserModel } from "@/types/schemas";
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema<IUser>({
@@ -60,6 +60,6 @@ UserSchema.methods.changePassword = async function (oldPassword, newPassword) {
   await this.save();
 };
 
-const User = models.User || model("User", UserSchema);
+const User = models.User || model<IUser, IUserModel>("User", UserSchema);
 
 export default User;

@@ -1,4 +1,4 @@
-import { IRecord } from "@/types/pages";
+import { IRecord } from "@/types/schemas";
 
 const convertToCsv = (records: IRecord[]): any[][] => {
   const csvData: any[][] = [];

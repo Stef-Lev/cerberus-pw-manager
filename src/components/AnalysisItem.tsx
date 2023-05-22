@@ -4,7 +4,7 @@ import passwordChecker from "../helpers/passwordChecker";
 import { Box, Text, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
 import WebsiteIcon from "./WebsiteIcon";
-import { IRecord } from "@/types/pages";
+import { IRecord } from "@/types/schemas";
 
 interface AnalysisItemProps {
   record: IRecord;

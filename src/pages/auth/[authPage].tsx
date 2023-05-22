@@ -36,16 +36,14 @@ function AuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (authPage === "login") {
-      const result = await signIn("credentials", {
+      await signIn("credentials", {
         redirect: false,
         username: user.username,
         password: user.password,
       });
-      console.log("result", result);
     } else {
       try {
-        const result = await createUser(user);
-        console.log(result);
+        await createUser(user);
       } catch (err) {
         console.error(err);
       }
