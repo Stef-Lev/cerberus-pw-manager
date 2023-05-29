@@ -24,3 +24,11 @@ export interface INewUserData {
 export interface IRegisterResponse {
   message: string;
 }
+
+export interface IGeneratePassword {
+  length: number;
+  numbers: boolean;
+  symbols: boolean;
+  lower: boolean;
+  upper: boolean;
+}

@@ -1,7 +1,7 @@
-import { toast } from "react-toastify";
+import { toast, ToastOptions } from "react-toastify";
 
-const showMsg = (message, options = {}) => {
-  let toastOptions = {
+const showMsg = (message: string, options: ToastOptions = {}) => {
+  let toastOptions: ToastOptions = {
     position: "bottom-center",
     type: "info",
     autoClose: 2000,

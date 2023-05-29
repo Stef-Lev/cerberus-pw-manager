@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "@/components/Form";
 import LogoIcon from "@/components/LogoIcon";
 import { useRouter } from "next/router";
 import createUser from "@/helpers/createUser";
 import { useSession, signIn } from "next-auth/react";
+import { INewUserData } from "@/types/helpers";
 
 import {
   Box,
@@ -19,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 
 function AuthPage() {
-  const defaultUser = {
+  const defaultUser: INewUserData = {
     fullname: "",
     username: "",
     password: "",
@@ -28,12 +29,16 @@ function AuthPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [user, setUser] = useState(defaultUser);
+  const authPage = router.query.authPage as string;
 
-  const handleInputChange = (e, field) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
     setUser({ ...user, [field]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (authPage === "login") {
       await signIn("credentials", {
@@ -57,9 +62,7 @@ function AuthPage() {
     color: "white",
   };
 
-  const { authPage } = router.query;
-
-  const selectedTab = (pageRoute) => {
+  const selectedTab = (pageRoute: string) => {
     if (pageRoute === "login") {
       return 0;
     }
@@ -144,6 +147,7 @@ function AuthPage() {
                   state={user}
                   onChange={handleInputChange}
                   onButtonClick={handleSubmit}
+                  error={null}
                 />
               </TabPanel>
               <TabPanel p="10px">
@@ -163,6 +167,7 @@ function AuthPage() {
                       type: "password",
                     },
                   ]}
+                  error={null}
                   buttonText="Sign up"
                   state={user}
                   onChange={handleInputChange}

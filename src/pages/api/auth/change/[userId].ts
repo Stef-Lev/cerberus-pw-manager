@@ -1,8 +1,12 @@
 import connectDB from "@/connectDB";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
     res.status(405).json({ message: "Method not allowed" });
     return;

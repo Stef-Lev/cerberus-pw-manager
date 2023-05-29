@@ -1,9 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "@/connectDB";
 import User from "@/models/user";
 
-export default NextAuth({
+interface MyNextAuthOptions extends NextAuthOptions {}
+
+const options: MyNextAuthOptions = {
   session: {
     jwt: true,
     maxAge: 30 * 24 * 60 * 60,
@@ -23,8 +25,8 @@ export default NextAuth({
       }
       return token;
     },
-    async session({ session, user, token }) {
-      session.user.id = token.id;
+    async session({ session, token }) {
+      session.user.id = token?.id as string;
       return session;
     },
   },
@@ -63,4 +65,6 @@ export default NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET,
-});
+};
+
+export default NextAuth(options);

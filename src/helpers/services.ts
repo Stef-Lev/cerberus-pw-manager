@@ -1,12 +1,15 @@
-export const getOneMethod = (url) => {
+export const getOneMethod = (url: string): Promise<any> => {
   return fetch(url).then((res) => res.json());
 };
 
-export const getAllMethod = (url) => {
+export const getAllMethod = (url: string) => {
   return fetch(url).then((res) => res.json());
 };
 
-export const postMethod = (url, body) => {
+export const postMethod = (
+  url: string,
+  body: Record<string, any>
+): Promise<any> => {
   return fetch(url, {
     method: "POST",
     headers: {
@@ -16,7 +19,10 @@ export const postMethod = (url, body) => {
   }).then((response) => response.json());
 };
 
-export const updateMethod = (url, body) => {
+export const updateMethod = (
+  url: string,
+  body: Record<string, any>
+): Promise<any> => {
   return fetch(url, {
     method: "PUT",
     headers: {
@@ -26,7 +32,7 @@ export const updateMethod = (url, body) => {
   }).then((res) => res.json());
 };
 
-export const deleteMethod = (url) => {
+export const deleteMethod = (url: string): Promise<any> => {
   return fetch(url, {
     method: "DELETE",
   }).then((res) => res.json());

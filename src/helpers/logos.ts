@@ -29,7 +29,7 @@ const randomRGB = () => {
   return `rgb(${R},${G},${B})`;
 };
 
-exports.recordLogo = (url) => {
+export const recordLogo = (url) => {
   const splitUrl = url.split(".")[1];
   if (existingLogo(url)) {
     return `image:${splitUrl}`;

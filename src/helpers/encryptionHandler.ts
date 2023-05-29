@@ -1,7 +1,8 @@
 import crypto from "crypto";
 const secret = process.env.CRYPTO_SCRT;
+import { IRecord } from "@/types/schemas";
 
-export const encrypt = (password) => {
+export const encrypt = (password: string) => {
   const iv = Buffer.from(crypto.randomBytes(16));
   const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(secret), iv);
   const encryptedPW = Buffer.concat([cipher.update(password), cipher.final()]);
@@ -11,7 +12,7 @@ export const encrypt = (password) => {
   };
 };
 
-export const decrypt = (encryption) => {
+export const decrypt = (encryption: IRecord) => {
   const decipher = crypto.createDecipheriv(
     "aes-256-ctr",
     Buffer.from(secret),
