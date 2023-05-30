@@ -15,8 +15,14 @@ import {
 } from "@chakra-ui/react";
 import Button from "./Button";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { IAvatarSelectorProps } from "@/types/components";
 
-function AvatarSelector({ index, onSelect, modalOpen, setModalOpen }) {
+const AvatarSelector: React.FC<IAvatarSelectorProps> = ({
+  index,
+  onSelect,
+  modalOpen,
+  setModalOpen,
+}) => {
   const [avatarIndex, setAvatarIndex] = useState(index);
 
   const scrollAvatars = (direction) => {
@@ -79,6 +85,7 @@ function AvatarSelector({ index, onSelect, modalOpen, setModalOpen }) {
 
           <ModalFooter display="flex" justifyContent="center">
             <Button
+              buttonType="primary"
               colorScheme="teal"
               mr={3}
               onClick={() => {
@@ -103,6 +110,6 @@ function AvatarSelector({ index, onSelect, modalOpen, setModalOpen }) {
       </Modal>
     </Center>
   );
-}
+};
 
 export default AvatarSelector;

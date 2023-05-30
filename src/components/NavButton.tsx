@@ -1,9 +1,13 @@
-import React from 'react';
-import { Box, Text, Center, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, Center, useColorModeValue } from "@chakra-ui/react";
+import { INavButtonProps } from "@/types/components";
 
-function NavButton({ navItem, selectedItem, handleClick }) {
-  const selectedColor = useColorModeValue('teal.300', 'teal.200');
-  const iconColor = useColorModeValue('#a19f9f', 'white');
+const NavButton: React.FC<INavButtonProps> = ({
+  navItem,
+  selectedItem,
+  handleClick,
+}) => {
+  const selectedColor = useColorModeValue("teal.300", "teal.200");
+  const iconColor = useColorModeValue("#a19f9f", "white");
 
   const highlightSelected = () => {
     return navItem.link === selectedItem;
@@ -22,6 +26,6 @@ function NavButton({ navItem, selectedItem, handleClick }) {
       </Box>
     </Center>
   );
-}
+};
 
 export default NavButton;

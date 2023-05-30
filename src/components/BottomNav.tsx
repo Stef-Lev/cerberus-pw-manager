@@ -3,6 +3,7 @@ import { Flex, Container, Box, useColorModeValue } from "@chakra-ui/react";
 import NavButton from "./NavButton";
 import { FiHome, FiBox, FiSearch, FiSettings } from "react-icons/fi";
 import { useRouter } from "next/router";
+import { IBottomNavItem } from "@/types/components";
 
 const icons = [
   {
@@ -31,11 +32,11 @@ const icons = [
   },
 ];
 
-function BottomNav() {
+const BottomNav: React.FC = () => {
   const barColor = useColorModeValue("#dbdbdb", "blue.850");
   const router = useRouter();
 
-  const handleButtonClick = (item) => {
+  const handleButtonClick = (item: IBottomNavItem) => {
     router.push(item.link);
   };
 
@@ -62,6 +63,6 @@ function BottomNav() {
       </Container>
     </Box>
   );
-}
+};
 
 export default BottomNav;

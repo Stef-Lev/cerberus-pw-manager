@@ -1,7 +1,8 @@
 import { Button as ChakraButton } from "@chakra-ui/react";
+import { IButtonProps } from "@/types/components";
 import { useColorModeValue } from "@chakra-ui/react";
 
-function Button({ type, ...props }) {
+const Button: React.FC<IButtonProps> = ({ buttonType, ...props }) => {
   const buttonTypes = {
     primary: useColorModeValue("teal.300", "teal.200"),
     transparent: useColorModeValue("blackAlpha.300", "whiteAlpha.200"),
@@ -13,15 +14,15 @@ function Button({ type, ...props }) {
     <ChakraButton
       variant="solid"
       color="white"
-      bg={buttonTypes[type]}
-      _hover={{ bg: buttonTypes[type] }}
-      _active={{ bg: buttonTypes[type] }}
-      _focus={{ bg: buttonTypes[type] }}
+      bg={buttonTypes[buttonType]}
+      _hover={{ bg: buttonTypes[buttonType] }}
+      _active={{ bg: buttonTypes[buttonType] }}
+      _focus={{ bg: buttonTypes[buttonType] }}
       {...props}
     >
       {props.children}
     </ChakraButton>
   );
-}
+};
 
 export default Button;

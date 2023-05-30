@@ -78,7 +78,7 @@ function Profile({ user, defaultData, records }) {
         setSaving(false);
       });
   };
-
+  console.log(userData);
   return (
     <Box>
       <TopNav title="Profile" type="backAndTitle" />
@@ -114,7 +114,7 @@ function Profile({ user, defaultData, records }) {
             </Box>
 
             <Button
-              type={editMode ? "primary" : "transparent"}
+              buttonType={editMode ? "primary" : "transparent"}
               borderRadius="32px"
               fontSize="14px"
               h="30px"
@@ -217,7 +217,7 @@ function Profile({ user, defaultData, records }) {
             {saving && <Loader size="md" thickness="5px" text="Saving..." />}
             {!saving && (
               <Center>
-                <Button type="primary" onClick={saveChanges}>
+                <Button buttonType="primary" onClick={saveChanges}>
                   Save changes
                 </Button>
               </Center>
@@ -241,7 +241,7 @@ function Profile({ user, defaultData, records }) {
               </CSVLink>
             </Box>
 
-            <Button type="error" onClick={signOut}>
+            <Button buttonType="error" onClick={signOut}>
               Logout
             </Button>
           </Flex>

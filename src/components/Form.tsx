@@ -1,8 +1,9 @@
 import { Box, Flex, Heading, VStack, Center } from "@chakra-ui/react";
 import Button from "./Button";
 import Input from "./Input";
+import { IFormProps } from "@/types/components";
 
-function Form({
+const Form: React.FC<IFormProps> = ({
   title,
   inputs,
   buttonText,
@@ -10,7 +11,7 @@ function Form({
   onChange,
   state,
   error,
-}) {
+}) => {
   return (
     <Box>
       <Flex flexDirection="column">
@@ -34,12 +35,12 @@ function Form({
           ))}
         </VStack>
 
-        <Button type="primary" onClick={onButtonClick}>
+        <Button buttonType="primary" onClick={onButtonClick}>
           {buttonText}
         </Button>
       </Flex>
     </Box>
   );
-}
+};
 
 export default Form;

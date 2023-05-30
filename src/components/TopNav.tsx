@@ -1,4 +1,3 @@
-import React from "react";
 import { useRouter } from "next/router";
 import { deleteMethod } from "../helpers/services";
 import { useSession } from "next-auth/react";

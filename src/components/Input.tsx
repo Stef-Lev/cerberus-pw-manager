@@ -1,7 +1,8 @@
 import { Input as ChakraInput } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
+import { InputProps } from "@chakra-ui/react";
 
-function Input({ ...props }) {
+const Input: React.FC<InputProps> = ({ ...props }) => {
   const borderColor = useColorModeValue("gray.800", "gray.700");
   const placeHolderColor = useColorModeValue("gray.400", "gray.700");
   return (
@@ -14,6 +15,6 @@ function Input({ ...props }) {
       {...props}
     />
   );
-}
+};
 
 export default Input;

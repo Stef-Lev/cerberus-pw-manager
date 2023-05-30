@@ -1,8 +1,8 @@
-import { createIcon } from '@chakra-ui/icons';
+import { createIcon } from "@chakra-ui/icons";
 
 const LogoIcon = createIcon({
-  displayName: 'Cerberus',
-  viewBox: '0 0 453.54 309.43',
+  displayName: "Cerberus",
+  viewBox: "0 0 453.54 309.43",
   path: (
     <g id="layer1" transform="translate(-104.3 -379.39)">
       <path

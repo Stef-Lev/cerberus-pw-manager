@@ -1,6 +1,12 @@
 import { Box, Spinner, Center, Text } from "@chakra-ui/react";
+import { ILoaderProps } from "@/types/components";
 
-function Loader({ fullScreen, size = "xl", thickness = "8px", text = "" }) {
+const Loader: React.FC<ILoaderProps> = ({
+  fullScreen,
+  size = "xl",
+  thickness = "8px",
+  text = "",
+}) => {
   return (
     <Box>
       <Center height={`${fullScreen ? "50vh" : "40px"}`}>
@@ -15,6 +21,6 @@ function Loader({ fullScreen, size = "xl", thickness = "8px", text = "" }) {
       </Center>
     </Box>
   );
-}
+};
 
 export default Loader;

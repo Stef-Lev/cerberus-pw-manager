@@ -1,16 +1,11 @@
-import React from "react";
 import { useRouter } from "next/router";
 import passwordChecker from "../helpers/passwordChecker";
 import { Box, Text, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
 import WebsiteIcon from "./WebsiteIcon";
-import { IRecord } from "@/types/schemas";
+import { IAnalysisItemProps } from "@/types/components";
 
-interface AnalysisItemProps {
-  record: IRecord;
-}
-
-const AnalysisItem: React.FC<AnalysisItemProps> = ({ record }) => {
+const AnalysisItem: React.FC<IAnalysisItemProps> = ({ record }) => {
   const titleColor = useColorModeValue("#121212", "#f5f5f5");
   const usernameColor = useColorModeValue("#404040", "#dedede");
   const barColor = useColorModeValue("gray.200", "gray.800");

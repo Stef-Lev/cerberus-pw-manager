@@ -1,4 +1,3 @@
-import React from "react";
 import { useRouter } from "next/router";
 import copyToClipboard from "../helpers/copyToClipboard";
 import { Box, Heading, Text, Flex, useColorModeValue } from "@chakra-ui/react";

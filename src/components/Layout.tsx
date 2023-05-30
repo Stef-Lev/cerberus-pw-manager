@@ -5,8 +5,9 @@ import ScrollToTop from "./ScrollToTop";
 import { Container } from "@chakra-ui/react";
 import Loader from "./Loader";
 import BottomNav from "./BottomNav";
+import { ILayoutProps } from "@/types/components";
 
-export default function Layout({ children }) {
+const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -41,7 +42,9 @@ export default function Layout({ children }) {
           <ScrollToTop />
         </Container>
       )}
-      <BottomNav loading={loading} />
+      <BottomNav />
     </>
   );
-}
+};
+
+export default Layout;

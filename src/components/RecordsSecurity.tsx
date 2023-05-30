@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Flex,
@@ -6,16 +5,16 @@ import {
   Text,
   CircularProgress,
   CircularProgressLabel,
-} from '@chakra-ui/react';
-import passwordChecker from '../helpers/passwordChecker';
+} from "@chakra-ui/react";
+import passwordChecker from "../helpers/passwordChecker";
 
 function RecordsSecurity({ records }) {
-  const checkedRecords = records.map(item => passwordChecker(item.password));
+  const checkedRecords = records.map((item) => passwordChecker(item.password));
   const strong = checkedRecords.filter(
-    item => item.text === 'Strong' || item.text === 'Very strong'
+    (item) => item.text === "Strong" || item.text === "Very strong"
   ).length;
-  const medium = checkedRecords.filter(item => item.text === 'Medium').length;
-  const weaκ = checkedRecords.filter(item => item.text === 'Weak').length;
+  const medium = checkedRecords.filter((item) => item.text === "Medium").length;
+  const weaκ = checkedRecords.filter((item) => item.text === "Weak").length;
   const securityLevel = Math.round((strong / records.length) * 100);
 
   return (
