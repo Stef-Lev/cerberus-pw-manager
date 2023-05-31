@@ -17,18 +17,27 @@ import {
 import { FiRefreshCw } from "react-icons/fi";
 import passwordChecker from "@/helpers/passwordChecker";
 import generatePassword from "@/helpers/generatePassword";
+import {
+  IPasswordEditorProps,
+  IAutoGenerateOptions,
+  ICheckResult,
+} from "@/types/components";
 
-function PasswordEditor({ password, setPassword }) {
-  const [check, setCheck] = useState({});
-  const [autoGenerateOptions, setAutoGenerateOptions] = useState({
-    length: 10,
-    numbers: false,
-    symbols: false,
-    lower: true,
-    upper: false,
-  });
+const PasswordEditor: React.FC<IPasswordEditorProps> = ({
+  password,
+  setPassword,
+}) => {
+  const [check, setCheck] = useState<ICheckResult>({});
+  const [autoGenerateOptions, setAutoGenerateOptions] =
+    useState<IAutoGenerateOptions>({
+      length: 10,
+      numbers: false,
+      symbols: false,
+      lower: true,
+      upper: false,
+    });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (password) {
       setCheck(passwordChecker(e.target.value));
     } else {
@@ -37,14 +46,14 @@ function PasswordEditor({ password, setPassword }) {
     setPassword(e.target.value);
   };
 
-  const handleCheckbox = (e) => {
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAutoGenerateOptions((prevState) => ({
       ...prevState,
       [e.currentTarget.id]: e.currentTarget.checked,
     }));
   };
 
-  const handleSlider = (val) => {
+  const handleSlider = (val: number) => {
     setAutoGenerateOptions((prevState) => ({
       ...prevState,
       length: val,
@@ -174,6 +183,6 @@ function PasswordEditor({ password, setPassword }) {
       </Box>
     </Box>
   );
-}
+};
 
 export default PasswordEditor;

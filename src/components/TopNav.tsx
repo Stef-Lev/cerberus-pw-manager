@@ -22,18 +22,30 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
+import { ITopNavProps, IMySession } from "@/types/components";
 
-function TopNav({ title, type, onSearch, searchQuery, onClear }) {
+const TopNav: React.FC<ITopNavProps> = ({
+  title,
+  type,
+  onSearch,
+  searchQuery,
+  onClear,
+}) => {
   const textColor = useColorModeValue("#171923", "#fafafa");
   const background = useColorModeValue("#fafafa", "#171923");
   const router = useRouter();
   const { recordId } = router.query;
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const deleteRecord = () => {
-    deleteMethod(`/api/user/${session?.user.id}/records/${recordId}`).then(() =>
-      router.push("/")
-    );
+    if (session && status !== "loading") {
+      const userId = session.user?.id;
+      if (userId) {
+        deleteMethod(`/api/user/${userId}/records/${recordId}`).then(() =>
+          router.push("/")
+        );
+      }
+    }
   };
 
   return (
@@ -117,6 +129,6 @@ function TopNav({ title, type, onSearch, searchQuery, onClear }) {
       </Container>
     </Box>
   );
-}
+};
 
 export default TopNav;

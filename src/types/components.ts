@@ -1,5 +1,7 @@
 import { IRecord } from "./schemas";
 import { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
+import { SetStateAction } from "react";
+import { Session, DefaultSession } from "next-auth";
 export interface IAnalysisItemProps {
   record: IRecord;
 }
@@ -70,4 +72,41 @@ export interface INavButtonProps {
   navItem: IBottomNavItem;
   selectedItem: string;
   handleClick: (item: IBottomNavItem) => void;
+}
+
+export interface IPasswordEditorProps {
+  password: string;
+  setPassword: React.Dispatch<SetStateAction<string>>;
+}
+
+export interface IAutoGenerateOptions {
+  length: number;
+  numbers: boolean;
+  symbols: boolean;
+  lower: boolean;
+  upper: boolean;
+}
+
+export interface ICheckResult {
+  percent?: string;
+  color?: string;
+}
+
+export interface ITopNavProps {
+  title: string;
+  type: "basic" | "backAndDelete" | "backAndTitle" | "search";
+  onSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  searchQuery?: string;
+  onClear?: () => void;
+}
+
+export interface ISessionUser {
+  id?: string;
+  name?: string;
+  email?: string;
+  image?: string;
+}
+
+export interface IMySession extends Session {
+  user: ISessionUser;
 }
