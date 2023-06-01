@@ -2,7 +2,7 @@ import { Box, Spinner, Center, Text } from "@chakra-ui/react";
 import { ILoaderProps } from "@/types/components";
 
 const Loader: React.FC<ILoaderProps> = ({
-  fullScreen,
+  fullScreen = false,
   size = "xl",
   thickness = "8px",
   text = "",

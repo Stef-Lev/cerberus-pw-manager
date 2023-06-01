@@ -21,17 +21,22 @@ import {
 import Button from "@/components/Button";
 import AvatarSelector from "@/components/AvatarSelector";
 import { FaPen } from "react-icons/fa";
+import { IProfilePageProps, IProfileUserData } from "@/types/components";
 
-function Profile({ user, defaultData, records }) {
-  const [editMode, setEditMode] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [userData, setUserData] = useState(defaultData);
-  const [valid, setValid] = useState(true);
-  const [saving, setSaving] = useState(false);
+const Profile: React.FC<IProfilePageProps> = ({
+  user,
+  defaultData,
+  records,
+}) => {
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [userData, setUserData] = useState<IProfileUserData>(defaultData);
+  const [valid, setValid] = useState<boolean>(true);
+  const [saving, setSaving] = useState<boolean>(false);
 
   const csvBg = useColorModeValue("blackAlpha.300", "whiteAlpha.200");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValid(true);
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -78,7 +83,7 @@ function Profile({ user, defaultData, records }) {
         setSaving(false);
       });
   };
-  console.log(userData);
+
   return (
     <Box>
       <TopNav title="Profile" type="backAndTitle" />
@@ -241,7 +246,7 @@ function Profile({ user, defaultData, records }) {
               </CSVLink>
             </Box>
 
-            <Button buttonType="error" onClick={signOut}>
+            <Button buttonType="error" onClick={() => signOut()}>
               Logout
             </Button>
           </Flex>
@@ -255,7 +260,7 @@ function Profile({ user, defaultData, records }) {
       />
     </Box>
   );
-}
+};
 
 export default Profile;
 
@@ -271,7 +276,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let userData = {};
+  let userData: IProfileUserData = {};
   let user;
 
   const { req } = context;

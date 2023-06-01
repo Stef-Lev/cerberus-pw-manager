@@ -1,18 +1,18 @@
 import { IRecord, IUser } from "./schemas";
 import { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 import { SetStateAction } from "react";
-import { Session, DefaultSession } from "next-auth";
+import { Session } from "next-auth";
 export interface IAnalysisItemProps {
   record: IRecord;
 }
 
 export interface IProfileUserData {
-  fullname: string;
-  username: string;
-  oldPassword: string;
-  newPassword: string;
-  confirmNewPassword: string;
-  avatar: number;
+  fullname?: string;
+  username?: string;
+  oldPassword?: string;
+  newPassword?: string;
+  confirmNewPassword?: string;
+  avatar?: number;
 }
 
 export interface IAvatarSelectorProps {
@@ -62,7 +62,7 @@ export interface ILayoutProps {
 }
 
 export interface ILoaderProps {
-  fullScreen: boolean;
+  fullScreen?: boolean;
   size?: string;
   thickness?: string;
   text?: string;
@@ -139,4 +139,10 @@ export interface ISettingItemProps {
 }
 export interface IWebsiteIconProps {
   logo: string;
+}
+
+export interface IProfilePageProps {
+  user: IUser;
+  defaultData: IProfileUserData;
+  records: IRecord[];
 }

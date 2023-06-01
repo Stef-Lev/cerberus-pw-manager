@@ -1,7 +1,8 @@
 import RecordEditing from "@/components/RecordEditing";
+import { IRecordNewPageProps } from "@/types/pages";
 import { getSession } from "next-auth/react";
 
-const RecordNewPage = ({ record, user }) => {
+const RecordNewPage: React.FC<IRecordNewPageProps> = ({ record, user }) => {
   return (
     <div>
       <RecordEditing type="new" record={record} user={user} />
