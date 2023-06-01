@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Flex, Box, Button } from "@chakra-ui/react";
 import { FiArrowUp } from "react-icons/fi";
 
-function ScrollTopButton() {
-  const [showButton, setShowButton] = useState(false);
-  const [opacity, setOpacity] = useState(false);
+const ScrollTopButton: React.FC = () => {
+  const [showButton, setShowButton] = useState<boolean>(false);
+  const [opacity, setOpacity] = useState(0);
   const ScrollStart = 200;
   const ScrollEnd = 300;
 
@@ -59,6 +59,6 @@ function ScrollTopButton() {
       )}
     </>
   );
-}
+};
 
 export default ScrollTopButton;

@@ -3,8 +3,9 @@ import copyToClipboard from "../helpers/copyToClipboard";
 import { Box, Heading, Text, Flex, useColorModeValue } from "@chakra-ui/react";
 import WebsiteIcon from "./WebsiteIcon";
 import { FiCopy } from "react-icons/fi";
+import { IRecordItemProps } from "@/types/components";
 
-function RecordItem({ record }) {
+const RecordItem: React.FC<IRecordItemProps> = ({ record }) => {
   const titleColor = useColorModeValue("#121212", "#f5f5f5");
   const usernameColor = useColorModeValue("#404040", "#dedede");
   const copyIconColor = useColorModeValue("#a19f9f", "#dedede");
@@ -38,6 +39,6 @@ function RecordItem({ record }) {
       </Flex>
     </Box>
   );
-}
+};
 
 export default RecordItem;

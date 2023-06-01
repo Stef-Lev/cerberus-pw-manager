@@ -7,14 +7,15 @@ import {
   CircularProgressLabel,
 } from "@chakra-ui/react";
 import passwordChecker from "../helpers/passwordChecker";
+import { IRecordsSecurityProps } from "@/types/components";
 
-function RecordsSecurity({ records }) {
+const RecordsSecurity: React.FC<IRecordsSecurityProps> = ({ records }) => {
   const checkedRecords = records.map((item) => passwordChecker(item.password));
   const strong = checkedRecords.filter(
     (item) => item.text === "Strong" || item.text === "Very strong"
   ).length;
   const medium = checkedRecords.filter((item) => item.text === "Medium").length;
-  const weaκ = checkedRecords.filter((item) => item.text === "Weak").length;
+  const weak = checkedRecords.filter((item) => item.text === "Weak").length;
   const securityLevel = Math.round((strong / records.length) * 100);
 
   return (
@@ -66,13 +67,13 @@ function RecordsSecurity({ records }) {
           flexDirection="column"
         >
           <Box fontSize="24px" fontWeight="bold" color="#d63a47">
-            {weaκ}
+            {weak}
           </Box>
           <Text fontSize="14px">Weak</Text>
         </Center>
       </Flex>
     </Box>
   );
-}
+};
 
 export default RecordsSecurity;

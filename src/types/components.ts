@@ -123,3 +123,11 @@ export interface IRecordEditingProps {
   user: IUser;
   record: IRecordEditData;
 }
+
+export interface IRecordItemProps {
+  record: IRecord;
+}
+
+export interface IRecordsSecurityProps {
+  records: IRecord[];
+}
