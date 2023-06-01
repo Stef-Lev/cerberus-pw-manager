@@ -13,16 +13,21 @@ import { useRouter } from "next/router";
 import { postMethod, updateMethod } from "@/helpers/services";
 import TopNav from "./TopNav";
 import showMsg from "@/helpers/showMsg";
+import { IRecordEditingProps, IRecordEditData } from "@/types/components";
 
-function RecordEditing({ type, record, user }) {
-  const [recordObj, setRecordObj] = useState(record);
-  const [password, setPassword] = useState(record.password);
+const RecordEditing: React.FC<IRecordEditingProps> = ({
+  type,
+  record,
+  user,
+}) => {
+  const [recordObj, setRecordObj] = useState<IRecordEditData>(record);
+  const [password, setPassword] = useState<string>(record.password);
   const title = type === "new" ? "New Record" : "Edit Record";
   const router = useRouter();
   const { recordId } = router.query;
   const buttonBg = useColorModeValue("#dbdbdb", "#2a2c38");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRecordObj((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -110,6 +115,6 @@ function RecordEditing({ type, record, user }) {
       </Box>
     </Box>
   );
-}
+};
 
 export default RecordEditing;

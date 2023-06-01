@@ -1,4 +1,4 @@
-import { IRecord } from "./schemas";
+import { IRecord, IUser } from "./schemas";
 import { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 import { SetStateAction } from "react";
 import { Session, DefaultSession } from "next-auth";
@@ -109,4 +109,17 @@ export interface ISessionUser {
 
 export interface IMySession extends Session {
   user: ISessionUser;
+}
+
+export interface IRecordEditData {
+  password?: string;
+  title?: string;
+  url?: string;
+  username: string;
+}
+
+export interface IRecordEditingProps {
+  type: "new" | "edit";
+  user: IUser;
+  record: IRecordEditData;
 }
