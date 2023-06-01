@@ -1,6 +1,7 @@
 import { Image, Box, Center, useColorModeValue } from "@chakra-ui/react";
+import { IWebsiteIconProps } from "@/types/components";
 
-function WebsiteIcon({ logo }) {
+const WebsiteIcon: React.FC<IWebsiteIconProps> = ({ logo }) => {
   const logoData = logo.split(":");
   const logoTextColor = useColorModeValue("#fff", "#fff");
   const logoBgColor = useColorModeValue(logoData[1], logoData[1]);
@@ -27,6 +28,6 @@ function WebsiteIcon({ logo }) {
   };
 
   return <>{showLogo()}</>;
-}
+};
 
 export default WebsiteIcon;

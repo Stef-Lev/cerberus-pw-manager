@@ -131,3 +131,12 @@ export interface IRecordItemProps {
 export interface IRecordsSecurityProps {
   records: IRecord[];
 }
+export interface ISettingItemProps {
+  title: string;
+  type: "route" | "switch" | "text";
+  text: string;
+  onClick?: () => void;
+}
+export interface IWebsiteIconProps {
+  logo: string;
+}

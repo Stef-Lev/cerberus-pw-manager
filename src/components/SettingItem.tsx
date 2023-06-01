@@ -6,8 +6,14 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
+import { ISettingItemProps } from "@/types/components";
 
-function SettingItem({ title, type, text, onClick }) {
+const SettingItem: React.FC<ISettingItemProps> = ({
+  title,
+  type,
+  text,
+  onClick,
+}) => {
   const { colorMode } = useColorMode();
   const titleColor = useColorModeValue("#121212", "#f5f5f5");
 
@@ -26,6 +32,6 @@ function SettingItem({ title, type, text, onClick }) {
       {type === "text" && <Text>{text}</Text>}
     </Flex>
   );
-}
+};
 
 export default SettingItem;
