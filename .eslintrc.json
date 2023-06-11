@@ -8,17 +8,16 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended"
   ],
+  "settings": {
+    "react": { "version": "detect" }
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
   },
   "plugins": ["@typescript-eslint", "react"],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
   "rules": {
     "react/react-in-jsx-scope": "off"
   }
