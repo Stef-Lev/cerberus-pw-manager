@@ -218,7 +218,7 @@ const Profile: React.FC<IProfilePageProps> = ({
               isInvalid={!valid}
               errorBorderColor="red.200"
             />
-            {!valid && <Text color="red.200">Passwords don't match</Text>}
+            {!valid && <Text color="red.200">Passwords do not match</Text>}
             {saving && <Loader size="md" thickness="5px" text="Saving..." />}
             {!saving && (
               <Center>
@@ -276,7 +276,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let userData: IProfileUserData = {};
+  const userData: IProfileUserData = {};
   let user;
 
   const { req } = context;

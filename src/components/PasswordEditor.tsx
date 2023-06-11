@@ -61,7 +61,7 @@ const PasswordEditor: React.FC<IPasswordEditorProps> = ({
   };
 
   const passWordGeneration = () => {
-    let pw = generatePassword(autoGenerateOptions);
+    const pw = generatePassword(autoGenerateOptions);
     setCheck(passwordChecker(pw));
     setPassword(pw);
   };

@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import { IUser, IUserModel } from "@/types/schemas";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
 const UserSchema = new Schema<IUser>({
   fullname: String,

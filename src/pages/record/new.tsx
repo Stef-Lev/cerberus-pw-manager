@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let recordData = {
+  const recordData = {
     title: "",
     url: "",
     username: "",

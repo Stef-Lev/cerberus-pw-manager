@@ -20,11 +20,11 @@ const existingLogo = (url) => {
 };
 
 const randomRGB = () => {
-  let min = 80;
-  let max = 200;
-  let R = Math.floor(Math.random() * (max - min + 1)) + min;
-  let G = Math.floor(Math.random() * (max - min + 1)) + min;
-  let B = Math.floor(Math.random() * (max - min + 1)) + min;
+  const min = 80;
+  const max = 200;
+  const R = Math.floor(Math.random() * (max - min + 1)) + min;
+  const G = Math.floor(Math.random() * (max - min + 1)) + min;
+  const B = Math.floor(Math.random() * (max - min + 1)) + min;
 
   return `rgb(${R},${G},${B})`;
 };

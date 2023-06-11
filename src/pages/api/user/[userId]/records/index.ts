@@ -9,9 +9,9 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
       const { userId } = req.query;
       const user = await User.findById(userId);
-      let recordsDecrypted = [];
+      const recordsDecrypted = [];
       user.records.forEach((record) => {
-        let obj = {};
+        const obj = {};
         obj.id = record._id;
         obj.title = record.title;
         obj.url = record.url;
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       const user = await User.findById(userId);
       const { password, url } = req.body;
       const hashedPw = encrypt(password);
-      let createdLogo = recordLogo(url);
+      const createdLogo = recordLogo(url);
 
       user.records.push({
         ...req.body,

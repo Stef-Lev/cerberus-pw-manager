@@ -38,14 +38,13 @@ const options: MyNextAuthOptions = {
           const user = await User.findOne({
             username: credentials.username,
           }).select("+password");
-          let correctPassword;
 
           if (!user) {
             (await connectDB()).closeConnection();
             throw new Error("No user found");
           }
 
-          correctPassword = await user.correctPassword(
+          const correctPassword = await user.correctPassword(
             credentials.password,
             user.password
           );

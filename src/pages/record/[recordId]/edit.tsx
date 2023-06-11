@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let recordData = {};
+  const recordData = {};
 
   const { req } = context;
   const baseUrl = req.headers.host;

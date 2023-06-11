@@ -5,7 +5,7 @@ const convertToCsv = (records: IRecord[]): any[][] => {
   const headers = ["TITLE", "URL", "USERNAME", "PASSWORD"];
   csvData.push(headers);
   records.forEach((record) => {
-    let fieldsArray = [];
+    const fieldsArray = [];
     fieldsArray.push(record.title);
     fieldsArray.push(record.url);
     fieldsArray.push(record.username);
