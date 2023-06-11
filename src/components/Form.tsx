@@ -34,6 +34,11 @@ const Form: React.FC<IFormProps> = ({
             />
           ))}
         </VStack>
+        {error && (
+          <Box color="red.500" mb="10px">
+            {error}
+          </Box>
+        )}
 
         <Button buttonType="primary" onClick={onButtonClick}>
           {buttonText}

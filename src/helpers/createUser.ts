@@ -3,18 +3,22 @@ import { IRegisterResponse } from "./../types/helpers";
 
 const createUser = async (
   userObj: INewUserData
-): Promise<IRegisterResponse> => {
-  const res: Response = await fetch("/api/auth/register", {
-    method: "POST",
-    body: JSON.stringify(userObj),
-    headers: { "Content-Type": "application/json" },
-  });
+): Promise<IRegisterResponse | string> => {
+  try {
+    const res: Response = await fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify(userObj),
+      headers: { "Content-Type": "application/json" },
+    });
 
-  const data: IRegisterResponse = await res.json();
-  if (!res.ok) {
-    throw new Error(data.message || "Something went wrong!");
+    const data: IRegisterResponse = await res.json();
+    if (!res.ok) {
+      return data.message || "Something went wrong!";
+    }
+    return data;
+  } catch (err) {
+    return "Something went wrong!";
   }
-  return data;
 };
 
 export default createUser;

@@ -29,6 +29,7 @@ function AuthPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [user, setUser] = useState(defaultUser);
+  const [errorMessage, setErrorMessage] = useState("");
   const authPage = router.query.authPage as string;
 
   const handleInputChange = (
@@ -38,20 +39,35 @@ function AuthPage() {
     setUser({ ...user, [field]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (): void => {
     if (authPage === "login") {
-      await signIn("credentials", {
+      signIn("credentials", {
         redirect: false,
         username: user.username,
         password: user.password,
-      });
+      })
+        .then(({ ok, error }) => {
+          if (ok) {
+            console.log("OK");
+            setErrorMessage("");
+          } else {
+            console.log(error);
+            setErrorMessage(error);
+          }
+        })
+        .catch(() => setErrorMessage("Invalid login credentials"));
     } else {
-      try {
-        await createUser(user);
-      } catch (err) {
-        console.error(err);
-      }
+      createUser(user)
+        .then((response) => {
+          if (typeof response === "string") {
+            console.log(response);
+            setErrorMessage(response);
+          } else {
+            console.log("OK");
+            setErrorMessage("");
+          }
+        })
+        .catch(() => setErrorMessage("Error creating user"));
     }
   };
 
@@ -147,7 +163,7 @@ function AuthPage() {
                   state={user}
                   onChange={handleInputChange}
                   onButtonClick={handleSubmit}
-                  error={null}
+                  error={errorMessage}
                 />
               </TabPanel>
               <TabPanel p="10px">
@@ -167,7 +183,7 @@ function AuthPage() {
                       type: "password",
                     },
                   ]}
-                  error={null}
+                  error={errorMessage}
                   buttonText="Sign up"
                   state={user}
                   onChange={handleInputChange}
