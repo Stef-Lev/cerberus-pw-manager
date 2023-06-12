@@ -1,6 +1,7 @@
 import RecordEditing from "@/components/RecordEditing";
 import { getSession } from "next-auth/react";
 import { getOneMethod } from "@/helpers/services";
+import { IRecord } from "@/types/schemas";
 
 function RecordEditPage({ record, user }) {
   return (
@@ -25,7 +26,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const recordData = {};
+  const recordData = {} as IRecord;
 
   const { req } = context;
   const baseUrl = req.headers.host;

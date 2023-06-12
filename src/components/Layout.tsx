@@ -10,6 +10,12 @@ import { ILayoutProps } from "@/types/components";
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const isAuth = () => {
+    if (router.pathname.includes("/auth/")) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     if (router && router.events) {
@@ -42,7 +48,7 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
           <ScrollToTop />
         </Container>
       )}
-      <BottomNav />
+      {!isAuth() && <BottomNav />}
     </>
   );
 };

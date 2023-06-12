@@ -22,7 +22,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
-import { ITopNavProps, IMySession } from "@/types/components";
+import { ITopNavProps } from "@/types/components";
 
 const TopNav: React.FC<ITopNavProps> = ({
   title,

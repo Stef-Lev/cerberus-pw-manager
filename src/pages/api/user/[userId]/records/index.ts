@@ -2,6 +2,7 @@ import connectDB from "@/connectDB";
 import { decrypt, encrypt } from "@/helpers/encryptionHandler";
 import { recordLogo } from "@/helpers/logos";
 import User from "@/models/user";
+import { IRecord } from "@/types/schemas";
 
 export default async function handler(req, res) {
   try {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
       const user = await User.findById(userId);
       const recordsDecrypted = [];
       user.records.forEach((record) => {
-        const obj = {};
+        const obj = {} as IRecord;
         obj.id = record._id;
         obj.title = record.title;
         obj.url = record.url;

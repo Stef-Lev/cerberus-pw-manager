@@ -1,6 +1,7 @@
 import connectDB from "@/connectDB";
 import { decrypt, encrypt } from "@/helpers/encryptionHandler";
 import User from "@/models/user";
+import { IRecord } from "@/types/schemas";
 
 export default async function handler(req, res) {
   try {
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
       const user = await User.findById(userId);
 
       const foundRecord = await user.records.find((rec) => rec.id == recordId);
-      const updatedRecord = {};
+      const updatedRecord = {} as IRecord;
 
       updatedRecord.title = title;
       updatedRecord.url = url;
