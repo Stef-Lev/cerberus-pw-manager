@@ -24,17 +24,26 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const recordData = {
-    title: "",
-    url: "",
-    username: "",
-    password: "",
-  };
+  try {
+    const recordData = {
+      title: "",
+      url: "",
+      username: "",
+      password: "",
+    };
 
-  return {
-    props: {
-      user: session.user,
-      record: recordData,
-    },
-  };
+    return {
+      props: {
+        user: session.user,
+        record: recordData,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/error",
+        permanent: false,
+      },
+    };
+  }
 }

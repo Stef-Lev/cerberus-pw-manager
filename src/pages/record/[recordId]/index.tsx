@@ -114,22 +114,31 @@ export async function getServerSideProps(context) {
     };
   }
 
-  let record = {};
+  try {
+    let record = {};
 
-  const { req } = context;
-  const baseUrl = req.headers.host;
-  const protocol = req.headers["x-forwarded-proto"] || "http";
-  const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records/${recordId}`;
+    const { req } = context;
+    const baseUrl = req.headers.host;
+    const protocol = req.headers["x-forwarded-proto"] || "http";
+    const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records/${recordId}`;
 
-  const fetchedData = await getOneMethod(apiUrl);
+    const fetchedData = await getOneMethod(apiUrl);
 
-  if (fetchedData) {
-    record = fetchedData;
+    if (fetchedData) {
+      record = fetchedData;
+    }
+
+    return {
+      props: {
+        record,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/error",
+        permanent: false,
+      },
+    };
   }
-
-  return {
-    props: {
-      record,
-    },
-  };
 }
