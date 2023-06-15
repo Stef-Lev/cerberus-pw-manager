@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 // TODO: Add a way to warn for unsaved changes
-// TODO: Add error on form in auth page
 // TODO: Add warning on delete
 // TODO: Update readme with images
 

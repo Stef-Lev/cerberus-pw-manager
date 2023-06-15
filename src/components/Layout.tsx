@@ -10,8 +10,18 @@ import { ILayoutProps } from "@/types/components";
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const isAuth = () => {
+  const isAuthPage = () => {
     if (router.pathname.includes("/auth/")) {
+      return true;
+    }
+    return false;
+  };
+
+  const isErrorPage = () => {
+    if (
+      router.pathname.includes("/404") ||
+      router.pathname.includes("/error")
+    ) {
       return true;
     }
     return false;
@@ -48,7 +58,7 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
           <ScrollToTop />
         </Container>
       )}
-      {!isAuth() && <BottomNav />}
+      {!isAuthPage() && !isErrorPage() && <BottomNav />}
     </>
   );
 };

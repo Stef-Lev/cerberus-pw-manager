@@ -285,24 +285,33 @@ export async function getServerSideProps(context) {
   const userUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}`;
   const recordsUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records`;
 
-  const fetchedUser = await getOneMethod(userUrl);
-  const fetchedRecords = await getAllMethod(recordsUrl);
+  try {
+    const fetchedUser = await getOneMethod(userUrl);
+    const fetchedRecords = await getAllMethod(recordsUrl);
+    if (fetchedUser) {
+      user = fetchedUser.user;
+      userData.fullname = fetchedUser.user.fullname;
+      userData.username = fetchedUser.user.username;
+      userData.oldPassword = "";
+      userData.newPassword = "";
+      userData.confirmNewPassword = "";
+      userData.avatar = fetchedUser.user.avatar;
+    }
 
-  if (fetchedUser) {
-    user = fetchedUser.user;
-    userData.fullname = fetchedUser.user.fullname;
-    userData.username = fetchedUser.user.username;
-    userData.oldPassword = "";
-    userData.newPassword = "";
-    userData.confirmNewPassword = "";
-    userData.avatar = fetchedUser.user.avatar;
+    return {
+      props: {
+        user,
+        defaultData: userData,
+        records: fetchedRecords,
+        error: null,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/error",
+        permanent: false,
+      },
+    };
   }
-
-  return {
-    props: {
-      user,
-      defaultData: userData,
-      records: fetchedRecords,
-    },
-  };
 }

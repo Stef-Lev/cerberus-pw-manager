@@ -37,6 +37,9 @@ function AuthPage() {
     field: string
   ) => {
     setUser({ ...user, [field]: e.target.value });
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   const handleSubmit = (): void => {
@@ -48,10 +51,8 @@ function AuthPage() {
       })
         .then(({ ok, error }) => {
           if (ok) {
-            console.log("OK");
             setErrorMessage("");
           } else {
-            console.log(error);
             setErrorMessage(error);
           }
         })
@@ -60,10 +61,8 @@ function AuthPage() {
       createUser(user)
         .then((response) => {
           if (typeof response === "string") {
-            console.log(response);
             setErrorMessage(response);
           } else {
-            console.log("OK");
             setErrorMessage("");
           }
         })

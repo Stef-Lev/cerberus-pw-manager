@@ -38,22 +38,30 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  try {
+    let records = [];
 
-  let records = [];
+    const { req } = context;
+    const baseUrl = req.headers.host;
+    const protocol = req.headers["x-forwarded-proto"] || "http";
+    const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records`;
 
-  const { req } = context;
-  const baseUrl = req.headers.host;
-  const protocol = req.headers["x-forwarded-proto"] || "http";
-  const apiUrl = `${protocol}://${baseUrl}/api/user/${session.user.id}/records`;
+    const fetchedData = await getAllMethod(apiUrl);
+    if (fetchedData) {
+      records = fetchedData;
+    }
 
-  const fetchedData = await getAllMethod(apiUrl);
-  if (fetchedData) {
-    records = fetchedData;
+    return {
+      props: {
+        records,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/error",
+        permanent: false,
+      },
+    };
   }
-
-  return {
-    props: {
-      records,
-    },
-  };
 }
