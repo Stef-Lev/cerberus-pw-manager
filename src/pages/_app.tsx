@@ -6,10 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 // TODO: Add a way to warn for unsaved changes
-// TODO: Add error on form in auth page
 // TODO: Add warning on delete
-// TODO: Check themes colors
-// TODO: 404 page and generic erro page
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
   return (

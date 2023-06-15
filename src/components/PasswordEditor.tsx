@@ -13,6 +13,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Heading,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { FiRefreshCw } from "react-icons/fi";
 import passwordChecker from "@/helpers/passwordChecker";
@@ -36,6 +37,7 @@ const PasswordEditor: React.FC<IPasswordEditorProps> = ({
       lower: true,
       upper: false,
     });
+  const activeColor = useColorModeValue("teal.300", "teal.200");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (password) {
@@ -88,7 +90,10 @@ const PasswordEditor: React.FC<IPasswordEditorProps> = ({
           w="100%"
           value={password}
           onChange={handleInputChange}
-          _focusVisible={{ border: "2px solid", borderColor: "teal.200" }}
+          _focusVisible={{
+            border: "2px solid",
+            borderColor: activeColor,
+          }}
         />
         <InputRightElement>
           <FiRefreshCw onClick={passWordGeneration} />
@@ -121,7 +126,7 @@ const PasswordEditor: React.FC<IPasswordEditorProps> = ({
                 onChange={handleSlider}
               >
                 <SliderTrack>
-                  <SliderFilledTrack bg="teal.200" />
+                  <SliderFilledTrack bg={activeColor} />
                 </SliderTrack>
                 <SliderThumb />
               </Slider>
@@ -173,8 +178,8 @@ const PasswordEditor: React.FC<IPasswordEditorProps> = ({
                 <Checkbox
                   id="upper"
                   isChecked={autoGenerateOptions.upper}
-                  colorScheme="teal"
                   onChange={handleCheckbox}
+                  colorScheme="teal"
                 />
               </Box>
             </Flex>
