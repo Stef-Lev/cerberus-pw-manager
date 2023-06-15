@@ -36,14 +36,14 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
 
   const handleSubmit = () => {
     if (type === "new") {
-      postMethod(`/api/usr/${user.id}/records`, {
+      postMethod(`/api/user/${user.id}/records`, {
         ...recordObj,
         password,
       })
         .then(() => router.push("/"))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     } else {
-      updateMethod(`/api/usr/${user.id}/records/${recordId}`, {
+      updateMethod(`/api/user/${user.id}/records/${recordId}`, {
         ...recordObj,
         password,
       })
