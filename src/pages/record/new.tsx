@@ -1,12 +1,14 @@
+import { Box } from "@chakra-ui/react";
 import RecordEditing from "@/components/RecordEditing";
 import { IRecordNewPageProps } from "@/types/pages";
 import { getSession } from "next-auth/react";
+import { defaultRecordData } from "@/types/components";
 
 const RecordNewPage: React.FC<IRecordNewPageProps> = ({ record, user }) => {
   return (
-    <div>
+    <Box>
       <RecordEditing type="new" record={record} user={user} />
-    </div>
+    </Box>
   );
 };
 
@@ -25,17 +27,10 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const recordData = {
-      title: "",
-      url: "",
-      username: "",
-      password: "",
-    };
-
     return {
       props: {
         user: session.user,
-        record: recordData,
+        record: defaultRecordData,
       },
     };
   } catch (error) {

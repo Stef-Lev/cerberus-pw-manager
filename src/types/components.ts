@@ -142,3 +142,9 @@ export interface IProfilePageProps {
   defaultData: IProfileUserData;
   records: IRecord[];
 }
+export const defaultRecordData: IRecordEditData = {
+  title: "",
+  url: "",
+  username: "",
+  password: "",
+};

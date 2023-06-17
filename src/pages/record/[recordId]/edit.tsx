@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import RecordEditing from "@/components/RecordEditing";
 import { getSession } from "next-auth/react";
 import { getOneMethod } from "@/helpers/services";
@@ -5,9 +6,9 @@ import { IRecord } from "@/types/schemas";
 
 function RecordEditPage({ record, user }) {
   return (
-    <div>
+    <Box>
       <RecordEditing type="edit" record={record} user={user} />
-    </div>
+    </Box>
   );
 }
 
