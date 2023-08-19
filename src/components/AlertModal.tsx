@@ -21,7 +21,13 @@ const AlertModal: React.FC<AlertModalProps> = ({
   onClose,
   callBackAction,
 }) => {
-  const cancelRef = useRef();
+  const cancelRef = useRef<HTMLButtonElement | null>(null);
+
+  const onClickCancelRef = () => {
+    if (cancelRef.current) {
+      cancelRef.current.click();
+    }
+  };
   const content = {
     delete: {
       body: "Are you sure you want to delete the record?",
@@ -49,8 +55,10 @@ const AlertModal: React.FC<AlertModalProps> = ({
               <Button
                 buttonType="transparent"
                 width="50%"
-                ref={cancelRef}
-                onClick={onClose}
+                onClick={() => {
+                  onClickCancelRef();
+                  onClose();
+                }}
               >
                 {content[type]["cancel"]}
               </Button>

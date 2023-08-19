@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { deleteMethod } from "../helpers/services";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 
 import {
   Box,
@@ -39,7 +38,6 @@ const TopNav: React.FC<ITopNavProps> = ({
   const router = useRouter();
   const { recordId } = router.query;
   const { data: session, status } = useSession();
-  // const [dialogOpen, setDialogOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const deleteRecord = () => {

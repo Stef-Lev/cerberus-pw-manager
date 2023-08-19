@@ -1,7 +1,8 @@
 import { IRecord, IUser } from "./schemas";
 import { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 import { SetStateAction } from "react";
-import { Session, DefaultSession } from "next-auth";
+import { DefaultSession } from "next-auth";
+import { ButtonProps } from "@chakra-ui/react";
 export interface IAnalysisItemProps {
   record: IRecord;
 }
@@ -32,7 +33,6 @@ export type IButtonType =
 export interface IButtonProps
   extends Omit<ChakraButtonProps, "bg" | "_hover" | "_active" | "_focus"> {
   buttonType: IButtonType;
-  ref?: React.Ref<HTMLButtonElement>;
 }
 
 export interface IBottomNavItem {
