@@ -14,6 +14,7 @@ import { postMethod, updateMethod } from "@/helpers/services";
 import TopNav from "./TopNav";
 import showMsg from "@/helpers/showMsg";
 import { IRecordEditingProps, IRecordEditData } from "@/types/components";
+import { useNavigationObserver } from "@/hooks/useNavigationObserver";
 
 const RecordEditing: React.FC<IRecordEditingProps> = ({
   type,
@@ -26,6 +27,10 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
   const router = useRouter();
   const { recordId } = router.query;
   const buttonBg = useColorModeValue("#dbdbdb", "#2a2c38");
+  // const navigate = useNavigationObserver({
+  //   shouldStopNavigation: true,
+  //   onNavigate: () => console.log("NAVIGATE"),
+  // });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRecordObj((prevState) => ({

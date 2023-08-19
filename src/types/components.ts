@@ -32,6 +32,7 @@ export type IButtonType =
 export interface IButtonProps
   extends Omit<ChakraButtonProps, "bg" | "_hover" | "_active" | "_focus"> {
   buttonType: IButtonType;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 export interface IBottomNavItem {

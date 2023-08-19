@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { deleteMethod } from "../helpers/services";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 import {
   Box,
@@ -13,6 +14,7 @@ import {
   InputGroup,
   InputRightElement,
   InputLeftElement,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   FaUser,
@@ -23,6 +25,7 @@ import {
 } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
 import { ITopNavProps } from "@/types/components";
+import AlertModal from "./AlertModal";
 
 const TopNav: React.FC<ITopNavProps> = ({
   title,
@@ -36,6 +39,8 @@ const TopNav: React.FC<ITopNavProps> = ({
   const router = useRouter();
   const { recordId } = router.query;
   const { data: session, status } = useSession();
+  // const [dialogOpen, setDialogOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const deleteRecord = () => {
     if (session && status !== "loading") {
@@ -91,7 +96,7 @@ const TopNav: React.FC<ITopNavProps> = ({
               <FaArrowLeft size="20px" />
               <Text>back</Text>
             </Flex>
-            <Box color="red.400" onClick={deleteRecord}>
+            <Box color="red.400" onClick={onOpen}>
               <FaTrashAlt size="20px" />
             </Box>
           </Flex>
@@ -126,6 +131,12 @@ const TopNav: React.FC<ITopNavProps> = ({
             </InputGroup>
           </Flex>
         )}
+        <AlertModal
+          type="delete"
+          isOpen={isOpen}
+          onClose={onClose}
+          callBackAction={deleteRecord}
+        />
       </Container>
     </Box>
   );
