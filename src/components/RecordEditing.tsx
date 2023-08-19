@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Grid,
@@ -44,7 +44,6 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
     } else {
       setIsDirty(false);
     }
-    console.log(isDirty);
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRecordObj((prevState) => ({
@@ -71,10 +70,6 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     }
   };
-
-  // useEffect(() => {
-  //   setDirtyInputs();
-  // }, [recordObj, password]);
 
   return (
     <Box py="60px">

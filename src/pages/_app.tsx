@@ -5,8 +5,6 @@ import Layout from "@/components/Layout";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
-// TODO: Add a way to warn for unsaved changes
-// TODO: Add warning on delete
 // TODO: Update readme with images
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
