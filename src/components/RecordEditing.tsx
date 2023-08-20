@@ -54,12 +54,12 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
   };
 
   const handleSubmit = () => {
+    setIsDirty(false);
     if (type === "new") {
       postMethod(`/api/user/${user.id}/records`, {
         ...recordObj,
         password,
       })
-        .then(() => setIsDirty(false))
         .then(() => router.push("/"))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     } else {
@@ -67,7 +67,6 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         ...recordObj,
         password,
       })
-        .then(() => setIsDirty(false))
         .then(() => router.push("/"))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     }
