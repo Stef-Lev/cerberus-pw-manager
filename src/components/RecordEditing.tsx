@@ -59,6 +59,7 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         ...recordObj,
         password,
       })
+        .then(() => setIsDirty(false))
         .then(() => router.push("/"))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     } else {
@@ -66,6 +67,7 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         ...recordObj,
         password,
       })
+        .then(() => setIsDirty(false))
         .then(() => router.push("/"))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     }
