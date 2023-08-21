@@ -26,9 +26,9 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       const { userId } = req.query;
       const user = await User.findById(userId);
-      const { password, url } = req.body;
+      const { password, url, title } = req.body;
       const hashedPw = encrypt(password);
-      const createdLogo = recordLogo(url);
+      const createdLogo = recordLogo(url, title);
 
       user.records.push({
         ...req.body,

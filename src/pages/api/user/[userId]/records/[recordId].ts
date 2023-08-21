@@ -2,6 +2,7 @@ import connectDB from "@/connectDB";
 import { decrypt, encrypt } from "@/helpers/encryptionHandler";
 import User from "@/models/user";
 import { IRecord } from "@/types/schemas";
+import { recordLogo } from "@/helpers/logos";
 
 export default async function handler(req, res) {
   try {
@@ -27,7 +28,7 @@ export default async function handler(req, res) {
       updatedRecord.url = url;
       updatedRecord.username = username;
       updatedRecord.password = hashedPw.password;
-      updatedRecord.logo = foundRecord.logo;
+      updatedRecord.logo = recordLogo(url, title);
       updatedRecord.iv = hashedPw.iv;
       updatedRecord._id = foundRecord._id;
 

@@ -29,11 +29,15 @@ const randomRGB = () => {
   return `rgb(${R},${G},${B})`;
 };
 
-export const recordLogo = (url) => {
-  const splitUrl = url.split(".")[1];
-  if (existingLogo(url)) {
-    return `image:${splitUrl}`;
+export const recordLogo = (url, title) => {
+  if (url) {
+    const splitUrl = url.split(".")[1];
+    if (existingLogo(url)) {
+      return `image:${splitUrl}`;
+    } else {
+      return `icon:${randomRGB()}:${splitUrl[0].toUpperCase()}`;
+    }
   } else {
-    return `icon:${randomRGB()}:${splitUrl[0].toUpperCase()}`;
+    return `icon:${randomRGB()}:${title[0].toUpperCase()}`;
   }
 };
