@@ -2,6 +2,8 @@
 
 # Cerberus, a minimalistic password manager
 
+## Check the deployed project [here](https://cerberus-pw-manager.vercel.app/).
+
 ## How to use
 
 ### When entering the page you are prompted to log in or register. You can register using only a username and a password.
@@ -50,5 +52,3 @@
 ![Profile settings](/public/readmeImages/cerberus-edit-profile.jpg)
 
 ![Avatar](/public/readmeImages/cerberus-avatar.jpg)
-
-## Check the deployed project [here](https://cerberus-pw-manager.vercel.app/).
