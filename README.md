@@ -1,38 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![TypeScript](https://img.shields.io/badge/TypeScript-%233178C6.svg?style=flat&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-%2361DAFB.svg?style=flat&logo=react&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-%230070f3.svg?style=flat&logo=next.js&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra%20UI-%237900FF.svg?style=flat&logo=chakra-ui&logoColor=white)
 
-## Getting Started
+# Cerberus, a minimalistic password manager
 
-First, run the development server:
+## How to use
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### When entering the page you are prompted to log in or register. You can register using only a username and a password.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Preview](/public/readmeImages/cerberus-login.jpg)
+![Preview](/public/readmeImages/cerberus-register.jpg)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### The home page contains all your saved records.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+![Preview](/public/readmeImages/cerberus-home.jpg)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### You can create a new record at any point by clicking on the + button.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Preview](/public/readmeImages/cerberus-add.jpg)
 
-## Learn More
+### You can insert your password or check the boxes and click on the button in order to generate a password according to the options.
 
-To learn more about Next.js, take a look at the following resources:
+![Preview](/public/readmeImages/cerberus-generate.jpg)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### You can click at any record to see its details, also you can click to copy the password to clipboard in order to paste it.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Preview](/public/readmeImages/cerberus-copy.jpg)
 
-## Deploy on Vercel
+### The analysis page provides you with a visual report of how strong your passwords are
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Preview](/public/readmeImages/cerberus-analysis.jpg)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### You can search for a specific record in the search page
+
+![Preview](/public/readmeImages/cerberus-search.jpg)
+
+### In the settings page you can currently change your theme (dark or light) or go to the profile page and change your profile settings. You can go to the profile page anywhere inside the app by clicking on the user icon.
+
+![Preview](/public/readmeImages/cerberus-settings.jpg)
+
+### In the details page you can go directly to the website, copy the password to clipboard or edit the record.
+
+![Preview](/public/readmeImages/cerberus-between.jpg)
+
+### This is the profile page. Here you can logout, edit your profile settings, or export all your records in a .csv file.
+
+![Preview](/public/readmeImages/cerberus-profile.jpg)
+
+### Here you can change your username, your full name, your password and your avatar by clicking on the edit buttons.
+
+![Preview](/public/readmeImages/cerberus-edit-profile.jpg)
+
+![Preview](/public/readmeImages/cerberus-avatar.jpg)
+
+## Check the deployed project [here](https://cerberus-pw-manager.vercel.app/).

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import DisclaimerModal from "@/components/DisclaimerModal";
 
-// TODO: Update readme with images
+// TODO: Check if I can use app icons by fetching logo from metadata
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
   return (

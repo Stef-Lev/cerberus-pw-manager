@@ -102,7 +102,7 @@ function AuthPage() {
           fill={useColorModeValue("teal.300", "teal.200")}
         />
         <Heading as="h1">Cerberus</Heading>
-        <Text>A simple password manager</Text>
+        <Text>A minimalistic password manager</Text>
       </Center>
 
       <Box border="1px solid" borderColor={borderColor} borderRadius="10px">
