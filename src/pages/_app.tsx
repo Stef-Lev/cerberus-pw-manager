@@ -6,8 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import DisclaimerModal from "@/components/DisclaimerModal";
 
-// TODO: Check if I can use app icons by fetching logo from metadata
-
 function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
