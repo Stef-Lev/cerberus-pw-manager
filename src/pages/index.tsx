@@ -6,12 +6,23 @@ import RecordItem from "@/components/RecordItem";
 import TopNav from "@/components/TopNav";
 
 function Home({ records }) {
+  console.log("records", records);
   return (
     <Box>
       <TopNav title="Passwords" type="basic" />
       <Flex pt="60px" pb="90px" direction="column" gap="10px">
         {records.length > 0 &&
           records.map((item) => <RecordItem key={item.id} record={item} />)}
+        {records.length === 0 && (
+          <Box
+            py="120px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Box> No records added yet</Box>
+          </Box>
+        )}
       </Flex>
       <ScrollTopButton />
     </Box>

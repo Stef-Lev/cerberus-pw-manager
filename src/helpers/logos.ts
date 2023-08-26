@@ -1,43 +1,34 @@
-const logos = [
-  "adobe",
-  "ebay",
-  "facebook",
-  "google",
-  "hp",
-  "instagram",
-  "linkedin",
-  "netflix",
-  "slack",
-  "spotify",
-  "tiktok",
-  "youtube",
-  "zoom",
-];
-
-const existingLogo = (url) => {
-  const splitUrl = url.split(".")[1];
-  return logos.find((logo) => splitUrl.includes(logo));
-};
-
-const randomRGB = () => {
-  const min = 80;
-  const max = 200;
-  const R = Math.floor(Math.random() * (max - min + 1)) + min;
-  const G = Math.floor(Math.random() * (max - min + 1)) + min;
-  const B = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  return `rgb(${R},${G},${B})`;
-};
-
-export const recordLogo = (url, title) => {
-  if (url) {
-    const splitUrl = url.split(".")[1];
-    if (existingLogo(url)) {
-      return `image:${splitUrl}`;
-    } else {
-      return `icon:${randomRGB()}:${splitUrl[0].toUpperCase()}`;
-    }
+export const makeRecordLogo = async (url: string, title: string) => {
+  if (!url) {
+    return `letter=${title[0].toUpperCase()}`;
   } else {
-    return `icon:${randomRGB()}:${title[0].toUpperCase()}`;
+    const regex = /^(?:https?:\/\/)?(?:www\.)?([^/.]+)\.[a-z]{2,}(?:\/|$)/i;
+    const match = url.match(regex);
+    let domain = "";
+
+    if (match) {
+      domain = match[1];
+    }
+
+    try {
+      const response = await fetch(
+        `https://cdn.simpleicons.org/${domain}/white`
+      );
+      if (response.ok) {
+        const data = await response.text();
+        const logUrl = data
+          ? `url=https://cdn.simpleicons.org/${domain}/white`
+          : `letter=${title[0].toUpperCase()}`;
+        return logUrl;
+      } else {
+        console.error(
+          `Error fetching ${url}: ${response.status} ${response.statusText}`
+        );
+        return `letter=${title[0].toUpperCase()}`;
+      }
+    } catch (error) {
+      console.error(`Error fetching ${url}: ${error.message}`);
+      return `letter=${title[0].toUpperCase()}`;
+    }
   }
 };

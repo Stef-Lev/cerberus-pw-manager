@@ -22,6 +22,10 @@ const theme = extendTheme({
       100: "#f7fafc",
       900: "#1a202c",
     },
+    icon: {
+      100: "#ad3e3e",
+      200: "#d74e4e",
+    },
     dark: { bg: "#171923", color: "#fafafa" },
     light: { bg: "#fafafa", color: "#171923" },
     gray: { 400: "#919394", 700: "#575757", 800: "#474747" },

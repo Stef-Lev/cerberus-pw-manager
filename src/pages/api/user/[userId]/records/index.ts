@@ -1,6 +1,6 @@
 import connectDB from "@/connectDB";
 import { decrypt, encrypt } from "@/helpers/encryptionHandler";
-import { recordLogo } from "@/helpers/logos";
+import { makeRecordLogo } from "@/helpers/logos";
 import User from "@/models/user";
 import { IRecord } from "@/types/schemas";
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       const user = await User.findById(userId);
       const { password, url, title } = req.body;
       const hashedPw = encrypt(password);
-      const createdLogo = recordLogo(url, title);
+      const createdLogo = await makeRecordLogo(url, title);
 
       user.records.push({
         ...req.body,

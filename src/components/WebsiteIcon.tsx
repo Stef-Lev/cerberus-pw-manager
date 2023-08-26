@@ -2,26 +2,28 @@ import { Image, Box, Center, useColorModeValue } from "@chakra-ui/react";
 import { IWebsiteIconProps } from "@/types/components";
 
 const WebsiteIcon: React.FC<IWebsiteIconProps> = ({ logo }) => {
-  const logoData = logo.split(":");
+  const logoType = logo.split("=")[0];
+  const logoData = logo.split("=")[1];
   const logoTextColor = useColorModeValue("#fff", "#fff");
-  const logoBgColor = useColorModeValue(logoData[1], logoData[1]);
+  const background = useColorModeValue("icon.100", "icon.200");
 
   const showLogo = () => {
-    if (logoData.length > 2) {
+    if (logoType === "letter") {
       return (
-        <Box background={logoBgColor} w="50px" h="50px" borderRadius="50%">
+        <Box background={background} w="50px" h="50px" borderRadius="50%">
           <Center fontSize="34px" fontWeight="700" color={logoTextColor}>
-            {logoData[2]}
+            {logoData}
           </Center>
         </Box>
       );
     } else {
       return (
         <Image
-          src={`/famousApps/${logoData[1]}.png`}
+          src={logoData}
           width="50px"
           borderRadius="50%"
-          background="transparent"
+          padding="8px"
+          background={background}
         />
       );
     }
