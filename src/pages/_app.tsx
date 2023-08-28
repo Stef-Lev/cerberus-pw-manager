@@ -6,9 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import DisclaimerModal from "@/components/DisclaimerModal";
 
-// TODO: Add loader when loggin in
 // TODO: Add toast if saved successfully
-// TODO: When user register, he should redirect to home page
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
   return (

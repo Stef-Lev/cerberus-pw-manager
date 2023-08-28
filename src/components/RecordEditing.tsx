@@ -61,6 +61,7 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         password,
       })
         .then(() => router.push("/"))
+        .then(() => showMsg("Record saved", { type: "success" }))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     } else {
       updateMethod(`/api/user/${user.id}/records/${recordId}`, {
@@ -68,6 +69,7 @@ const RecordEditing: React.FC<IRecordEditingProps> = ({
         password,
       })
         .then(() => router.push("/"))
+        .then(() => showMsg("Record updated", { type: "success" }))
         .catch(() => showMsg("Something went wrong", { type: "error" }));
     }
   };

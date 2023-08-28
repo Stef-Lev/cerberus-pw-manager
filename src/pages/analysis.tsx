@@ -20,6 +20,16 @@ function Analysis({ records }) {
           </Flex>
         </Box>
       )}
+      {records.length === 0 && (
+        <Box
+          py="120px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Box> No records added yet</Box>
+        </Box>
+      )}
       <ScrollTopButton />
     </Box>
   );

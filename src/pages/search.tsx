@@ -40,6 +40,16 @@ function Search({ records }) {
           searchResults.map((item) => (
             <RecordItem key={item.id} record={item} />
           ))}
+        {searchResults.length === 0 && (
+          <Box
+            py="120px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Box> No records added yet</Box>
+          </Box>
+        )}
       </Flex>
     </Box>
   );

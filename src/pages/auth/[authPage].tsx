@@ -29,6 +29,7 @@ function AuthPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [user, setUser] = useState(defaultUser);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const authPage = router.query.authPage as string;
 
@@ -44,6 +45,7 @@ function AuthPage() {
 
   const handleSubmit = (): void => {
     if (authPage === "login") {
+      setLoading(true);
       signIn("credentials", {
         redirect: false,
         username: user.username,
@@ -51,22 +53,38 @@ function AuthPage() {
       })
         .then(({ ok, error }) => {
           if (ok) {
+            setLoading(false);
             setErrorMessage("");
           } else {
+            setLoading(false);
             setErrorMessage(error);
           }
         })
-        .catch(() => setErrorMessage("Invalid login credentials"));
+        .catch(() => {
+          setLoading(false);
+          setErrorMessage("Invalid login credentials");
+        });
     } else {
+      setLoading(true);
       createUser(user)
         .then((response) => {
           if (typeof response === "string") {
+            setLoading(false);
             setErrorMessage(response);
           } else {
+            setLoading(false);
             setErrorMessage("");
+            signIn("credentials", {
+              redirect: false,
+              username: user.username,
+              password: user.password,
+            });
           }
         })
-        .catch(() => setErrorMessage("Error creating user"));
+        .catch(() => {
+          setLoading(false);
+          setErrorMessage("Error creating user");
+        });
     }
   };
 
