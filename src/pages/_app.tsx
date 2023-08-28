@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import DisclaimerModal from "@/components/DisclaimerModal";
 
-// TODO: Take the screenshots again
+// TODO: Test everything
 
 function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
