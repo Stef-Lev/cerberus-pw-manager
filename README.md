@@ -41,7 +41,7 @@
 
 ### In the details page you can go directly to the website, copy the password to clipboard or edit the record.
 
-![Details Page](/public/readmeImages/cerberus-between.jpg)
+![Details Page](/public/readmeImages/cerberus-details.jpg)
 
 ### This is the profile page. Here you can logout, edit your profile settings, or export all your records in a .csv file.
 
