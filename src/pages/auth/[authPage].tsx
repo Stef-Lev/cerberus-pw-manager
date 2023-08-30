@@ -29,6 +29,7 @@ function AuthPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [user, setUser] = useState(defaultUser);
+  // during register the ux feeling was a little weird, cause it took more or less 3 seconds without any ui change. maybe add a loader another indicator.
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const authPage = router.query.authPage as string;
